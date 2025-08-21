@@ -115,7 +115,7 @@ class TrainDataset(torch.utils.data.Dataset):
         # --- Support Set Selection via Clustering (Done ONCE) ---
         num_support = getattr(self.args, 'num_support_samples', 5)
         print(f"Selecting {num_support} diverse support samples using K-Means clustering...")
-        self.support_indices = _select_support_samples_by_clustering(self.sam_features, num_support)
+        self.support_indices = _select_least_similar_samples(self.sam_features, num_support)
         
         # Load the selected support images once to be used for all training items
         self.support_images = [self.read_image(self.sam_image_paths[i]) for i in self.support_indices]
