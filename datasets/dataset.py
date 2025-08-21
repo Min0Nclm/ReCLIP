@@ -13,71 +13,112 @@ import torch.nn.functional as F
 from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussIntensityChangeTask,SinkDeformationTask,SourceDeformationTask,IdentityTask
 
 # =================================================================================
-# K-Means based Support Set Selection
+# Hybrid Support Set Selection (Outlier + Centroid)
 # =================================================================================
+from scipy.spatial.distance import cdist
 
-def _select_most_representative(features):
-    """Selects the single most representative sample from a feature set."""
-    sim_matrix = F.cosine_similarity(features.unsqueeze(1), features.unsqueeze(0), dim=2)
-    mean_sim = sim_matrix.mean(dim=1)
-    return torch.argmax(mean_sim).item()
+def get_hybrid_split(k: int) -> (int, int):
+    """
+    Calculates the number of outlier and centroid samples for the hybrid strategy.
+    When k is odd, the extra spot is given to the outlier sample.
+    """
+    if k <= 0:
+        return 0, 0
+    num_centroids = k // 2
+    num_outliers = k - num_centroids
+    return num_outliers, num_centroids
 
-def _k_center_greedy_init(features, k):
-    """Initializes K-Means centers greedily to ensure diversity."""
-    selected_indices = [_select_most_representative(features)]
+def _select_outliers(features, k):
+    """Selects k samples that are most distant from all other samples."""
+    if k == 0:
+        return []
+    feats_np = features.numpy()
+    # Calculate the pairwise distance matrix
+    distance_matrix = cdist(feats_np, feats_np, 'euclidean')
+    # For each sample, calculate the mean distance to all others
+    mean_distances = distance_matrix.mean(axis=1)
+    # Get the indices of the k samples with the largest mean distance
+    # argsort sorts in ascending order, so we take the last k indices
+    outlier_indices = np.argsort(mean_distances)[-k:].tolist()
+    return outlier_indices
+
+def _select_centroids(features, k):
+    """Selects k representative support samples using K-Means clustering."""
+    if k == 0:
+        return []
+        
+    feats_np = features.numpy()
     
+    # Initialize cluster centers greedily to promote diversity
+    # This is a simple K-Means++ like initialization
+    selected_indices = [np.random.randint(len(features))]
     while len(selected_indices) < k:
         dists = []
         for i in range(len(features)):
             if i in selected_indices:
                 continue
-            # Find the minimum distance from the current point to any already selected center
-            min_dist_to_selected = min(torch.norm(features[i] - features[j]) for j in selected_indices)
-            dists.append((min_dist_to_selected.item(), i))
-        
-        # Select the point that is farthest from its nearest center
+            min_dist_to_selected = min(np.linalg.norm(feats_np[i] - feats_np[j]) for j in selected_indices)
+            dists.append((min_dist_to_selected, i))
         if not dists:
-            break # Should not happen if k < len(features)
+            break
         _, next_idx = max(dists)
         selected_indices.append(next_idx)
-        
-    return selected_indices
-
-def _select_support_samples_by_clustering(features, k):
-    """
-    Selects k representative support samples using K-Means clustering.
-    This ensures diversity in the support set.
-    """
-    if k >= len(features):
-        print(f"Warning: k ({k}) is >= number of samples ({len(features)}). Using all samples as support.")
-        return list(range(len(features)))
-
-    feats_np = features.numpy()
     
-    # 1. Initialize cluster centers greedily to promote diversity
-    init_ids = _k_center_greedy_init(features, k)
+    init_centers = feats_np[selected_indices]
     
-    # 2. Run K-Means clustering
-    kmeans = KMeans(n_clusters=k, init=feats_np[init_ids], n_init=1, random_state=0).fit(feats_np)
+    # Run K-Means
+    kmeans = KMeans(n_clusters=k, init=init_centers, n_init=1, random_state=0).fit(feats_np)
     
-    # 3. Find the sample closest to each cluster center to be the final support sample
-    support_indices = []
+    # Find the sample closest to each cluster center
+    centroid_indices = []
     for i in range(k):
         cluster_member_indices = np.where(kmeans.labels_ == i)[0]
         if len(cluster_member_indices) == 0:
-            # If a cluster is empty (rare), use the initial seed point as the support
-            support_indices.append(init_ids[i])
+            centroid_indices.append(selected_indices[i])
             continue
         
         cluster_members_feats = feats_np[cluster_member_indices]
         center_feat = kmeans.cluster_centers_[i]
         
-        # Find the member closest to the center (in Euclidean distance)
-        dists = np.linalg.norm(cluster_members_feats - center_feat, axis=1)
-        closest_in_cluster_idx = np.argmin(dists)
-        support_indices.append(cluster_member_indices[closest_in_cluster_idx])
+        dists_to_center = np.linalg.norm(cluster_members_feats - center_feat, axis=1)
+        closest_in_cluster_idx = np.argmin(dists_to_center)
+        centroid_indices.append(cluster_member_indices[closest_in_cluster_idx])
         
-    return support_indices
+    return centroid_indices
+
+def select_hybrid_support_samples(features, k):
+    """
+    Selects k support samples using a hybrid strategy:
+    - A portion is selected by finding outliers (max average distance).
+    - The other portion is selected by finding cluster centroids (K-Means).
+    """
+    if k >= len(features):
+        print(f"Warning: k ({k}) is >= number of samples ({len(features)}). Using all samples as support.")
+        return list(range(len(features)))
+
+    num_outliers, num_centroids = get_hybrid_split(k)
+    
+    print(f"Selecting {num_outliers} outlier(s) and {num_centroids} centroid(s)...")
+    
+    outlier_indices = _select_outliers(features, num_outliers)
+    centroid_indices = _select_centroids(features, num_centroids)
+    
+    # Combine and deduplicate
+    combined_indices = list(set(outlier_indices) | set(centroid_indices))
+    
+    # If duplicates caused the set to be smaller than k, fill it with the next best outliers.
+    if len(combined_indices) < k:
+        print("Warning: Duplicate samples found between outliers and centroids. Filling with next best outliers.")
+        all_outlier_candidates = np.argsort(cdist(features.numpy(), features.numpy()).mean(axis=1))[-len(features):].tolist()
+        
+        i = 1
+        while len(combined_indices) < k and len(all_outlier_candidates) >= i:
+            next_best_outlier = all_outlier_candidates[-i]
+            if next_best_outlier not in combined_indices:
+                combined_indices.append(next_best_outlier)
+            i += 1
+
+    return combined_indices[:k]
 
 # =================================================================================
 
@@ -112,10 +153,10 @@ class TrainDataset(torch.utils.data.Dataset):
         # Ensure the number of images in JSON matches the feature file
         assert len(self.data_to_iterate) == len(self.sam_image_paths)
 
-        # --- Support Set Selection via Clustering (Done ONCE) ---
+        # --- Support Set Selection via Hybrid Strategy (Done ONCE) ---
         num_support = getattr(self.args, 'num_support_samples', 5)
-        print(f"Selecting {num_support} diverse support samples using K-Means clustering...")
-        self.support_indices = _select_least_similar_samples(self.sam_features, num_support)
+        print(f"Selecting {num_support} support samples using HYBRID (Outlier + Centroid) strategy...")
+        self.support_indices = select_hybrid_support_samples(self.sam_features, num_support)
         
         # Load the selected support images once to be used for all training items
         self.support_images = [self.read_image(self.sam_image_paths[i]) for i in self.support_indices]
