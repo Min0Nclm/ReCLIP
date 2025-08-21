@@ -1,6 +1,6 @@
 1.PreScale
 
-python precompute_features.py --config_path config/brainmri.yaml
+python precompute_features.py --data_source data/brainmri
 
 2.Train
 
