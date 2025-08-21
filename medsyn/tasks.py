@@ -571,6 +571,87 @@ class IdentityTask(BaseTask):
 
 
 
+class ElasticDeformationTask(BaseTask):
+    """
+    Applies elastic deformation to a patch within the image using B-splines.
+    This task simulates tissue warping and displacement in a controllable manner.
+    """
+    def __init__(self,
+                 sample_labeller: Optional[AnomalyLabeller] = None,
+                 points: int = 5,
+                 sigma: int = 4,
+                 order: int = 3,
+                 **all_kwargs):
+        super().__init__(sample_labeller, **all_kwargs)
+        # Number of B-spline control points per axis.
+        self.points = points
+        # Strength of the displacement.
+        self.sigma = sigma
+        # B-spline order (e.g., 3 for cubic).
+        self.order = order
+
+    def augment_sample(
+                       self, 
+                       sample: npt.NDArray[float],
+                       sample_mask: Optional[npt.NDArray[bool]],
+                       anomaly_corner: npt.NDArray[int],
+                       anomaly_mask: npt.NDArray[bool],
+                       anomaly_intersect_fn: Callable[[npt.NDArray[float], npt.NDArray[float]], npt.NDArray[float]]) 
+            -> npt.NDArray[float]:
+
+        # Get the patch from the sample that corresponds to the anomaly area
+        sample_patch_slices = get_patch_image_slices(anomaly_corner, anomaly_mask.shape)
+        patch = sample[sample_patch_slices].copy()
+
+        # Apply elastic deformation to the patch.
+        # The deformation is applied on the spatial axes (1 and 2 for a C, H, W image).
+        deformed_patch = elasticdeform.deform_random_grid(
+            patch,
+            sigma=self.sigma,
+            points=self.points,
+            order=self.order,
+            axis=(1, 2),  # Deform only spatial dimensions
+            mode='nearest'
+        )
+
+        # Create a mask compatible for broadcasting (e.g., from (H, W) to (1, H, W))
+        expanded_mask = np.expand_dims(anomaly_mask, axis=0)
+
+        # Blend the deformed patch back into the original patch using the anomaly mask
+        # Only the areas under the mask will be replaced by the deformed version.
+        blended_patch = patch * (1 - expanded_mask) + deformed_patch * expanded_mask
+
+        # Place the modified patch back into the full-sized sample
+        sample[sample_patch_slices] = blended_patch
+
+        return sample
+
+
+"""
+class SinkDeformationTask(RadialDeformationTask):
+    # y = 1 - (1 - x)^3 (between 0 and 1)
+    # -> y = max_d (1 - (1 - curr / max_d) ^ factor)
+    # -> y = max_d - (max_d - curr) ^ factor / max_d ^ (factor - 1)
+
+    def compute_new_distance(self, curr_distance: Union[float, npt.NDArray[float]],
+                             max_distance: Union[float, npt.NDArray[float]],
+                             factor: Union[float, npt.NDArray[float]]) -> Union[float, npt.NDArray[float]]:
+
+        return max_distance - (max_distance - curr_distance) ** factor / max_distance ** (factor - 1)
+
+
+
+class SourceDeformationTask(RadialDeformationTask):
+
+    def compute_new_distance(self, curr_distance: Union[float, npt.NDArray[float]],
+                             max_distance: Union[float, npt.NDArray[float]],
+                             factor: Union[float, npt.NDArray[float]]) -> Union[float, npt.NDArray[float]]:
+        # y = x^3 (between 0 and 1)
+        # -> y = max_d * (curr / max) ^ factor
+        # -> y = curr ^ factor / max_d ^ (factor - 1)   to avoid FP errors
+        return curr_distance ** factor / max_distance ** (factor - 1)
+"""
+
 class SinkDeformationTask(RadialDeformationTask):
     # y = 1 - (1 - x)^3 (between 0 and 1)
     # -> y = max_d (1 - (1 - curr / max_d) ^ factor)

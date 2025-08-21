@@ -200,7 +200,8 @@ class TrainDataset(torch.utils.data.Dataset):
             elif task_name == 'SinkTask':
                 task = SinkDeformationTask()
             elif task_name == 'SourceTask':
-                task = SourceDeformationTask()
+                # task = SourceDeformationTask()
+                task = ElasticDeformationTask()
             elif task_name == 'IdentityTask':
                 task = IdentityTask()
             else:
