@@ -9,6 +9,7 @@ from numpy.linalg import norm
 import random
 from scipy import ndimage
 from scipy.ndimage import gaussian_filter
+import elasticdeform
 
 from .labelling import FlippedGaussianLabeller,AnomalyLabeller
 from .task_shape import EitherDeformedHypershapePatchMaker,PerlinPatchMaker
@@ -47,8 +48,7 @@ class BaseTask(ABC):
 
     def apply(self,
               sample: npt.NDArray[float],
-              *args, **kwargs)\
-            -> Tuple[npt.NDArray[float], npt.NDArray[float]]:
+              *args, **kwargs) -> Tuple[npt.NDArray[float], npt.NDArray[float]]:
         """
         Apply the self-supervised task to the single data sample.
         :param sample: Normal sample to be augmented
@@ -66,36 +66,28 @@ class BaseTask(ABC):
 
         min_dim_lens = (min_anom_prop * sample_shape).round().astype(int)
         max_dim_lens = (max_anom_prop * sample_shape).round().astype(int)
-        # print(min_dim_lens,max_dim_lens) [15,15],[205,205]
 
-        dim_bounds = list(zip(min_dim_lens, max_dim_lens)) #[(15, 205), (15, 205)]
+        dim_bounds = list(zip(min_dim_lens, max_dim_lens))
 
-        # For random number of times
         sample_mask = None
 
         for i in range(2):
 
-            # Compute anomaly mask
             curr_anomaly_mask, intersect_fn = self.anomaly_shape_maker.get_patch_mask_and_intersect_fn(dim_bounds,
                                                                                                        sample_shape)
 
-            # Choose anomaly location
             anomaly_corner = self.find_valid_anomaly_location(curr_anomaly_mask, sample_mask, sample_shape)
-
-            # Apply self-supervised task
 
             aug_sample = self.augment_sample(aug_sample, sample_mask, anomaly_corner, curr_anomaly_mask, intersect_fn)
 
             anomaly_mask[get_patch_slices(anomaly_corner, curr_anomaly_mask.shape)] |= curr_anomaly_mask
 
-            # Randomly brake at end of loop, ensuring we get at least 1 anomaly
             if self.rng.random() > 0.5:
                 break
 
         if self.sample_labeller is not None:
             return aug_sample, self.sample_labeller(aug_sample, sample, anomaly_mask)
         else:
-            # If no labeller is provided, we are probably in a calibration process
             return aug_sample, np.expand_dims(anomaly_mask, 0)
 
 
@@ -108,14 +100,11 @@ class BaseTask(ABC):
         min_corner = np.zeros(len(sample_shape))
         max_corner = sample_shape - curr_anomaly_shape
 
-        # - Apply anomaly at location
         while True:
             anomaly_corner = self.rng.integers(min_corner, max_corner, endpoint=True)
 
-            # If the sample mask is None, any location within the bounds is valid
             if sample_mask is None:
                 break
-            # Otherwise, we need to check that the intersection of the anomaly mask and the sample mask is at least 50%
             target_patch_obj_mask = sample_mask[get_patch_slices(anomaly_corner, curr_anomaly_mask.shape)]
             if (np.sum(target_patch_obj_mask & curr_anomaly_mask) / np.sum(curr_anomaly_mask)) >= 0.5:
                 break
@@ -126,8 +115,7 @@ class BaseTask(ABC):
     def __call__(self,
                  sample: npt.NDArray[float],
                  *args,
-                 **kwargs)\
-            -> Tuple[npt.NDArray[float], npt.NDArray[float]]:
+                 **kwargs) -> Tuple[npt.NDArray[float], npt.NDArray[float]]:
         """
         Apply the self-supervised task to the single data sample.
         :param sample: Normal sample to be augmented
@@ -192,10 +180,9 @@ class BasePatchBlendingTask(BaseTask):
         num_channels = sample.shape[0] # 1
         num_dims = len(sample.shape[1:]) #2
 
-        # Sample source to blend into current sample
         source_sample = random.choice(self.source_samples)
 
-        source_sample_shape = np.array(source_sample.shape[1:]) #(256,256)
+        source_sample_shape = np.array(source_sample.shape[1:])
 
 
         assert len(source_sample_shape) == num_dims, 'Source and target have different number of spatial dimensions: ' \
@@ -204,16 +191,12 @@ class BasePatchBlendingTask(BaseTask):
         assert source_sample.shape[0] == num_channels, \
             f'Source and target have different number of channels: s-{source_sample.shape[0]}, t-{num_channels}'
 
-        # Compute INVERSE transformation matrix for parameters (rotation, resizing)
-        # This is the backwards operation (final source region -> initial source region).
-
         trans_matrix = functools.reduce(lambda m, ds: accumulate_rotation(m,
                                                                           self.rng.uniform(-np.pi / 4, np.pi / 4),
                                                                           ds),
                                         itertools.combinations(range(num_dims), 2),
                                         np.identity(num_dims))
 
-        # Compute effect on corner coords
         target_anomaly_shape = np.array(anomaly_mask.shape)
 
         corner_coords = np.array(np.meshgrid(*np.stack([np.zeros(num_dims), target_anomaly_shape], axis=-1),
@@ -224,46 +207,36 @@ class BasePatchBlendingTask(BaseTask):
         max_trans_coords = np.ceil(np.max(trans_corner_coords, axis=1))
         init_grid_shape = max_trans_coords - min_trans_coords
 
-        # Sample scale and clip so that source region isn't too big
         max_scale = np.min(0.8 * source_sample_shape / init_grid_shape)
 
-        # Compute final transformation matrix
         scale_change = 1 + self.rng.exponential(scale=0.1)
         scale_raw = self.rng.choice([scale_change, 1 / scale_change])
         scale = np.minimum(scale_raw, max_scale)
 
         trans_matrix = accumulate_scaling(trans_matrix, scale)
 
-        # Recompute effect on corner coord
         trans_corner_coords = trans_matrix @ corner_coords
         min_trans_coords = np.floor(np.min(trans_corner_coords, axis=1))
         max_trans_coords = np.ceil(np.max(trans_corner_coords, axis=1))
         final_init_grid_shape = max_trans_coords - min_trans_coords
 
-        # Choose anomaly source location
         final_init_grid_shape = final_init_grid_shape.astype(int)
         min_corner = np.zeros(len(source_sample_shape))
         max_corner = source_sample_shape - final_init_grid_shape
 
         source_corner = self.rng.integers(min_corner, max_corner, endpoint=True)
 
-        # Extract source
         source_orig = source_sample[get_patch_image_slices(source_corner, tuple(final_init_grid_shape))]
 
-
-        # Because we computed the backwards transformation we don't need to inverse the matrix
         source_to_blend = np.stack([affine_transform(chan, trans_matrix, offset=-min_trans_coords,
                                                      output_shape=tuple(target_anomaly_shape))
                                     for chan in source_orig])
 
         spatial_axis = tuple(range(1, len(source_sample.shape)))
-        # Spline interpolation can make values fall outside domain, so clip to the original range
         source_to_blend = np.clip(source_to_blend,
                                   source_sample.min(axis=spatial_axis, keepdims=True),
                                   source_sample.max(axis=spatial_axis, keepdims=True))
 
-
-        # As the blending can alter areas outside the mask, update the mask with any effected areas
 
         aug_sample = self.blend_images(sample, source_to_blend, anomaly_corner, anomaly_mask)
 
@@ -271,7 +244,6 @@ class BasePatchBlendingTask(BaseTask):
         sample_diff = np.mean(np.abs(sample[sample_slices] - aug_sample[sample_slices]), axis=0)
 
         anomaly_mask[sample_diff > 0.001] = True
-        # Return sample with source blended into it
         return aug_sample
 
 
@@ -287,13 +259,6 @@ class BaseDeformationTask(BaseTask):
             -> npt.NDArray[float]:
         """
         Returns array of size (*anomaly_mask.shape, len(anomaly_mask.shape)).
-        Probably don't need entire sample, but including in for generality.
-        :param sample:
-        :param sample_mask:
-        :param anomaly_corner:
-        :param anomaly_mask:
-        :param anomaly_intersect_fn:
-        :return:
         """
 
     def augment_sample(self,
@@ -336,9 +301,6 @@ class RadialDeformationTask(BaseDeformationTask):
     def compute_new_distance(self, curr_distance: float, max_distance: float, factor: float) -> float:
         """
         Compute new distance for point to be sampled from
-        :param curr_distance:
-        :param max_distance:
-        :param factor:
         """
 
     def compute_mapping(self,
@@ -348,36 +310,28 @@ class RadialDeformationTask(BaseDeformationTask):
                         anomaly_mask: npt.NDArray[bool],
                         anomaly_intersect_fn: Callable[[npt.NDArray[float], npt.NDArray[float]], npt.NDArray[float]]) \
             -> npt.NDArray[float]:
-        # NOTE: This assumes that the shape is convex, will make discontinuities if it's not.
 
         anomaly_shape = np.array(anomaly_mask.shape)
         num_dims = len(anomaly_shape)
 
-        # Expand so can later be broadcast with (D, N)
         mask_centre = (anomaly_shape - 1) / 2
         exp_mask_centre = np.reshape(mask_centre, (-1, 1))
-        # Shape (D, N)
         poss_centre_coords = np.stack(np.nonzero(anomaly_mask))
         def_centre = self.deform_centre if self.deform_centre is not None else \
             poss_centre_coords[:, np.random.randint(poss_centre_coords.shape[1])]
 
         assert anomaly_mask[tuple(def_centre.round().astype(int))], f'Centre is not within anomaly: {def_centre}'
 
-        # exp_ = expanded
         exp_def_centre = np.reshape(def_centre, (-1, 1))
 
-        # (D, *anomaly_shape)
         mapping = np.stack(np.meshgrid(*[np.arange(s, dtype=float) for s in anomaly_shape], indexing='ij'), axis=0)
 
-        # Ignore pixels on edge of bounding box
         mask_inner_slice = tuple([slice(1, -1)] * num_dims)
         map_inner_slice = tuple([slice(None)] + list(mask_inner_slice))
-        # Get all coords and transpose so coord index is last dimension (D, N)
         anomaly_coords = mapping[map_inner_slice][(slice(None), anomaly_mask[mask_inner_slice])]
 
         all_coords_to_centre = anomaly_coords - exp_def_centre
         all_coords_distance = norm(all_coords_to_centre, axis=0)
-        # Ignore zero divided by zero, as we correct it before mapping is returned
         with np.errstate(invalid='ignore'):
             all_coords_norm_dirs = all_coords_to_centre / all_coords_distance
 
@@ -385,15 +339,12 @@ class RadialDeformationTask(BaseDeformationTask):
 
         mask_edge_distances = norm(mask_edge_intersections - exp_def_centre, axis=0)
 
-        # Get factor once, so is same for all pixels
         def_factor = self.get_deform_factor(def_centre, anomaly_mask)
         new_coord_distances = self.compute_new_distance(all_coords_distance, mask_edge_distances, def_factor)
-        # (D, N)
         new_coords = exp_def_centre + new_coord_distances * all_coords_norm_dirs
 
         mapping[map_inner_slice][(slice(None), anomaly_mask[mask_inner_slice])] = new_coords
 
-        # Revert centre coordinate, as it will be nan due to the zero magnitude direction vector
         mapping[(slice(None), *def_centre)] = def_centre
         return mapping
 
@@ -435,22 +386,18 @@ class SmoothIntensityChangeTask(BaseTask):
                        anomaly_intersect_fn: Callable[[npt.NDArray[float], npt.NDArray[float]], npt.NDArray[float]]) \
             -> npt.NDArray[float]:
 
-        num_chans = sample.shape[0] # 1
-        sample_shape = sample.shape[1:] #(256,256)
-        num_dims = len(sample_shape) # 2
+        num_chans = sample.shape[0]
+        sample_shape = sample.shape[1:]
+        num_dims = len(sample_shape)
 
         dist_map = distance_transform_edt(anomaly_mask)
-        min_shape_dim = np.min(sample_shape) # 256
+        min_shape_dim = np.min(sample_shape)
 
         smooth_dist = np.minimum(min_shape_dim * (0.02 + np.random.gamma(3, 0.01)), np.max(dist_map))
         smooth_dist_map = dist_map / smooth_dist
         smooth_dist_map[smooth_dist_map > 1] = 1
-        # smooth_dist_map = 1
 
         anomaly_patch_slices = get_patch_image_slices(anomaly_corner, anomaly_mask.shape)
-
-        # anomaly_pixel_stds = np.array([np.std(c[anomaly_mask]) for c in sample[anomaly_patch_slices]])
-        # Randomly negate, so some intensity changes are subtractions
 
         intensity_changes = (self.intensity_task_scale / 2 + np.random.gamma(3, self.intensity_task_scale)) \
             * np.random.choice([1, -1], size=num_chans)
@@ -493,7 +440,7 @@ class GaussIntensityChangeTask(BaseTask):
 
         random_sample = np.random.randn(mask_shape[0], mask_shape[1])
 
-        random_sample = (random_sample >= 0.0).astype(float)  # int type can't do Gaussian filter
+        random_sample = (random_sample >= 0.0).astype(float)
 
         random_sample = gaussian_filter(random_sample, sigma_b)
 
@@ -569,8 +516,6 @@ class IdentityTask(BaseTask):
         anomaly_mask[:,:] = False
         return sample
 
-
-
 class ElasticDeformationTask(BaseTask):
     """
     Applies elastic deformation to a patch within the image using B-splines.
@@ -583,45 +528,31 @@ class ElasticDeformationTask(BaseTask):
                  order: int = 3,
                  **all_kwargs):
         super().__init__(sample_labeller, **all_kwargs)
-        # Number of B-spline control points per axis.
         self.points = points
-        # Strength of the displacement.
         self.sigma = sigma
-        # B-spline order (e.g., 3 for cubic).
         self.order = order
 
-    def augment_sample(
-                       self, 
-                       sample: npt.NDArray[float],
-                       sample_mask: Optional[npt.NDArray[bool]],
-                       anomaly_corner: npt.NDArray[int],
-                       anomaly_mask: npt.NDArray[bool],
-                       anomaly_intersect_fn: Callable[[npt.NDArray[float], npt.NDArray[float]], npt.NDArray[float]]) 
+    def augment_sample(self, sample: npt.NDArray[float], sample_mask: Optional[npt.NDArray[bool]],
+                       anomaly_corner: npt.NDArray[int], anomaly_mask: npt.NDArray[bool],
+                       anomaly_intersect_fn: Callable[[npt.NDArray[float], npt.NDArray[float]], npt.NDArray[float]]) \
             -> npt.NDArray[float]:
 
-        # Get the patch from the sample that corresponds to the anomaly area
         sample_patch_slices = get_patch_image_slices(anomaly_corner, anomaly_mask.shape)
         patch = sample[sample_patch_slices].copy()
 
-        # Apply elastic deformation to the patch.
-        # The deformation is applied on the spatial axes (1 and 2 for a C, H, W image).
         deformed_patch = elasticdeform.deform_random_grid(
             patch,
             sigma=self.sigma,
             points=self.points,
             order=self.order,
-            axis=(1, 2),  # Deform only spatial dimensions
+            axis=(1, 2),
             mode='nearest'
         )
 
-        # Create a mask compatible for broadcasting (e.g., from (H, W) to (1, H, W))
         expanded_mask = np.expand_dims(anomaly_mask, axis=0)
 
-        # Blend the deformed patch back into the original patch using the anomaly mask
-        # Only the areas under the mask will be replaced by the deformed version.
         blended_patch = patch * (1 - expanded_mask) + deformed_patch * expanded_mask
 
-        # Place the modified patch back into the full-sized sample
         sample[sample_patch_slices] = blended_patch
 
         return sample
@@ -651,26 +582,3 @@ class SourceDeformationTask(RadialDeformationTask):
         # -> y = curr ^ factor / max_d ^ (factor - 1)   to avoid FP errors
         return curr_distance ** factor / max_distance ** (factor - 1)
 """
-
-class SinkDeformationTask(RadialDeformationTask):
-    # y = 1 - (1 - x)^3 (between 0 and 1)
-    # -> y = max_d (1 - (1 - curr / max_d) ^ factor)
-    # -> y = max_d - (max_d - curr) ^ factor / max_d ^ (factor - 1)
-
-    def compute_new_distance(self, curr_distance: Union[float, npt.NDArray[float]],
-                             max_distance: Union[float, npt.NDArray[float]],
-                             factor: Union[float, npt.NDArray[float]]) -> Union[float, npt.NDArray[float]]:
-
-        return max_distance - (max_distance - curr_distance) ** factor / max_distance ** (factor - 1)
-
-
-
-class SourceDeformationTask(RadialDeformationTask):
-
-    def compute_new_distance(self, curr_distance: Union[float, npt.NDArray[float]],
-                             max_distance: Union[float, npt.NDArray[float]],
-                             factor: Union[float, npt.NDArray[float]]) -> Union[float, npt.NDArray[float]]:
-        # y = x^3 (between 0 and 1)
-        # -> y = max_d * (curr / max) ^ factor
-        # -> y = curr ^ factor / max_d ^ (factor - 1)   to avoid FP errors
-        return curr_distance ** factor / max_distance ** (factor - 1)

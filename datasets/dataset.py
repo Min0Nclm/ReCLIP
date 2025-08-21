@@ -10,7 +10,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 import torch.nn.functional as F
 
-from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussIntensityChangeTask,SinkDeformationTask,SourceDeformationTask,IdentityTask
+from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussIntensityChangeTask,IdentityTask,ElasticDeformationTask
 
 # =================================================================================
 # K-Means based Support Set Selection
@@ -198,7 +198,8 @@ class TrainDataset(torch.utils.data.Dataset):
             elif task_name == 'GaussIntensityChangeTask':
                 task = GaussIntensityChangeTask()
             elif task_name == 'SinkTask':
-                task = SinkDeformationTask()
+                # task = SinkDeformationTask()
+                pass
             elif task_name == 'SourceTask':
                 # task = SourceDeformationTask()
                 task = ElasticDeformationTask()
