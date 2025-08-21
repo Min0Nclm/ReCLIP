@@ -1,4 +1,5 @@
 .pkl
 .pth
 .log
+.pt
 results/
