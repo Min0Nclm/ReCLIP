@@ -523,7 +523,7 @@ class ElasticDeformationTask(BaseTask):
     """
     def __init__(self,
                  sample_labeller: Optional[AnomalyLabeller] = None,
-                 points: int = 5,
+                 points: int = 4,
                  sigma: int = 4,
                  order: int = 3,
                  **all_kwargs):
