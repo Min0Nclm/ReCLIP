@@ -82,7 +82,7 @@ def main(args):
 
     map_maker = MapMaker(image_size=args.config.image_size).to(model.device)
 
-        optimizer = torch.optim.Adam([
+    optimizer = torch.optim.Adam([
             {'params': prompt_maker.prompt_learner.parameters(),'lr': 0.0001},
             {'params': adapter.parameters(),"lr":0.0001},
         ], lr=0.0001, betas=(0.5, 0.999))
