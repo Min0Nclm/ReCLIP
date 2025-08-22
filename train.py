@@ -7,16 +7,11 @@ from models.Adapter import Adapter
 import math
 import argparse
 import warnings
-import random
-import numpy as np
 from utils.misc_helper import *
 from torch.utils.data import DataLoader
 from models.MapMaker import MapMaker
 from utils.losses import FocalLoss,BinaryDiceLoss
-from datasets.dataset import TrainDataset,\
-                                ChexpertTestDataset,\
-                                BusiTestDataset,\
-                                BrainMRITestDataset
+from datasets.dataset import TrainDataset,ChexpertTestDataset,BusiTestDataset,BrainMRITestDataset
 import pprint
 from tqdm import tqdm
 warnings.filterwarnings('ignore')
@@ -45,6 +40,9 @@ def main(args):
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
+    with open(args.config_path) as f:
+        args.config = EasyDict(yaml.load(f, Loader=yaml.FullLoader))
+
     model, preprocess, model_cfg = open_clip.create_model_and_transforms(args.config.model_name, args.config.image_size, device=device)
 
     for param in model.parameters():
@@ -63,20 +61,7 @@ def main(args):
         os.makedirs(args.config.save_root)
 
     logger = create_logger("logger",os.path.join(args.config.save_root,'logger.log'))
-
-    # set random seed
-    seed = args.config.get('random_seed')
-    if seed is None:
-        seed = random.randint(0, 2**32 - 1)
-        args.config.random_seed = seed
-
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-
     logger.info("config: {}".format(pprint.pformat(args)))
-    logger.info(f"Using random seed: {seed}")
 
     necker = Necker(clip_model=model).to(model.device)
     adapter = Adapter(clip_model=model,target=args.config.model_cfg['embed_dim']).to(model.device)
@@ -105,8 +90,7 @@ def main(args):
     train_dataset = TrainDataset(args=args.config,
                                     source=os.path.join(args.config.data_root,args.config.train_dataset),
                                     preprocess=preprocess,
-                                    # Set k_shot to -1 to use the full dataset, which is required to match the pre-computed features.
-                                    k_shot=-1)
+                                    k_shot=args.k_shot)
 
     train_dataloader = DataLoader(train_dataset, batch_size=args.config.batch_size, shuffle=True, num_workers=2)
 
@@ -224,11 +208,6 @@ def main(args):
                         "prompt_state_dict": prompt_maker.prompt_learner.state_dict(),
                     }, os.path.join(args.config.save_root, 'checkpoints_{}.pkl'.format(epoch + 1)))
 
-    # At the end of training, print the seed
-    final_seed_message = f"Training finished. The random seed used for this run was: {args.config.random_seed}"
-    logger.info(final_seed_message)
-    print(final_seed_message)
-
 
 def train_one_epoch(
             args,
@@ -345,14 +324,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train MediCLIP")
     parser.add_argument("--config_path", type=str, default='config/brainmri.yaml', help="model configs")
     parser.add_argument("--k_shot", type=int, default=16, help="normal image number")
-    parser.add_argument("--num_support_samples", type=int, default=5, help="Number of similar support samples to use for CutPaste, k.")
     args = parser.parse_args()
-
-    # Add the num_support_samples to the config object so it's available in the dataset class
-    with open(args.config_path) as f:
-        config = EasyDict(yaml.load(f, Loader=yaml.FullLoader))
-    config.num_support_samples = args.num_support_samples
-    args.config = config
-
     torch.multiprocessing.set_start_method("spawn")
     main(args)
