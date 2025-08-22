@@ -82,10 +82,10 @@ def main(args):
 
     map_maker = MapMaker(image_size=args.config.image_size).to(model.device)
 
-    optimizer = torch.optim.Adam([
-            {'params': prompt_maker.prompt_learner.parameters(),'lr': 0.001},
-            {'params': adapter.parameters(),"lr":0.001},
-        ], lr=0.001, betas=(0.5, 0.999))
+        optimizer = torch.optim.Adam([
+            {'params': prompt_maker.prompt_learner.parameters(),'lr': 0.0001},
+            {'params': adapter.parameters(),"lr":0.0001},
+        ], lr=0.0001, betas=(0.5, 0.999))
 
     train_dataset = TrainDataset(args=args.config,
                                     source=os.path.join(args.config.data_root,args.config.train_dataset),
