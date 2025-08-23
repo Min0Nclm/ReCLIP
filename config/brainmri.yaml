@@ -6,7 +6,7 @@ train_dataset: brainmri
 test_datasets: [brainmri]
 
 epoch: 300
-batch_size: 8
+batch_size: 16
 
 print_freq_step: 10
 val_freq_epoch: 1
