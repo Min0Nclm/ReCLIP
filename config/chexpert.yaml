@@ -17,10 +17,10 @@ model_name: ViT-L-14
 layers_out: [12,18,24]
 
 anomaly_tasks:
-  CutpasteTask: 0.25
-  GaussIntensityChangeTask: 0.25
-  SourceTask: 0.25
-  IdentityTask: 0.25
+  CutpasteTask: 0.5
+  GaussIntensityChangeTask: 0
+  SourceTask: 0
+  IdentityTask: 0.5
 
 
 prompt_maker: coop
