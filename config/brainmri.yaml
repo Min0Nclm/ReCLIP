@@ -18,8 +18,8 @@ layers_out: [12,18,24]
 anomaly_tasks:
   CutpasteTask: 0.00
   GaussIntensityChangeTask: 0.00
-  SourceTask: 1.00
-  IdentityTask: 0.00
+  SourceTask: 0.50
+  IdentityTask: 0.50
 
 
 prompt_maker: coop
