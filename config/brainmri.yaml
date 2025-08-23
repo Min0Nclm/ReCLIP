@@ -5,7 +5,7 @@ data_root: data
 train_dataset: brainmri
 test_datasets: [brainmri]
 
-epoch: 200
+epoch: 300
 batch_size: 8
 
 print_freq_step: 10
