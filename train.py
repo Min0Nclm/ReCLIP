@@ -7,6 +7,7 @@ from models.Adapter import Adapter
 import math
 import argparse
 import warnings
+import torchvision.utils as vutils
 from utils.misc_helper import *
 from torch.utils.data import DataLoader
 from models.MapMaker import MapMaker
@@ -85,7 +86,7 @@ def main(args):
     optimizer = torch.optim.Adam([
             {'params': prompt_maker.prompt_learner.parameters(),'lr': 0.0001},
             {'params': adapter.parameters(),"lr":0.0001},
-        ], lr=0.0001, betas=(0.5, 0.999))
+        ], lr=0.001, betas=(0.5, 0.999))
 
     train_dataset = TrainDataset(args=args.config,
                                     source=os.path.join(args.config.data_root,args.config.train_dataset),
@@ -239,8 +240,8 @@ def train_one_epoch(
 
         with torch.no_grad():
             _, image_tokens = clip_model.encode_image(images,out_layers=args.config.layers_out)
-            image_features = necker(image_tokens)
 
+        image_features = necker(image_tokens)
         vision_adapter_features = adapter(image_features)
         propmt_adapter_features = prompt_maker(vision_adapter_features)
         anomaly_map = map_maker(vision_adapter_features,propmt_adapter_features)
