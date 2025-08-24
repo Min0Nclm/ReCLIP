@@ -18,13 +18,31 @@ def cut_paste(sample: npt.NDArray[float],
               source_to_blend: npt.NDArray[float],
               anomaly_corner: npt.NDArray[int],
               anomaly_mask: npt.NDArray[bool]) -> npt.NDArray[float]:
+    """
+    Performs an alpha blend of a source patch onto a sample image.
+    The edges of the patch are smoothed using a Gaussian filter on the mask.
+    """
+    # Define the sigma for the Gaussian blur, controlling the blend's softness.
+    # A larger sigma creates a smoother, wider transition.
+    # Making it proportional to the patch size helps maintain a consistent look.
+    sigma = np.mean(anomaly_mask.shape) / 6.0
 
-    repeated_mask = np.broadcast_to(anomaly_mask, source_to_blend.shape)
+    # Create the alpha mask by blurring the boolean anomaly_mask.
+    alpha_mask = gaussian_filter(anomaly_mask.astype(np.float32), sigma=sigma)
+    # Add a channel dimension to the alpha mask for broadcasting.
+    alpha_mask = np.expand_dims(alpha_mask, axis=0)
 
+    # Get the corresponding patch from the destination image.
     sample_slices = get_patch_image_slices(anomaly_corner, tuple(anomaly_mask.shape))
+    destination_patch = sample[sample_slices]
 
+    # Perform the alpha blending: blended = alpha * source + (1 - alpha) * destination.
+    # The alpha_mask will be broadcast across the channel dimension.
+    blended_patch = (alpha_mask * source_to_blend) + ((1 - alpha_mask) * destination_patch)
+
+    # Place the blended patch back into a copy of the original image.
     aug_sample = sample.copy()
-    aug_sample[sample_slices][repeated_mask] = source_to_blend[repeated_mask]
+    aug_sample[sample_slices] = blended_patch
 
     return aug_sample
 
