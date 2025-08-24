@@ -280,6 +280,32 @@ class BasePatchBlendingTask(BaseTask):
                                   source_sample.min(axis=spatial_axis, keepdims=True),
                                   source_sample.max(axis=spatial_axis, keepdims=True))
 
+        # --- Intensity Augmentation Block ---
+        # Apply with a 50% probability to add more variation
+        if self.rng.random() > 0.5:
+            # 1. Gamma Correction
+            gamma = self.rng.uniform(0.7, 1.5)
+            patch_min = source_to_blend.min()
+            patch_max = source_to_blend.max()
+            if patch_max > patch_min:
+                norm_patch = (source_to_blend - patch_min) / (patch_max - patch_min)
+                gamma_corrected_patch = np.power(norm_patch, gamma)
+                source_to_blend = (gamma_corrected_patch * (patch_max - patch_min)) + patch_min
+
+            # 2. Contrast Adjustment
+            contrast_factor = self.rng.uniform(0.7, 1.5)
+            patch_mean = np.mean(source_to_blend)
+            source_to_blend = patch_mean + contrast_factor * (source_to_blend - patch_mean)
+
+            # 3. Brightness Adjustment
+            brightness_adjust = self.rng.uniform(-15, 15)
+            source_to_blend += brightness_adjust
+
+            # Final clip to ensure values remain valid after augmentations
+            source_to_blend = np.clip(source_to_blend,
+                                      source_sample.min(axis=spatial_axis, keepdims=True),
+                                      source_sample.max(axis=spatial_axis, keepdims=True))
+        # --- End Intensity Augmentation Block ---
 
         # As the blending can alter areas outside the mask, update the mask with any effected areas
 
