@@ -18,31 +18,13 @@ def cut_paste(sample: npt.NDArray[float],
               source_to_blend: npt.NDArray[float],
               anomaly_corner: npt.NDArray[int],
               anomaly_mask: npt.NDArray[bool]) -> npt.NDArray[float]:
-    """
-    Performs an alpha blend of a source patch onto a sample image.
-    The edges of the patch are smoothed using a Gaussian filter on the mask.
-    """
-    # Define the sigma for the Gaussian blur, controlling the blend's softness.
-    # A larger sigma creates a smoother, wider transition.
-    # Making it proportional to the patch size helps maintain a consistent look.
-    sigma = np.mean(anomaly_mask.shape) / 6.0
 
-    # Create the alpha mask by blurring the boolean anomaly_mask.
-    alpha_mask = gaussian_filter(anomaly_mask.astype(np.float32), sigma=sigma)
-    # Add a channel dimension to the alpha mask for broadcasting.
-    alpha_mask = np.expand_dims(alpha_mask, axis=0)
+    repeated_mask = np.broadcast_to(anomaly_mask, source_to_blend.shape)
 
-    # Get the corresponding patch from the destination image.
     sample_slices = get_patch_image_slices(anomaly_corner, tuple(anomaly_mask.shape))
-    destination_patch = sample[sample_slices]
 
-    # Perform the alpha blending: blended = alpha * source + (1 - alpha) * destination.
-    # The alpha_mask will be broadcast across the channel dimension.
-    blended_patch = (alpha_mask * source_to_blend) + ((1 - alpha_mask) * destination_patch)
-
-    # Place the blended patch back into a copy of the original image.
     aug_sample = sample.copy()
-    aug_sample[sample_slices] = blended_patch
+    aug_sample[sample_slices][repeated_mask] = source_to_blend[repeated_mask]
 
     return aug_sample
 
@@ -280,32 +262,6 @@ class BasePatchBlendingTask(BaseTask):
                                   source_sample.min(axis=spatial_axis, keepdims=True),
                                   source_sample.max(axis=spatial_axis, keepdims=True))
 
-        # --- Intensity Augmentation Block ---
-        # Apply with a 50% probability to add more variation
-        if self.rng.random() > 0.5:
-            # 1. Gamma Correction
-            gamma = self.rng.uniform(0.7, 1.5)
-            patch_min = source_to_blend.min()
-            patch_max = source_to_blend.max()
-            if patch_max > patch_min:
-                norm_patch = (source_to_blend - patch_min) / (patch_max - patch_min)
-                gamma_corrected_patch = np.power(norm_patch, gamma)
-                source_to_blend = (gamma_corrected_patch * (patch_max - patch_min)) + patch_min
-
-            # 2. Contrast Adjustment
-            contrast_factor = self.rng.uniform(0.7, 1.5)
-            patch_mean = np.mean(source_to_blend)
-            source_to_blend = patch_mean + contrast_factor * (source_to_blend - patch_mean)
-
-            # 3. Brightness Adjustment
-            brightness_adjust = self.rng.uniform(-15, 15)
-            source_to_blend += brightness_adjust
-
-            # Final clip to ensure values remain valid after augmentations
-            source_to_blend = np.clip(source_to_blend,
-                                      source_sample.min(axis=spatial_axis, keepdims=True),
-                                      source_sample.max(axis=spatial_axis, keepdims=True))
-        # --- End Intensity Augmentation Block ---
 
         # As the blending can alter areas outside the mask, update the mask with any effected areas
 
