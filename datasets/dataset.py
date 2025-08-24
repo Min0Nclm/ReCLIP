@@ -8,12 +8,7 @@ import json
 from PIL import Image
 import numpy as np
 
-from medsyn.tasks import CutPastePatchBlender,\
-                        SmoothIntensityChangeTask,\
-                        GaussIntensityChangeTask,\
-                        SinkDeformationTask,\
-                        SourceDeformationTask,\
-                        IdentityTask
+from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussIntensityChangeTask,SinkDeformationTask,SourceDeformationTask,IdentityTask
 
 
 class TrainDataset(torch.utils.data.Dataset):
@@ -24,6 +19,7 @@ class TrainDataset(torch.utils.data.Dataset):
         source,
         preprocess,
         k_shot = -1,
+        foreign_sources=None,
         **kwargs,
     ):
 
@@ -31,6 +27,7 @@ class TrainDataset(torch.utils.data.Dataset):
         self.args = args
         self.source = source
         self.k_shot = k_shot
+        self.foreign_sources = foreign_sources
         self.transform_img = preprocess
         self.data_to_iterate = self.get_image_data()
         self.augs,self.augs_pro = self.load_anomaly_syn()
@@ -79,7 +76,35 @@ class TrainDataset(torch.utils.data.Dataset):
         task_probability = []
         for task_name in self.args.anomaly_tasks.keys():
             if task_name =='CutpasteTask':
+                # Load in-domain images
                 support_images = [self.read_image(os.path.join(self.source,'images',data['filename'])) for data in self.data_to_iterate]
+                
+                # Load out-of-domain images if provided
+                if self.foreign_sources is not None:
+                    foreign_images = []
+                    # For k_shot=16, this gives 16 in-domain and 4 out-of-domain images (20% foreign ratio)
+                    num_foreign_per_source = 2 
+                    for source_path in self.foreign_sources:
+                        foreign_data_to_iterate = []
+                        json_path = os.path.join(source_path, 'samples', "train.json")
+                        if os.path.exists(json_path):
+                            with open(json_path, "r") as f_r:
+                                for line in f_r:
+                                    foreign_data_to_iterate.append(json.loads(line))
+                            
+                            # Take N samples from the foreign dataset
+                            if len(foreign_data_to_iterate) > num_foreign_per_source:
+                                foreign_samples = random.sample(foreign_data_to_iterate, num_foreign_per_source)
+                            else:
+                                foreign_samples = foreign_data_to_iterate
+                            
+                            for data in foreign_samples:
+                                image_path = os.path.join(source_path, 'images', data['filename'])
+                                if os.path.exists(image_path):
+                                    foreign_images.append(self.read_image(image_path))
+                    
+                    support_images.extend(foreign_images)
+
                 task = CutPastePatchBlender(support_images)
             elif task_name == 'SmoothIntensityTask':
                 task = SmoothIntensityChangeTask(30.0)

@@ -11,10 +11,7 @@ from utils.misc_helper import *
 from torch.utils.data import DataLoader
 from models.MapMaker import MapMaker
 from utils.losses import FocalLoss,BinaryDiceLoss
-from datasets.dataset import TrainDataset,\
-                                ChexpertTestDataset,\
-                                BusiTestDataset,\
-                                BrainMRITestDataset
+from datasets.dataset import TrainDataset,ChexpertTestDataset,BusiTestDataset,BrainMRITestDataset
 import pprint
 from tqdm import tqdm
 warnings.filterwarnings('ignore')
@@ -90,10 +87,15 @@ def main(args):
             {'params': adapter.parameters(),"lr":0.001},
         ], lr=0.001, betas=(0.5, 0.999))
 
+    all_datasets = ['chexpert', 'busi', 'brainmri']
+    foreign_datasets = [d for d in all_datasets if d != args.config.train_dataset]
+    foreign_sources = [os.path.join(args.config.data_root, d) for d in foreign_datasets]
+
     train_dataset = TrainDataset(args=args.config,
                                     source=os.path.join(args.config.data_root,args.config.train_dataset),
                                     preprocess=preprocess,
-                                    k_shot=args.k_shot)
+                                    k_shot=args.k_shot,
+                                    foreign_sources=foreign_sources)
 
     train_dataloader = DataLoader(train_dataset, batch_size=args.config.batch_size, shuffle=True, num_workers=2)
 
