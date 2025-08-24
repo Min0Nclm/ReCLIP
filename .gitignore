@@ -7,3 +7,4 @@ results/
 checkpoints/sam_vit_b_01ec64.pth
 data/brainmri/sam_features.pt
 *.pyc
+medsyn/__pycache__/tasks.cpython-39.pyc
