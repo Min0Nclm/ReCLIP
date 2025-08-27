@@ -1,6 +1,7 @@
 1.PreScale
 
 python precompute_features.py --data_source data/brainmri
+python precompute_features.py --data_source data/chexpert
 
 2.Train
 

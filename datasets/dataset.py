@@ -17,10 +17,22 @@ from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussInt
 # =================================================================================
 
 def _select_most_representative(features):
-    """Selects the single most representative sample from a feature set."""
-    sim_matrix = F.cosine_similarity(features.unsqueeze(1), features.unsqueeze(0), dim=2)
-    mean_sim = sim_matrix.mean(dim=1)
-    return torch.argmax(mean_sim).item()
+    """Selects the single most representative sample from a feature set.
+    This is approximated by finding the sample closest to the mean of all samples.
+    """
+    if features.numel() == 0:
+        raise ValueError("Feature set cannot be empty.")
+
+    # Calculate the centroid (mean) of all features
+    centroid = torch.mean(features, dim=0)
+
+    # Calculate cosine similarity between each feature and the centroid
+    sim_to_centroid = F.cosine_similarity(features, centroid.unsqueeze(0))
+
+    # The most representative sample is the one with the highest similarity to the centroid
+    return torch.argmax(sim_to_centroid).item()
+
+
 
 def _k_center_greedy_init(features, k):
     """Initializes K-Means centers greedily to ensure diversity."""
