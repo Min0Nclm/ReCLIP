@@ -1,95 +1,106 @@
-
 import os
-import argparse
 import torch
-import torch.nn.functional as F
-from tqdm import tqdm
+from torch.utils.data import DataLoader
+from torchvision import transforms
+import argparse
 from PIL import Image
-import numpy as np
 import json
+from tqdm import tqdm
+import h5py
+import numpy as np
 
-# SAM imports
-from segment_anything import sam_model_registry
+# Assuming open_clip is in the path
+import open_clip
 
-# Configure environment
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-os.environ["OMP_NUM_THREADS"] = "1"
-
-def get_args():
-    parser = argparse.ArgumentParser(description="Pre-compute image features using SAM")
-    parser.add_argument("--data_source", type=str, default="./data/brainmri", help="Path to the dataset source directory")
-    parser.add_argument("--output_file", type=str, default="sam_features.pt", help="Name of the output feature file")
-    parser.add_argument("--sam_checkpoint", type=str, default="./checkpoints/sam_vit_b_01ec64.pth", help="Path to the SAM checkpoint")
-    parser.add_argument("--sam_model_type", type=str, default="vit_b", help="SAM model type")
-    parser.add_argument("--image_size", type=int, default=1024, help="Image size expected by SAM encoder")
-    parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu", help="Device to run the model on")
-    return parser.parse_args()
-
-def load_image_paths(source_dir):
-    """Loads image paths from the train.json file."""
+def get_image_paths(data_root, dataset_name):
+    """Gets all training image paths for a given dataset."""
     image_paths = []
-    json_path = os.path.join(source_dir, 'samples', 'train.json')
-    with open(json_path, "r") as f:
+    json_path = os.path.join(data_root, dataset_name, 'samples', 'train.json')
+    image_dir = os.path.join(data_root, dataset_name, 'images')
+    
+    with open(json_path, 'r') as f:
         for line in f:
             meta = json.loads(line)
-            # Join, then normalize to remove redundant separators like './'
-            path = os.path.join(source_dir, 'images', meta['filename'])
-            norm_path = os.path.normpath(path)
-            # Finally, replace separators for consistency
-            image_paths.append(norm_path.replace('\\', '/'))
+            # We only precompute features for the training images
+            if 'train' in meta['filename']:
+                image_paths.append(os.path.join(image_dir, meta['filename']))
     return image_paths
 
-def preprocess_image(image_path, image_size):
-    """Loads and preprocesses an image for SAM."""
-    img = Image.open(image_path).convert("RGB")
-    img = img.resize((image_size, image_size), Image.Resampling.BILINEAR)
-    img = np.array(img) / 255.0
-    img = torch.from_numpy(img).permute(2, 0, 1).float()  # [C, H, W]
-    return img
+def main(args):
+    """
+    Main function to precompute image features using a CLIP model and save to HDF5.
+    """
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Using device: {device}")
 
-@torch.no_grad()
-def extract_features(image_paths, sam_encoder, image_size, device):
-    """Extracts features for a list of images."""
-    all_features = []
-    print(f"Extracting features from {len(image_paths)} images...")
-    for path in tqdm(image_paths):
-        img = preprocess_image(path, image_size)
-        img = img.unsqueeze(0).to(device)  # Add batch dimension
-        feat = sam_encoder(img)
-        # Flatten the feature map and move to CPU
-        feat_flat = feat.squeeze(0).reshape(-1).cpu()
-        all_features.append(feat_flat)
-    return torch.stack(all_features)
+    # Load the model
+    model, _, preprocess = open_clip.create_model_and_transforms(args.model_name, pretrained='laion2b_s34b_b79k')
+    model.to(device)
+    model.eval()
 
-def main():
-    args = get_args()
-    print("Starting feature pre-computation...")
-
-    # 1. Load SAM model
-    print(f"Loading SAM model ({args.sam_model_type}) from {args.sam_checkpoint}")
-    sam = sam_model_registry[args.sam_model_type](checkpoint=args.sam_checkpoint)
-    sam.to(args.device)
-    sam.eval()
-    sam_encoder = sam.image_encoder
-
-    # 2. Get image paths
-    image_paths = load_image_paths(args.data_source)
+    # Get image paths
+    print(f"Processing dataset: {args.dataset}")
+    image_paths = get_image_paths(args.data_root, args.dataset)
     if not image_paths:
-        print(f"Error: No images found in {os.path.join(args.data_source, 'samples', 'train.json')}")
+        print("No training images found. Exiting.")
         return
 
-    # 3. Extract features
-    features = extract_features(image_paths, sam_encoder, args.image_size, args.device)
+    # Define a simple dataset for batching
+    class ImageDataset(torch.utils.data.Dataset):
+        def __init__(self, paths, preprocess):
+            self.paths = paths
+            self.preprocess = preprocess
+        
+        def __len__(self):
+            return len(self.paths)
+        
+        def __getitem__(self, idx):
+            img_path = self.paths[idx]
+            image = self.preprocess(Image.open(img_path).convert("RGB"))
+            return image, img_path
 
-    # 4. Save features
-    output_path = os.path.join(args.data_source, args.output_file)
-    data_to_save = {
-        'image_paths': image_paths,
-        'features': features
-    }
-    torch.save(data_to_save, output_path)
-    print(f"Successfully saved features to {output_path}")
-    print(f"Feature tensor shape: {features.shape}")
+    dataset = ImageDataset(image_paths, preprocess)
+    dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
 
-if __name__ == "__main__":
-    main()
+    # Get feature dimension from a dummy pass
+    with torch.no_grad():
+        dummy_image, _ = dataset[0]
+        feature_dim = model.encode_image(dummy_image.unsqueeze(0).to(device)).shape[1]
+
+    # Prepare HDF5 file
+    output_path = os.path.join(args.data_root, args.dataset, 'sam_features.h5')
+    print(f"Found {len(image_paths)} images. Starting feature extraction to {output_path}...")
+    
+    with h5py.File(output_path, 'w') as hf:
+        # Create datasets
+        feature_ds = hf.create_dataset('features', shape=(len(image_paths), feature_dim), dtype='f4')
+        string_dt = h5py.special_dtype(vlen=str)
+        path_ds = hf.create_dataset('image_paths', shape=(len(image_paths),), dtype=string_dt)
+        
+        start_idx = 0
+        with torch.no_grad():
+            for images, paths in tqdm(dataloader):
+                images = images.to(device)
+                features = model.encode_image(images)
+                
+                # Normalize features
+                features /= features.norm(dim=-1, keepdim=True)
+                
+                # Write batch to HDF5
+                current_batch_size = features.shape[0]
+                feature_ds[start_idx:start_idx+current_batch_size] = features.cpu().numpy()
+                path_ds[start_idx:start_idx+current_batch_size] = paths
+                start_idx += current_batch_size
+
+    print("Done.")
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Precompute image features for ReCLIP.')
+    parser.add_argument('--data_root', type=str, default='data', help='Root directory of the datasets.')
+    parser.add_argument('--dataset', type=str, required=True, help='Name of the dataset to process (e.g., chexpert, busi).')
+    parser.add_argument('--model_name', type=str, default='ViT-L-14', help='Name of the CLIP model to use.')
+    parser.add_argument('--batch_size', type=int, default=64, help='Batch size for feature extraction.')
+    parser.add_argument('--num_workers', type=int, default=4, help='Number of workers for the dataloloader.')
+    
+    args = parser.parse_args()
+    main(args)
