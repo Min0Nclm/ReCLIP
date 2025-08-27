@@ -120,6 +120,24 @@ class TrainDataset(torch.utils.data.Dataset):
         # Load the selected support images once to be used for all training items
         self.support_images = [self.read_image(self.sam_image_paths[i]) for i in self.support_indices]
         print(f"Selected support sample indices: {self.support_indices}")
+
+        # --- Add images from data/tubes ---
+        try:
+            tubes_dir = os.path.join(os.path.dirname(self.source), 'tubes')
+            if os.path.isdir(tubes_dir):
+                tube_images_paths = [os.path.join(tubes_dir, f) for f in os.listdir(tubes_dir) if f.endswith(('.png', '.jpg', '.jpeg'))]
+                if len(tube_images_paths) >= 2:
+                    selected_tubes = random.sample(tube_images_paths, 2)
+                    print(f"Adding 2 random images from data/tubes: {selected_tubes}")
+                    for tube_path in selected_tubes:
+                        self.support_images.append(self.read_image(tube_path))
+                else:
+                    print(f"Warning: Found fewer than 2 images in {tubes_dir}. Not adding tubes.")
+            else:
+                print(f"Warning: 'data/tubes' directory not found at {tubes_dir}")
+        except Exception as e:
+            print(f"Error loading images from data/tubes: {e}")
+        # --- End of adding tubes images ---
         # --- End of Selection Logic ---
 
         # Pre-load augmentations
