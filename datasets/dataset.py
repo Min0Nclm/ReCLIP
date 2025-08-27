@@ -7,7 +7,7 @@ from torchvision import transforms
 import json
 from PIL import Image
 import numpy as np
-from sklearn.cluster import KMeans
+
 import torch.nn.functional as F
 
 from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussIntensityChangeTask,SinkDeformationTask,SourceDeformationTask,IdentityTask
@@ -17,7 +17,8 @@ from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussInt
 # =================================================================================
 
 def _select_most_representative(features):
-    """Selects the single most representative sample from a feature set.
+    """
+    Selects the single most representative sample from a feature set.
     This is approximated by finding the sample closest to the mean of all samples.
     """
     if features.numel() == 0:
@@ -385,4 +386,4 @@ class BusiTestDataset(torch.utils.data.Dataset):
             for line in f_r:
                 meta = json.loads(line)
                 data_to_iterate.append(meta)
-        return data_to_iterate
+        return data_to_iterateto_iterate
