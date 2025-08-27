@@ -6,8 +6,6 @@ import argparse
 from PIL import Image
 import json
 from tqdm import tqdm
-import h5py
-import numpy as np
 
 # Assuming open_clip is in the path
 import open_clip
@@ -28,7 +26,7 @@ def get_image_paths(data_root, dataset_name):
 
 def main(args):
     """
-    Main function to precompute image features using a CLIP model and save to HDF5.
+    Main function to precompute image features using a CLIP model.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Using device: {device}")
@@ -44,6 +42,9 @@ def main(args):
     if not image_paths:
         print("No training images found. Exiting.")
         return
+
+    all_features = []
+    all_image_paths = []
 
     # Define a simple dataset for batching
     class ImageDataset(torch.utils.data.Dataset):
@@ -62,35 +63,29 @@ def main(args):
     dataset = ImageDataset(image_paths, preprocess)
     dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
 
-    # Get feature dimension from a dummy pass
+    print(f"Found {len(image_paths)} images. Starting feature extraction...")
     with torch.no_grad():
-        dummy_image, _ = dataset[0]
-        feature_dim = model.encode_image(dummy_image.unsqueeze(0).to(device)).shape[1]
+        for images, paths in tqdm(dataloader):
+            images = images.to(device)
+            features = model.encode_image(images)
+            
+            # Normalize features
+            features /= features.norm(dim=-1, keepdim=True)
+            
+            all_features.append(features.cpu())
+            all_image_paths.extend(paths)
 
-    # Prepare HDF5 file
-    output_path = os.path.join(args.data_root, args.dataset, 'sam_features.h5')
-    print(f"Found {len(image_paths)} images. Starting feature extraction to {output_path}...")
+    # Concatenate all features
+    features_tensor = torch.cat(all_features)
+
+    # Save features and paths
+    output_path = os.path.join(args.data_root, args.dataset, 'sam_features.pt')
+    print(f"Saving {features_tensor.shape[0]} features to {output_path}...")
     
-    with h5py.File(output_path, 'w') as hf:
-        # Create datasets
-        feature_ds = hf.create_dataset('features', shape=(len(image_paths), feature_dim), dtype='f4')
-        string_dt = h5py.special_dtype(vlen=str)
-        path_ds = hf.create_dataset('image_paths', shape=(len(image_paths),), dtype=string_dt)
-        
-        start_idx = 0
-        with torch.no_grad():
-            for images, paths in tqdm(dataloader):
-                images = images.to(device)
-                features = model.encode_image(images)
-                
-                # Normalize features
-                features /= features.norm(dim=-1, keepdim=True)
-                
-                # Write batch to HDF5
-                current_batch_size = features.shape[0]
-                feature_ds[start_idx:start_idx+current_batch_size] = features.cpu().numpy()
-                path_ds[start_idx:start_idx+current_batch_size] = paths
-                start_idx += current_batch_size
+    torch.save({
+        'features': features_tensor,
+        'image_paths': all_image_paths
+    }, output_path)
 
     print("Done.")
 
@@ -100,7 +95,7 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', type=str, required=True, help='Name of the dataset to process (e.g., chexpert, busi).')
     parser.add_argument('--model_name', type=str, default='ViT-L-14', help='Name of the CLIP model to use.')
     parser.add_argument('--batch_size', type=int, default=64, help='Batch size for feature extraction.')
-    parser.add_argument('--num_workers', type=int, default=4, help='Number of workers for the dataloloader.')
+    parser.add_argument('--num_workers', type=int, default=4, help='Number of workers for the dataloader.')
     
     args = parser.parse_args()
     main(args)

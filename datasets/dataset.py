@@ -7,63 +7,37 @@ from torchvision import transforms
 import json
 from PIL import Image
 import numpy as np
-import h5py  # New import
-from tqdm import tqdm # New import
 
 import torch.nn.functional as F
 
 from medsyn.tasks import CutPastePatchBlender,SmoothIntensityChangeTask,GaussIntensityChangeTask,SinkDeformationTask,SourceDeformationTask,IdentityTask
 
 # =================================================================================
-# K-Means based Support Set Selection (HDF5 version)
+# K-Means based Support Set Selection
 # =================================================================================
 
-def _calculate_centroid_in_batches(features_dset, batch_size=1024):
-    """Calculates the centroid of an HDF5 feature dataset in batches."""
-    num_samples, feature_dim = features_dset.shape
-    feature_sum = torch.zeros(feature_dim, dtype=torch.float32)
-    
-    print("Calculating centroid from HDF5 features...")
-    for i in tqdm(range(0, num_samples, batch_size), desc="Calculating Centroid"):
-        batch = torch.from_numpy(features_dset[i:i+batch_size])
-        feature_sum += batch.sum(dim=0)
-        
-    return feature_sum / num_samples
-
-def _select_most_representative_from_hdf5(features_dset, batch_size=1024):
+def _select_most_representative(features):
     """
-    Selects the single most representative sample from an HDF5 feature dataset.
+    Selects the single most representative sample from a feature set.
     This is approximated by finding the sample closest to the mean of all samples.
     """
-    if features_dset.shape[0] == 0:
+    if features.numel() == 0:
         raise ValueError("Feature set cannot be empty.")
 
-    # Pass 1: Calculate centroid in batches to save memory
-    centroid = _calculate_centroid_in_batches(features_dset, batch_size)
+    # Calculate the centroid (mean) of all features
+    centroid = torch.mean(features, dim=0)
 
-    # Pass 2: Find the sample with the highest cosine similarity in batches
-    print("Finding most representative sample...")
-    max_sim = -1
-    best_idx = -1
-    
-    num_samples = features_dset.shape[0]
-    centroid_unsqueezed = centroid.unsqueeze(0)
+    # Calculate cosine similarity between each feature and the centroid
+    sim_to_centroid = F.cosine_similarity(features, centroid.unsqueeze(0))
 
-    for i in tqdm(range(0, num_samples, batch_size), desc="Finding Best Sample"):
-        batch = torch.from_numpy(features_dset[i:i+batch_size])
-        sims = F.cosine_similarity(batch, centroid_unsqueezed)
-        batch_max_sim, batch_max_idx = torch.max(sims, dim=0)
-        
-        if batch_max_sim > max_sim:
-            max_sim = batch_max_sim
-            best_idx = i + batch_max_idx.item()
-            
-    return best_idx
+    # The most representative sample is the one with the highest similarity to the centroid
+    return torch.argmax(sim_to_centroid).item()
+
 
 
 def _select_support_samples_by_clustering(features, k):
     """
-    Selects the single most representative support sample from an HDF5 dataset.
+    Selects the single most representative support sample.
     The k-means clustering logic has been removed as per user request
     to default to k=1 logic.
     """
@@ -72,7 +46,7 @@ def _select_support_samples_by_clustering(features, k):
     if k > 1:
         print(f"Warning: The 'num_support_samples' parameter is ignored and only the single most representative support sample will be used.")
     
-    most_representative_idx = _select_most_representative_from_hdf5(features)
+    most_representative_idx = _select_most_representative(features)
     return [most_representative_idx]
 
 
@@ -94,25 +68,24 @@ class TrainDataset(torch.utils.data.Dataset):
         self.k_shot = k_shot
         self.transform_img = preprocess
         self.data_to_iterate = self.get_image_data()
-        self.hf = None # For HDF5 file handle
 
-        # Load pre-computed features from HDF5
-        feature_path = os.path.join(self.source, 'sam_features.h5')
+        # Load pre-computed features
+        feature_path = os.path.join(self.source, 'sam_features.pt')
         if os.path.exists(feature_path):
             print(f"Loading pre-computed features from {feature_path}")
-            self.hf = h5py.File(feature_path, 'r')
-            self.sam_features = self.hf['features']
-            self.sam_image_paths = self.hf['image_paths']
-            print("Features loaded successfully (from HDF5).")
+            features_data = torch.load(feature_path, map_location='cpu')
+            self.sam_features = features_data['features'].to(torch.float32) # Ensure float32
+            self.sam_image_paths = features_data['image_paths']
+            print("Features loaded successfully.")
         else:
             raise FileNotFoundError(f"Feature file not found: {feature_path}. Please run precompute_features.py first.")
 
         # Ensure the number of images in JSON matches the feature file
         assert len(self.data_to_iterate) == len(self.sam_image_paths)
 
-        # --- Support Set Selection via Clustering (Done ONCE, batched) ---
+        # --- Support Set Selection via Clustering (Done ONCE) ---
         num_support = getattr(self.args, 'num_support_samples', 5)
-        print(f"Selecting the most representative support sample (from HDF5)...")
+        print(f"Selecting the most representative support sample...")
         self.support_indices = _select_support_samples_by_clustering(self.sam_features, num_support)
         
         # Load the selected support images once to be used for all training items
@@ -180,11 +153,6 @@ class TrainDataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.data_to_iterate)
-    
-    def __del__(self):
-        # Ensure the HDF5 file is closed when the dataset object is destroyed.
-        if hasattr(self, 'hf') and self.hf:
-            self.hf.close()
 
     def read_image(self, path):
         image = PIL.Image.open(path).resize((self.args.image_size, self.args.image_size),
