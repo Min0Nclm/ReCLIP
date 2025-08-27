@@ -344,4 +344,4 @@ class BusiTestDataset(torch.utils.data.Dataset):
             for line in f_r:
                 meta = json.loads(line)
                 data_to_iterate.append(meta)
-        return data_to_iterateto_iterate
+        return data_to_iterate
