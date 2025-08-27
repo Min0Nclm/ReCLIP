@@ -120,6 +120,30 @@ class TrainDataset(torch.utils.data.Dataset):
         # Load the selected support images once to be used for all training items
         self.support_images = [self.read_image(self.sam_image_paths[i]) for i in self.support_indices]
         print(f"Selected support sample indices: {self.support_indices}")
+
+        # --- Start of Modification: Add images from 'data/tubes' ---
+        print("Adding 2 random source images from data/tubes/images/train...")
+        # Navigate from the current dataset's source dir up to the project root to find the 'data' dir
+        project_root = os.path.abspath(os.path.join(self.source, '..', '..'))
+        tubes_dir = os.path.join(project_root, 'data', 'tubes', 'images', 'train')
+        try:
+            if os.path.isdir(tubes_dir):
+                tubes_images_names = [f for f in os.listdir(tubes_dir) if os.path.isfile(os.path.join(tubes_dir, f))]
+                if len(tubes_images_names) >= 2:
+                    selected_tubes_names = random.sample(tubes_images_names, 2)
+                    for name in selected_tubes_names:
+                        path = os.path.join(tubes_dir, name)
+                        print(f"Loading additional source image: {path}")
+                        self.support_images.append(self.read_image(path))
+                    print(f"Total support images now: {len(self.support_images)}")
+                else:
+                    print(f"Warning: Not enough images in {tubes_dir} to select 2. Found {len(tubes_images_names)}.")
+            else:
+                print(f"Warning: Directory not found: {tubes_dir}. Skipping addition of tubes images.")
+        except Exception as e:
+            print(f"Warning: An error occurred while loading tubes images: {e}")
+        # --- End of Modification ---
+        
         # --- End of Selection Logic ---
 
         # Pre-load augmentations
@@ -152,13 +176,21 @@ class TrainDataset(torch.utils.data.Dataset):
                 if filtered_support_images:
                     choice_aug.support_imgs = filtered_support_images
 
-        image, mask = choice_aug(image)
-        image = Image.fromarray(image.astype(np.uint8)).convert('RGB')
-        image = self.transform_img(image)
+        # Apply augmentation to a copy to preserve the original, as tasks modify in-place.
+        augmented_image_np, mask = choice_aug(image.copy())
+
+        # Convert both original and augmented images to tensors for comparison
+        original_pil = Image.fromarray(image.astype(np.uint8)).convert('RGB')
+        original_tensor = self.transform_img(original_pil)
+
+        augmented_pil = Image.fromarray(augmented_image_np.astype(np.uint8)).convert('RGB')
+        augmented_tensor = self.transform_img(augmented_pil)
+
         mask = torch.from_numpy(mask)
 
         return {
-            "image": image,
+            "image": augmented_tensor,
+            "original_image": original_tensor,
             "mask": mask,
         }
 

@@ -19,6 +19,8 @@ from datasets.dataset import TrainDataset,\
                                 BrainMRITestDataset
 import pprint
 from tqdm import tqdm
+import torchvision
+import os
 warnings.filterwarnings('ignore')
 
 
@@ -62,7 +64,13 @@ def main(args):
     if not os.path.exists(args.config.save_root):
         os.makedirs(args.config.save_root)
 
+    # DEBUG: Set epoch to 1 and create debug directory
+    args.config.epoch = 1
+    debug_dir = os.path.join(args.config.save_root, 'debug_images')
+    os.makedirs(debug_dir, exist_ok=True)
+
     logger = create_logger("logger",os.path.join(args.config.save_root,'logger.log'))
+    logger.info("Epoch is forced to 1 for debugging image generation.")
 
     # set random seed
     seed = args.config.get('random_seed')
@@ -166,63 +174,8 @@ def main(args):
             map_maker,
         )
 
-        if (epoch+1) % args.config.val_freq_epoch == 0:
-
-            results = validate(args,test_dataloaders, epoch,model, necker,adapter,prompt_maker,map_maker)
-            save_flag = False
-
-            for test_dataset_name in results:
-                if best_record[test_dataset_name] is None:
-                    if test_dataset_name=='busi':
-                        best_record[test_dataset_name] = [results[test_dataset_name]["image-auroc"],
-                                                          results[test_dataset_name]['pixel-auroc']]
-                    else:
-                        best_record[test_dataset_name] = [results[test_dataset_name]["image-auroc"]]
-
-                    save_flag=True
-                else:
-                    if np.mean([results[test_dataset_name][key] for key in results[test_dataset_name]]) > np.mean(best_record[test_dataset_name]):
-                        if test_dataset_name == 'busi':
-                            best_record[test_dataset_name] = [results[test_dataset_name]["image-auroc"],
-                                                              results[test_dataset_name]['pixel-auroc']]
-                        else:
-                            best_record[test_dataset_name] = [results[test_dataset_name]["image-auroc"]]
-                        save_flag=True
-
-
-                if test_dataset_name=='busi':
-                    logger.info("({}): Epoch: {}, image auroc: {:.4f}, pixel_auroc: {:.4f},".format(test_dataset_name,
-                                                                                                    epoch+1,
-                                                                                                    results[test_dataset_name]["image-auroc"],
-                                                                                                    results[test_dataset_name]['pixel-auroc']))
-                else:
-                    logger.info("({}): Epoch: {}, image auroc: {:.4f},".format(
-                        test_dataset_name,
-                        epoch+1,
-                        results[test_dataset_name]["image-auroc"],
-                    ))
-
-            for test_dataset_name in results:
-                if test_dataset_name == 'busi':
-                    logger.info(
-                        "({} best): image auroc: {:.4f}, pixel auroc: {:.4f},".format(
-                            test_dataset_name,
-                            best_record[test_dataset_name][0],
-                            best_record[test_dataset_name][1],
-                        ))
-                else:
-                    logger.info(
-                        "({} best): image auroc: {:.4f},".format(
-                            test_dataset_name,
-                            best_record[test_dataset_name][0],
-                        ))
-
-            if save_flag:
-                logger.info("save checkpoints in epoch: {}".format(epoch+1))
-                torch.save({
-                        "adapter_state_dict": adapter.state_dict(),
-                        "prompt_state_dict": prompt_maker.prompt_learner.state_dict(),
-                    }, os.path.join(args.config.save_root, 'checkpoints_{}.pkl'.format(epoch + 1)))
+        # DEBUG: Skipping validation loop as per debug request.
+        pass
 
     # At the end of training, print the seed
     final_seed_message = f"Training finished. The random seed used for this run was: {args.config.random_seed}"
@@ -253,6 +206,27 @@ def train_one_epoch(
     prompt_maker.train()
 
     for i, input in enumerate(train_dataloader):
+        # DEBUG: Save images from the first batch and break.
+        if i == 0:
+            logger.info("Saving debug images for the first batch...")
+            debug_dir = os.path.join(args.config.save_root, 'debug_images')
+
+            original_images = input['original_image']
+            augmented_images = input['image']
+            # Unsqueeze mask to have a channel dimension (B, 1, H, W) for grid saving
+            masks = input['mask'].unsqueeze(1).float()
+            # To make the grid visually correct, we need to convert the single-channel mask to 3-channel
+            masks_rgb = masks.repeat(1, 3, 1, 1)
+
+            # Create a grid showing original, augmented, and mask
+            comparison_grid = torch.cat([original_images, augmented_images, masks_rgb], dim=0)
+
+            save_path = os.path.join(debug_dir, f'epoch_{epoch+1}_batch_{i}_comparison.png')
+            # nrow will be the batch size, so we get rows of [original, augmented, mask]
+            torchvision.utils.save_image(comparison_grid, save_path, nrow=original_images.size(0), normalize=True)
+            logger.info(f"Saved comparison grid to {save_path}")
+
+
         curr_step = start_iter + i
 
         images = input['image'].to(clip_model.device)
@@ -291,6 +265,12 @@ def train_one_epoch(
                     loss=loss_meter,
                 )
             )
+        
+        # DEBUG: Break after the first batch
+        if i == 0:
+            logger.info("Breaking after first batch for debugging.")
+            break
+
 
 
 def validate(args, test_dataloaders, epoch, clip_model, necker, adapter, prompt_maker, map_maker):
