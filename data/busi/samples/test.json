@@ -1,0 +1,748 @@
+{"filename": "test/normal/normal_41.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_72.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_126.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_70.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_77.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_130.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_120.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_39.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_105.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_55.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_63.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_68.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_50.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_83.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_46.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_37.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_44.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_101.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_42.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_107.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_64.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_56.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_90.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_118.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_131.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_116.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_100.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_129.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_58.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_38.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_40.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_34.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_121.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_124.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_108.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_127.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_76.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_111.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_97.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_84.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_75.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_99.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_49.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_96.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_106.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_117.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_45.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_66.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_103.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_60.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_59.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_57.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_122.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_48.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_123.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_87.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_119.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_79.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_47.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_32.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_93.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_104.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_102.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_113.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_92.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_110.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_78.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_132.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_74.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_33.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_94.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_112.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_61.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_73.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_81.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_91.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_36.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_128.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_35.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_51.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_52.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_95.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_125.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_98.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_62.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_53.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_85.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_65.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_86.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_114.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_89.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_43.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_67.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_115.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_80.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_88.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_54.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_82.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_69.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_71.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/normal/normal_109.jpg", "label": 0, "label_name": "normal", "clsname": "normal"}
+{"filename": "test/abnormal/benign_194.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_194.jpg"}
+{"filename": "test/abnormal/benign_289.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_289.jpg"}
+{"filename": "test/abnormal/benign_376.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_376.jpg"}
+{"filename": "test/abnormal/benign_86.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_86.jpg"}
+{"filename": "test/abnormal/benign_373.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_373.jpg"}
+{"filename": "test/abnormal/benign_374.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_374.jpg"}
+{"filename": "test/abnormal/benign_427.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_427.jpg"}
+{"filename": "test/abnormal/benign_53.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_53.jpg"}
+{"filename": "test/abnormal/benign_111.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_111.jpg"}
+{"filename": "test/abnormal/benign_10.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_10.jpg"}
+{"filename": "test/abnormal/benign_118.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_118.jpg"}
+{"filename": "test/abnormal/benign_215.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_215.jpg"}
+{"filename": "test/abnormal/benign_220.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_220.jpg"}
+{"filename": "test/abnormal/benign_352.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_352.jpg"}
+{"filename": "test/abnormal/benign_416.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_416.jpg"}
+{"filename": "test/abnormal/benign_379.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_379.jpg"}
+{"filename": "test/abnormal/benign_20.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_20.jpg"}
+{"filename": "test/abnormal/benign_350.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_350.jpg"}
+{"filename": "test/abnormal/benign_283.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_283.jpg"}
+{"filename": "test/abnormal/benign_82.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_82.jpg"}
+{"filename": "test/abnormal/benign_316.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_316.jpg"}
+{"filename": "test/abnormal/benign_236.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_236.jpg"}
+{"filename": "test/abnormal/benign_276.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_276.jpg"}
+{"filename": "test/abnormal/benign_415.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_415.jpg"}
+{"filename": "test/abnormal/benign_243.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_243.jpg"}
+{"filename": "test/abnormal/benign_386.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_386.jpg"}
+{"filename": "test/abnormal/benign_54.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_54.jpg"}
+{"filename": "test/abnormal/benign_365.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_365.jpg"}
+{"filename": "test/abnormal/benign_378.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_378.jpg"}
+{"filename": "test/abnormal/benign_430.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_430.jpg"}
+{"filename": "test/abnormal/benign_207.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_207.jpg"}
+{"filename": "test/abnormal/benign_40.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_40.jpg"}
+{"filename": "test/abnormal/benign_122.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_122.jpg"}
+{"filename": "test/abnormal/benign_273.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_273.jpg"}
+{"filename": "test/abnormal/benign_393.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_393.jpg"}
+{"filename": "test/abnormal/benign_230.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_230.jpg"}
+{"filename": "test/abnormal/benign_150.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_150.jpg"}
+{"filename": "test/abnormal/benign_336.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_336.jpg"}
+{"filename": "test/abnormal/benign_284.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_284.jpg"}
+{"filename": "test/abnormal/benign_264.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_264.jpg"}
+{"filename": "test/abnormal/benign_369.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_369.jpg"}
+{"filename": "test/abnormal/benign_237.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_237.jpg"}
+{"filename": "test/abnormal/benign_171.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_171.jpg"}
+{"filename": "test/abnormal/benign_193.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_193.jpg"}
+{"filename": "test/abnormal/benign_288.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_288.jpg"}
+{"filename": "test/abnormal/benign_115.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_115.jpg"}
+{"filename": "test/abnormal/benign_242.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_242.jpg"}
+{"filename": "test/abnormal/benign_295.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_295.jpg"}
+{"filename": "test/abnormal/benign_292.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_292.jpg"}
+{"filename": "test/abnormal/benign_226.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_226.jpg"}
+{"filename": "test/abnormal/benign_409.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_409.jpg"}
+{"filename": "test/abnormal/benign_229.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_229.jpg"}
+{"filename": "test/abnormal/benign_158.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_158.jpg"}
+{"filename": "test/abnormal/benign_181.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_181.jpg"}
+{"filename": "test/abnormal/benign_252.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_252.jpg"}
+{"filename": "test/abnormal/benign_45.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_45.jpg"}
+{"filename": "test/abnormal/benign_76.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_76.jpg"}
+{"filename": "test/abnormal/benign_24.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_24.jpg"}
+{"filename": "test/abnormal/benign_372.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_372.jpg"}
+{"filename": "test/abnormal/benign_364.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_364.jpg"}
+{"filename": "test/abnormal/benign_330.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_330.jpg"}
+{"filename": "test/abnormal/benign_278.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_278.jpg"}
+{"filename": "test/abnormal/benign_107.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_107.jpg"}
+{"filename": "test/abnormal/benign_281.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_281.jpg"}
+{"filename": "test/abnormal/benign_302.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_302.jpg"}
+{"filename": "test/abnormal/benign_405.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_405.jpg"}
+{"filename": "test/abnormal/benign_381.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_381.jpg"}
+{"filename": "test/abnormal/benign_103.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_103.jpg"}
+{"filename": "test/abnormal/benign_31.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_31.jpg"}
+{"filename": "test/abnormal/benign_68.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_68.jpg"}
+{"filename": "test/abnormal/benign_329.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_329.jpg"}
+{"filename": "test/abnormal/benign_233.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_233.jpg"}
+{"filename": "test/abnormal/benign_130.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_130.jpg"}
+{"filename": "test/abnormal/benign_297.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_297.jpg"}
+{"filename": "test/abnormal/benign_9.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_9.jpg"}
+{"filename": "test/abnormal/benign_101.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_101.jpg"}
+{"filename": "test/abnormal/benign_138.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_138.jpg"}
+{"filename": "test/abnormal/benign_219.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_219.jpg"}
+{"filename": "test/abnormal/benign_6.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_6.jpg"}
+{"filename": "test/abnormal/benign_120.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_120.jpg"}
+{"filename": "test/abnormal/benign_66.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_66.jpg"}
+{"filename": "test/abnormal/benign_178.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_178.jpg"}
+{"filename": "test/abnormal/benign_304.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_304.jpg"}
+{"filename": "test/abnormal/benign_321.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_321.jpg"}
+{"filename": "test/abnormal/benign_296.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_296.jpg"}
+{"filename": "test/abnormal/benign_121.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_121.jpg"}
+{"filename": "test/abnormal/benign_26.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_26.jpg"}
+{"filename": "test/abnormal/benign_326.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_326.jpg"}
+{"filename": "test/abnormal/benign_341.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_341.jpg"}
+{"filename": "test/abnormal/benign_227.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_227.jpg"}
+{"filename": "test/abnormal/benign_91.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_91.jpg"}
+{"filename": "test/abnormal/benign_385.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_385.jpg"}
+{"filename": "test/abnormal/benign_186.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_186.jpg"}
+{"filename": "test/abnormal/benign_333.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_333.jpg"}
+{"filename": "test/abnormal/benign_84.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_84.jpg"}
+{"filename": "test/abnormal/benign_23.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_23.jpg"}
+{"filename": "test/abnormal/benign_417.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_417.jpg"}
+{"filename": "test/abnormal/benign_49.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_49.jpg"}
+{"filename": "test/abnormal/benign_64.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_64.jpg"}
+{"filename": "test/abnormal/benign_34.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_34.jpg"}
+{"filename": "test/abnormal/benign_308.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_308.jpg"}
+{"filename": "test/abnormal/benign_16.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_16.jpg"}
+{"filename": "test/abnormal/benign_241.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_241.jpg"}
+{"filename": "test/abnormal/benign_123.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_123.jpg"}
+{"filename": "test/abnormal/benign_303.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_303.jpg"}
+{"filename": "test/abnormal/benign_356.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_356.jpg"}
+{"filename": "test/abnormal/benign_355.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_355.jpg"}
+{"filename": "test/abnormal/benign_58.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_58.jpg"}
+{"filename": "test/abnormal/benign_161.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_161.jpg"}
+{"filename": "test/abnormal/benign_56.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_56.jpg"}
+{"filename": "test/abnormal/benign_184.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_184.jpg"}
+{"filename": "test/abnormal/benign_434.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_434.jpg"}
+{"filename": "test/abnormal/benign_300.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_300.jpg"}
+{"filename": "test/abnormal/benign_200.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_200.jpg"}
+{"filename": "test/abnormal/benign_392.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_392.jpg"}
+{"filename": "test/abnormal/benign_368.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_368.jpg"}
+{"filename": "test/abnormal/benign_147.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_147.jpg"}
+{"filename": "test/abnormal/benign_349.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_349.jpg"}
+{"filename": "test/abnormal/benign_93.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_93.jpg"}
+{"filename": "test/abnormal/benign_396.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_396.jpg"}
+{"filename": "test/abnormal/benign_67.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_67.jpg"}
+{"filename": "test/abnormal/benign_62.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_62.jpg"}
+{"filename": "test/abnormal/benign_209.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_209.jpg"}
+{"filename": "test/abnormal/benign_126.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_126.jpg"}
+{"filename": "test/abnormal/benign_366.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_366.jpg"}
+{"filename": "test/abnormal/benign_383.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_383.jpg"}
+{"filename": "test/abnormal/benign_232.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_232.jpg"}
+{"filename": "test/abnormal/benign_204.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_204.jpg"}
+{"filename": "test/abnormal/benign_280.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_280.jpg"}
+{"filename": "test/abnormal/benign_132.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_132.jpg"}
+{"filename": "test/abnormal/benign_244.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_244.jpg"}
+{"filename": "test/abnormal/benign_133.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_133.jpg"}
+{"filename": "test/abnormal/benign_357.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_357.jpg"}
+{"filename": "test/abnormal/benign_423.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_423.jpg"}
+{"filename": "test/abnormal/benign_2.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_2.jpg"}
+{"filename": "test/abnormal/benign_253.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_253.jpg"}
+{"filename": "test/abnormal/benign_164.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_164.jpg"}
+{"filename": "test/abnormal/benign_245.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_245.jpg"}
+{"filename": "test/abnormal/benign_310.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_310.jpg"}
+{"filename": "test/abnormal/benign_41.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_41.jpg"}
+{"filename": "test/abnormal/benign_105.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_105.jpg"}
+{"filename": "test/abnormal/benign_173.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_173.jpg"}
+{"filename": "test/abnormal/benign_344.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_344.jpg"}
+{"filename": "test/abnormal/benign_99.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_99.jpg"}
+{"filename": "test/abnormal/benign_224.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_224.jpg"}
+{"filename": "test/abnormal/benign_286.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_286.jpg"}
+{"filename": "test/abnormal/benign_162.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_162.jpg"}
+{"filename": "test/abnormal/benign_402.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_402.jpg"}
+{"filename": "test/abnormal/benign_35.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_35.jpg"}
+{"filename": "test/abnormal/benign_144.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_144.jpg"}
+{"filename": "test/abnormal/benign_198.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_198.jpg"}
+{"filename": "test/abnormal/benign_255.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_255.jpg"}
+{"filename": "test/abnormal/benign_0.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_0.jpg"}
+{"filename": "test/abnormal/benign_73.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_73.jpg"}
+{"filename": "test/abnormal/benign_266.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_266.jpg"}
+{"filename": "test/abnormal/benign_69.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_69.jpg"}
+{"filename": "test/abnormal/benign_367.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_367.jpg"}
+{"filename": "test/abnormal/benign_345.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_345.jpg"}
+{"filename": "test/abnormal/benign_327.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_327.jpg"}
+{"filename": "test/abnormal/benign_152.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_152.jpg"}
+{"filename": "test/abnormal/benign_246.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_246.jpg"}
+{"filename": "test/abnormal/benign_218.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_218.jpg"}
+{"filename": "test/abnormal/benign_12.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_12.jpg"}
+{"filename": "test/abnormal/benign_19.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_19.jpg"}
+{"filename": "test/abnormal/benign_256.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_256.jpg"}
+{"filename": "test/abnormal/benign_375.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_375.jpg"}
+{"filename": "test/abnormal/benign_148.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_148.jpg"}
+{"filename": "test/abnormal/benign_28.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_28.jpg"}
+{"filename": "test/abnormal/benign_382.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_382.jpg"}
+{"filename": "test/abnormal/benign_206.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_206.jpg"}
+{"filename": "test/abnormal/benign_313.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_313.jpg"}
+{"filename": "test/abnormal/benign_426.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_426.jpg"}
+{"filename": "test/abnormal/benign_377.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_377.jpg"}
+{"filename": "test/abnormal/benign_94.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_94.jpg"}
+{"filename": "test/abnormal/benign_116.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_116.jpg"}
+{"filename": "test/abnormal/benign_189.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_189.jpg"}
+{"filename": "test/abnormal/benign_277.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_277.jpg"}
+{"filename": "test/abnormal/benign_387.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_387.jpg"}
+{"filename": "test/abnormal/benign_109.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_109.jpg"}
+{"filename": "test/abnormal/benign_78.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_78.jpg"}
+{"filename": "test/abnormal/benign_169.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_169.jpg"}
+{"filename": "test/abnormal/benign_156.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_156.jpg"}
+{"filename": "test/abnormal/benign_140.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_140.jpg"}
+{"filename": "test/abnormal/benign_179.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_179.jpg"}
+{"filename": "test/abnormal/benign_125.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_125.jpg"}
+{"filename": "test/abnormal/benign_257.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_257.jpg"}
+{"filename": "test/abnormal/benign_384.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_384.jpg"}
+{"filename": "test/abnormal/benign_306.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_306.jpg"}
+{"filename": "test/abnormal/benign_166.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_166.jpg"}
+{"filename": "test/abnormal/benign_211.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_211.jpg"}
+{"filename": "test/abnormal/benign_312.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_312.jpg"}
+{"filename": "test/abnormal/benign_163.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_163.jpg"}
+{"filename": "test/abnormal/benign_240.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_240.jpg"}
+{"filename": "test/abnormal/benign_223.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_223.jpg"}
+{"filename": "test/abnormal/benign_424.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_424.jpg"}
+{"filename": "test/abnormal/benign_261.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_261.jpg"}
+{"filename": "test/abnormal/benign_301.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_301.jpg"}
+{"filename": "test/abnormal/benign_238.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_238.jpg"}
+{"filename": "test/abnormal/benign_199.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_199.jpg"}
+{"filename": "test/abnormal/benign_337.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_337.jpg"}
+{"filename": "test/abnormal/benign_37.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_37.jpg"}
+{"filename": "test/abnormal/benign_1.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_1.jpg"}
+{"filename": "test/abnormal/benign_388.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_388.jpg"}
+{"filename": "test/abnormal/benign_48.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_48.jpg"}
+{"filename": "test/abnormal/benign_225.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_225.jpg"}
+{"filename": "test/abnormal/benign_354.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_354.jpg"}
+{"filename": "test/abnormal/benign_29.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_29.jpg"}
+{"filename": "test/abnormal/benign_119.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_119.jpg"}
+{"filename": "test/abnormal/benign_348.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_348.jpg"}
+{"filename": "test/abnormal/benign_395.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_395.jpg"}
+{"filename": "test/abnormal/benign_315.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_315.jpg"}
+{"filename": "test/abnormal/benign_38.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_38.jpg"}
+{"filename": "test/abnormal/benign_22.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_22.jpg"}
+{"filename": "test/abnormal/benign_74.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_74.jpg"}
+{"filename": "test/abnormal/benign_254.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_254.jpg"}
+{"filename": "test/abnormal/benign_360.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_360.jpg"}
+{"filename": "test/abnormal/benign_290.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_290.jpg"}
+{"filename": "test/abnormal/benign_231.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_231.jpg"}
+{"filename": "test/abnormal/benign_55.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_55.jpg"}
+{"filename": "test/abnormal/benign_18.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_18.jpg"}
+{"filename": "test/abnormal/benign_274.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_274.jpg"}
+{"filename": "test/abnormal/benign_363.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_363.jpg"}
+{"filename": "test/abnormal/benign_285.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_285.jpg"}
+{"filename": "test/abnormal/benign_338.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_338.jpg"}
+{"filename": "test/abnormal/benign_176.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_176.jpg"}
+{"filename": "test/abnormal/benign_136.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_136.jpg"}
+{"filename": "test/abnormal/benign_291.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_291.jpg"}
+{"filename": "test/abnormal/benign_141.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_141.jpg"}
+{"filename": "test/abnormal/benign_425.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_425.jpg"}
+{"filename": "test/abnormal/benign_32.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_32.jpg"}
+{"filename": "test/abnormal/benign_267.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_267.jpg"}
+{"filename": "test/abnormal/benign_361.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_361.jpg"}
+{"filename": "test/abnormal/benign_397.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_397.jpg"}
+{"filename": "test/abnormal/benign_258.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_258.jpg"}
+{"filename": "test/abnormal/benign_44.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_44.jpg"}
+{"filename": "test/abnormal/benign_108.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_108.jpg"}
+{"filename": "test/abnormal/benign_81.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_81.jpg"}
+{"filename": "test/abnormal/benign_269.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_269.jpg"}
+{"filename": "test/abnormal/benign_110.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_110.jpg"}
+{"filename": "test/abnormal/benign_128.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_128.jpg"}
+{"filename": "test/abnormal/benign_155.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_155.jpg"}
+{"filename": "test/abnormal/benign_311.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_311.jpg"}
+{"filename": "test/abnormal/benign_50.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_50.jpg"}
+{"filename": "test/abnormal/benign_131.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_131.jpg"}
+{"filename": "test/abnormal/benign_182.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_182.jpg"}
+{"filename": "test/abnormal/benign_287.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_287.jpg"}
+{"filename": "test/abnormal/benign_201.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_201.jpg"}
+{"filename": "test/abnormal/benign_80.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_80.jpg"}
+{"filename": "test/abnormal/benign_154.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_154.jpg"}
+{"filename": "test/abnormal/benign_65.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_65.jpg"}
+{"filename": "test/abnormal/benign_325.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_325.jpg"}
+{"filename": "test/abnormal/benign_282.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_282.jpg"}
+{"filename": "test/abnormal/benign_431.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_431.jpg"}
+{"filename": "test/abnormal/benign_205.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_205.jpg"}
+{"filename": "test/abnormal/benign_61.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_61.jpg"}
+{"filename": "test/abnormal/benign_390.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_390.jpg"}
+{"filename": "test/abnormal/benign_340.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_340.jpg"}
+{"filename": "test/abnormal/benign_185.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_185.jpg"}
+{"filename": "test/abnormal/benign_322.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_322.jpg"}
+{"filename": "test/abnormal/benign_228.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_228.jpg"}
+{"filename": "test/abnormal/benign_143.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_143.jpg"}
+{"filename": "test/abnormal/benign_420.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_420.jpg"}
+{"filename": "test/abnormal/benign_59.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_59.jpg"}
+{"filename": "test/abnormal/benign_406.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_406.jpg"}
+{"filename": "test/abnormal/benign_83.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_83.jpg"}
+{"filename": "test/abnormal/benign_70.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_70.jpg"}
+{"filename": "test/abnormal/benign_413.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_413.jpg"}
+{"filename": "test/abnormal/benign_407.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_407.jpg"}
+{"filename": "test/abnormal/benign_271.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_271.jpg"}
+{"filename": "test/abnormal/benign_212.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_212.jpg"}
+{"filename": "test/abnormal/benign_268.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_268.jpg"}
+{"filename": "test/abnormal/benign_389.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_389.jpg"}
+{"filename": "test/abnormal/benign_221.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_221.jpg"}
+{"filename": "test/abnormal/benign_89.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_89.jpg"}
+{"filename": "test/abnormal/benign_216.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_216.jpg"}
+{"filename": "test/abnormal/benign_192.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_192.jpg"}
+{"filename": "test/abnormal/benign_408.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_408.jpg"}
+{"filename": "test/abnormal/benign_358.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_358.jpg"}
+{"filename": "test/abnormal/benign_127.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_127.jpg"}
+{"filename": "test/abnormal/benign_262.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_262.jpg"}
+{"filename": "test/abnormal/benign_234.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_234.jpg"}
+{"filename": "test/abnormal/benign_391.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_391.jpg"}
+{"filename": "test/abnormal/benign_14.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_14.jpg"}
+{"filename": "test/abnormal/benign_8.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_8.jpg"}
+{"filename": "test/abnormal/benign_168.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_168.jpg"}
+{"filename": "test/abnormal/benign_180.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_180.jpg"}
+{"filename": "test/abnormal/benign_214.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_214.jpg"}
+{"filename": "test/abnormal/benign_401.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_401.jpg"}
+{"filename": "test/abnormal/benign_203.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_203.jpg"}
+{"filename": "test/abnormal/benign_17.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_17.jpg"}
+{"filename": "test/abnormal/benign_63.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_63.jpg"}
+{"filename": "test/abnormal/benign_394.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_394.jpg"}
+{"filename": "test/abnormal/benign_370.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_370.jpg"}
+{"filename": "test/abnormal/benign_72.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_72.jpg"}
+{"filename": "test/abnormal/benign_433.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_433.jpg"}
+{"filename": "test/abnormal/benign_15.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_15.jpg"}
+{"filename": "test/abnormal/benign_39.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_39.jpg"}
+{"filename": "test/abnormal/benign_135.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_135.jpg"}
+{"filename": "test/abnormal/benign_11.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_11.jpg"}
+{"filename": "test/abnormal/benign_170.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_170.jpg"}
+{"filename": "test/abnormal/benign_436.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_436.jpg"}
+{"filename": "test/abnormal/benign_95.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_95.jpg"}
+{"filename": "test/abnormal/benign_175.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_175.jpg"}
+{"filename": "test/abnormal/benign_88.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_88.jpg"}
+{"filename": "test/abnormal/benign_346.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_346.jpg"}
+{"filename": "test/abnormal/benign_398.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_398.jpg"}
+{"filename": "test/abnormal/benign_167.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_167.jpg"}
+{"filename": "test/abnormal/benign_432.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_432.jpg"}
+{"filename": "test/abnormal/benign_202.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_202.jpg"}
+{"filename": "test/abnormal/benign_210.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_210.jpg"}
+{"filename": "test/abnormal/benign_191.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_191.jpg"}
+{"filename": "test/abnormal/benign_328.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_328.jpg"}
+{"filename": "test/abnormal/benign_146.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_146.jpg"}
+{"filename": "test/abnormal/benign_332.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_332.jpg"}
+{"filename": "test/abnormal/benign_353.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_353.jpg"}
+{"filename": "test/abnormal/benign_25.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_25.jpg"}
+{"filename": "test/abnormal/benign_400.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_400.jpg"}
+{"filename": "test/abnormal/benign_27.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_27.jpg"}
+{"filename": "test/abnormal/benign_79.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_79.jpg"}
+{"filename": "test/abnormal/benign_342.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_342.jpg"}
+{"filename": "test/abnormal/benign_177.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_177.jpg"}
+{"filename": "test/abnormal/benign_3.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_3.jpg"}
+{"filename": "test/abnormal/benign_399.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_399.jpg"}
+{"filename": "test/abnormal/benign_362.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_362.jpg"}
+{"filename": "test/abnormal/benign_153.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_153.jpg"}
+{"filename": "test/abnormal/benign_90.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_90.jpg"}
+{"filename": "test/abnormal/benign_309.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_309.jpg"}
+{"filename": "test/abnormal/benign_249.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_249.jpg"}
+{"filename": "test/abnormal/benign_5.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_5.jpg"}
+{"filename": "test/abnormal/benign_208.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_208.jpg"}
+{"filename": "test/abnormal/benign_57.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_57.jpg"}
+{"filename": "test/abnormal/benign_403.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_403.jpg"}
+{"filename": "test/abnormal/benign_174.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_174.jpg"}
+{"filename": "test/abnormal/benign_197.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_197.jpg"}
+{"filename": "test/abnormal/benign_298.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_298.jpg"}
+{"filename": "test/abnormal/benign_30.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_30.jpg"}
+{"filename": "test/abnormal/benign_7.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_7.jpg"}
+{"filename": "test/abnormal/benign_429.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_429.jpg"}
+{"filename": "test/abnormal/benign_213.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_213.jpg"}
+{"filename": "test/abnormal/benign_46.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_46.jpg"}
+{"filename": "test/abnormal/benign_248.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_248.jpg"}
+{"filename": "test/abnormal/benign_157.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_157.jpg"}
+{"filename": "test/abnormal/benign_196.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_196.jpg"}
+{"filename": "test/abnormal/benign_259.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_259.jpg"}
+{"filename": "test/abnormal/benign_145.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_145.jpg"}
+{"filename": "test/abnormal/benign_104.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_104.jpg"}
+{"filename": "test/abnormal/benign_323.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_323.jpg"}
+{"filename": "test/abnormal/benign_4.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_4.jpg"}
+{"filename": "test/abnormal/benign_36.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_36.jpg"}
+{"filename": "test/abnormal/benign_260.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_260.jpg"}
+{"filename": "test/abnormal/benign_97.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_97.jpg"}
+{"filename": "test/abnormal/benign_33.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_33.jpg"}
+{"filename": "test/abnormal/benign_222.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_222.jpg"}
+{"filename": "test/abnormal/benign_151.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_151.jpg"}
+{"filename": "test/abnormal/benign_251.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_251.jpg"}
+{"filename": "test/abnormal/benign_272.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_272.jpg"}
+{"filename": "test/abnormal/benign_343.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_343.jpg"}
+{"filename": "test/abnormal/benign_359.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_359.jpg"}
+{"filename": "test/abnormal/benign_100.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_100.jpg"}
+{"filename": "test/abnormal/benign_47.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_47.jpg"}
+{"filename": "test/abnormal/benign_294.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_294.jpg"}
+{"filename": "test/abnormal/benign_318.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_318.jpg"}
+{"filename": "test/abnormal/benign_75.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_75.jpg"}
+{"filename": "test/abnormal/benign_137.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_137.jpg"}
+{"filename": "test/abnormal/benign_334.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_334.jpg"}
+{"filename": "test/abnormal/benign_428.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_428.jpg"}
+{"filename": "test/abnormal/benign_435.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_435.jpg"}
+{"filename": "test/abnormal/benign_113.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_113.jpg"}
+{"filename": "test/abnormal/benign_85.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_85.jpg"}
+{"filename": "test/abnormal/benign_314.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_314.jpg"}
+{"filename": "test/abnormal/benign_60.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_60.jpg"}
+{"filename": "test/abnormal/benign_324.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_324.jpg"}
+{"filename": "test/abnormal/benign_270.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_270.jpg"}
+{"filename": "test/abnormal/benign_71.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_71.jpg"}
+{"filename": "test/abnormal/benign_320.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_320.jpg"}
+{"filename": "test/abnormal/benign_52.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_52.jpg"}
+{"filename": "test/abnormal/benign_347.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_347.jpg"}
+{"filename": "test/abnormal/benign_331.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_331.jpg"}
+{"filename": "test/abnormal/benign_77.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_77.jpg"}
+{"filename": "test/abnormal/benign_112.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_112.jpg"}
+{"filename": "test/abnormal/benign_319.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_319.jpg"}
+{"filename": "test/abnormal/benign_265.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_265.jpg"}
+{"filename": "test/abnormal/benign_117.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_117.jpg"}
+{"filename": "test/abnormal/benign_371.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_371.jpg"}
+{"filename": "test/abnormal/benign_183.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_183.jpg"}
+{"filename": "test/abnormal/benign_411.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_411.jpg"}
+{"filename": "test/abnormal/benign_129.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_129.jpg"}
+{"filename": "test/abnormal/benign_412.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_412.jpg"}
+{"filename": "test/abnormal/benign_299.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_299.jpg"}
+{"filename": "test/abnormal/benign_410.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_410.jpg"}
+{"filename": "test/abnormal/benign_305.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_305.jpg"}
+{"filename": "test/abnormal/benign_13.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_13.jpg"}
+{"filename": "test/abnormal/benign_404.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_404.jpg"}
+{"filename": "test/abnormal/benign_21.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_21.jpg"}
+{"filename": "test/abnormal/benign_43.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_43.jpg"}
+{"filename": "test/abnormal/benign_335.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_335.jpg"}
+{"filename": "test/abnormal/benign_96.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_96.jpg"}
+{"filename": "test/abnormal/benign_239.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_239.jpg"}
+{"filename": "test/abnormal/benign_275.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_275.jpg"}
+{"filename": "test/abnormal/benign_380.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_380.jpg"}
+{"filename": "test/abnormal/benign_421.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_421.jpg"}
+{"filename": "test/abnormal/benign_51.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_51.jpg"}
+{"filename": "test/abnormal/benign_414.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_414.jpg"}
+{"filename": "test/abnormal/benign_351.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_351.jpg"}
+{"filename": "test/abnormal/benign_172.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_172.jpg"}
+{"filename": "test/abnormal/benign_195.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_195.jpg"}
+{"filename": "test/abnormal/benign_293.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_293.jpg"}
+{"filename": "test/abnormal/benign_114.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_114.jpg"}
+{"filename": "test/abnormal/benign_339.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_339.jpg"}
+{"filename": "test/abnormal/benign_317.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_317.jpg"}
+{"filename": "test/abnormal/benign_160.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_160.jpg"}
+{"filename": "test/abnormal/benign_139.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_139.jpg"}
+{"filename": "test/abnormal/benign_159.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_159.jpg"}
+{"filename": "test/abnormal/benign_87.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_87.jpg"}
+{"filename": "test/abnormal/benign_190.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_190.jpg"}
+{"filename": "test/abnormal/benign_250.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_250.jpg"}
+{"filename": "test/abnormal/benign_98.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_98.jpg"}
+{"filename": "test/abnormal/benign_263.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_263.jpg"}
+{"filename": "test/abnormal/benign_106.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_106.jpg"}
+{"filename": "test/abnormal/benign_247.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_247.jpg"}
+{"filename": "test/abnormal/benign_149.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_149.jpg"}
+{"filename": "test/abnormal/benign_188.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_188.jpg"}
+{"filename": "test/abnormal/benign_307.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_307.jpg"}
+{"filename": "test/abnormal/benign_142.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_142.jpg"}
+{"filename": "test/abnormal/benign_92.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_92.jpg"}
+{"filename": "test/abnormal/benign_422.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_422.jpg"}
+{"filename": "test/abnormal/benign_217.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_217.jpg"}
+{"filename": "test/abnormal/benign_134.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_134.jpg"}
+{"filename": "test/abnormal/benign_419.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_419.jpg"}
+{"filename": "test/abnormal/benign_124.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_124.jpg"}
+{"filename": "test/abnormal/benign_279.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_279.jpg"}
+{"filename": "test/abnormal/benign_187.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_187.jpg"}
+{"filename": "test/abnormal/benign_235.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_235.jpg"}
+{"filename": "test/abnormal/benign_165.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_165.jpg"}
+{"filename": "test/abnormal/benign_102.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_102.jpg"}
+{"filename": "test/abnormal/benign_42.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_42.jpg"}
+{"filename": "test/abnormal/benign_418.jpg", "label": 1, "label_name": "abnormal", "clsname": "benign", "mask": "test/ground_true/benign_mask_418.jpg"}
+{"filename": "test/abnormal/malignant_16.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_16.jpg"}
+{"filename": "test/abnormal/malignant_92.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_92.jpg"}
+{"filename": "test/abnormal/malignant_28.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_28.jpg"}
+{"filename": "test/abnormal/malignant_181.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_181.jpg"}
+{"filename": "test/abnormal/malignant_117.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_117.jpg"}
+{"filename": "test/abnormal/malignant_13.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_13.jpg"}
+{"filename": "test/abnormal/malignant_9.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_9.jpg"}
+{"filename": "test/abnormal/malignant_118.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_118.jpg"}
+{"filename": "test/abnormal/malignant_159.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_159.jpg"}
+{"filename": "test/abnormal/malignant_115.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_115.jpg"}
+{"filename": "test/abnormal/malignant_83.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_83.jpg"}
+{"filename": "test/abnormal/malignant_147.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_147.jpg"}
+{"filename": "test/abnormal/malignant_124.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_124.jpg"}
+{"filename": "test/abnormal/malignant_14.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_14.jpg"}
+{"filename": "test/abnormal/malignant_188.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_188.jpg"}
+{"filename": "test/abnormal/malignant_75.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_75.jpg"}
+{"filename": "test/abnormal/malignant_192.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_192.jpg"}
+{"filename": "test/abnormal/malignant_46.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_46.jpg"}
+{"filename": "test/abnormal/malignant_204.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_204.jpg"}
+{"filename": "test/abnormal/malignant_167.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_167.jpg"}
+{"filename": "test/abnormal/malignant_8.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_8.jpg"}
+{"filename": "test/abnormal/malignant_62.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_62.jpg"}
+{"filename": "test/abnormal/malignant_84.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_84.jpg"}
+{"filename": "test/abnormal/malignant_121.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_121.jpg"}
+{"filename": "test/abnormal/malignant_183.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_183.jpg"}
+{"filename": "test/abnormal/malignant_15.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_15.jpg"}
+{"filename": "test/abnormal/malignant_102.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_102.jpg"}
+{"filename": "test/abnormal/malignant_176.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_176.jpg"}
+{"filename": "test/abnormal/malignant_53.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_53.jpg"}
+{"filename": "test/abnormal/malignant_206.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_206.jpg"}
+{"filename": "test/abnormal/malignant_175.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_175.jpg"}
+{"filename": "test/abnormal/malignant_50.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_50.jpg"}
+{"filename": "test/abnormal/malignant_71.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_71.jpg"}
+{"filename": "test/abnormal/malignant_95.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_95.jpg"}
+{"filename": "test/abnormal/malignant_108.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_108.jpg"}
+{"filename": "test/abnormal/malignant_174.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_174.jpg"}
+{"filename": "test/abnormal/malignant_56.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_56.jpg"}
+{"filename": "test/abnormal/malignant_43.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_43.jpg"}
+{"filename": "test/abnormal/malignant_145.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_145.jpg"}
+{"filename": "test/abnormal/malignant_64.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_64.jpg"}
+{"filename": "test/abnormal/malignant_194.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_194.jpg"}
+{"filename": "test/abnormal/malignant_1.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_1.jpg"}
+{"filename": "test/abnormal/malignant_201.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_201.jpg"}
+{"filename": "test/abnormal/malignant_139.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_139.jpg"}
+{"filename": "test/abnormal/malignant_168.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_168.jpg"}
+{"filename": "test/abnormal/malignant_74.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_74.jpg"}
+{"filename": "test/abnormal/malignant_164.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_164.jpg"}
+{"filename": "test/abnormal/malignant_126.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_126.jpg"}
+{"filename": "test/abnormal/malignant_131.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_131.jpg"}
+{"filename": "test/abnormal/malignant_99.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_99.jpg"}
+{"filename": "test/abnormal/malignant_77.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_77.jpg"}
+{"filename": "test/abnormal/malignant_34.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_34.jpg"}
+{"filename": "test/abnormal/malignant_195.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_195.jpg"}
+{"filename": "test/abnormal/malignant_114.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_114.jpg"}
+{"filename": "test/abnormal/malignant_105.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_105.jpg"}
+{"filename": "test/abnormal/malignant_26.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_26.jpg"}
+{"filename": "test/abnormal/malignant_5.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_5.jpg"}
+{"filename": "test/abnormal/malignant_33.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_33.jpg"}
+{"filename": "test/abnormal/malignant_59.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_59.jpg"}
+{"filename": "test/abnormal/malignant_179.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_179.jpg"}
+{"filename": "test/abnormal/malignant_187.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_187.jpg"}
+{"filename": "test/abnormal/malignant_165.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_165.jpg"}
+{"filename": "test/abnormal/malignant_104.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_104.jpg"}
+{"filename": "test/abnormal/malignant_143.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_143.jpg"}
+{"filename": "test/abnormal/malignant_89.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_89.jpg"}
+{"filename": "test/abnormal/malignant_10.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_10.jpg"}
+{"filename": "test/abnormal/malignant_166.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_166.jpg"}
+{"filename": "test/abnormal/malignant_190.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_190.jpg"}
+{"filename": "test/abnormal/malignant_101.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_101.jpg"}
+{"filename": "test/abnormal/malignant_202.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_202.jpg"}
+{"filename": "test/abnormal/malignant_198.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_198.jpg"}
+{"filename": "test/abnormal/malignant_91.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_91.jpg"}
+{"filename": "test/abnormal/malignant_31.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_31.jpg"}
+{"filename": "test/abnormal/malignant_27.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_27.jpg"}
+{"filename": "test/abnormal/malignant_169.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_169.jpg"}
+{"filename": "test/abnormal/malignant_57.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_57.jpg"}
+{"filename": "test/abnormal/malignant_129.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_129.jpg"}
+{"filename": "test/abnormal/malignant_205.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_205.jpg"}
+{"filename": "test/abnormal/malignant_38.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_38.jpg"}
+{"filename": "test/abnormal/malignant_144.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_144.jpg"}
+{"filename": "test/abnormal/malignant_189.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_189.jpg"}
+{"filename": "test/abnormal/malignant_94.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_94.jpg"}
+{"filename": "test/abnormal/malignant_200.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_200.jpg"}
+{"filename": "test/abnormal/malignant_122.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_122.jpg"}
+{"filename": "test/abnormal/malignant_123.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_123.jpg"}
+{"filename": "test/abnormal/malignant_172.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_172.jpg"}
+{"filename": "test/abnormal/malignant_138.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_138.jpg"}
+{"filename": "test/abnormal/malignant_67.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_67.jpg"}
+{"filename": "test/abnormal/malignant_153.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_153.jpg"}
+{"filename": "test/abnormal/malignant_152.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_152.jpg"}
+{"filename": "test/abnormal/malignant_76.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_76.jpg"}
+{"filename": "test/abnormal/malignant_103.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_103.jpg"}
+{"filename": "test/abnormal/malignant_54.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_54.jpg"}
+{"filename": "test/abnormal/malignant_17.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_17.jpg"}
+{"filename": "test/abnormal/malignant_97.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_97.jpg"}
+{"filename": "test/abnormal/malignant_72.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_72.jpg"}
+{"filename": "test/abnormal/malignant_156.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_156.jpg"}
+{"filename": "test/abnormal/malignant_203.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_203.jpg"}
+{"filename": "test/abnormal/malignant_149.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_149.jpg"}
+{"filename": "test/abnormal/malignant_137.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_137.jpg"}
+{"filename": "test/abnormal/malignant_96.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_96.jpg"}
+{"filename": "test/abnormal/malignant_141.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_141.jpg"}
+{"filename": "test/abnormal/malignant_32.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_32.jpg"}
+{"filename": "test/abnormal/malignant_29.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_29.jpg"}
+{"filename": "test/abnormal/malignant_11.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_11.jpg"}
+{"filename": "test/abnormal/malignant_162.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_162.jpg"}
+{"filename": "test/abnormal/malignant_154.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_154.jpg"}
+{"filename": "test/abnormal/malignant_119.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_119.jpg"}
+{"filename": "test/abnormal/malignant_208.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_208.jpg"}
+{"filename": "test/abnormal/malignant_150.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_150.jpg"}
+{"filename": "test/abnormal/malignant_134.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_134.jpg"}
+{"filename": "test/abnormal/malignant_161.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_161.jpg"}
+{"filename": "test/abnormal/malignant_36.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_36.jpg"}
+{"filename": "test/abnormal/malignant_148.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_148.jpg"}
+{"filename": "test/abnormal/malignant_18.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_18.jpg"}
+{"filename": "test/abnormal/malignant_55.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_55.jpg"}
+{"filename": "test/abnormal/malignant_6.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_6.jpg"}
+{"filename": "test/abnormal/malignant_157.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_157.jpg"}
+{"filename": "test/abnormal/malignant_100.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_100.jpg"}
+{"filename": "test/abnormal/malignant_193.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_193.jpg"}
+{"filename": "test/abnormal/malignant_170.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_170.jpg"}
+{"filename": "test/abnormal/malignant_184.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_184.jpg"}
+{"filename": "test/abnormal/malignant_73.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_73.jpg"}
+{"filename": "test/abnormal/malignant_127.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_127.jpg"}
+{"filename": "test/abnormal/malignant_12.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_12.jpg"}
+{"filename": "test/abnormal/malignant_93.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_93.jpg"}
+{"filename": "test/abnormal/malignant_68.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_68.jpg"}
+{"filename": "test/abnormal/malignant_209.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_209.jpg"}
+{"filename": "test/abnormal/malignant_3.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_3.jpg"}
+{"filename": "test/abnormal/malignant_81.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_81.jpg"}
+{"filename": "test/abnormal/malignant_196.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_196.jpg"}
+{"filename": "test/abnormal/malignant_65.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_65.jpg"}
+{"filename": "test/abnormal/malignant_44.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_44.jpg"}
+{"filename": "test/abnormal/malignant_151.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_151.jpg"}
+{"filename": "test/abnormal/malignant_135.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_135.jpg"}
+{"filename": "test/abnormal/malignant_173.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_173.jpg"}
+{"filename": "test/abnormal/malignant_22.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_22.jpg"}
+{"filename": "test/abnormal/malignant_107.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_107.jpg"}
+{"filename": "test/abnormal/malignant_146.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_146.jpg"}
+{"filename": "test/abnormal/malignant_2.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_2.jpg"}
+{"filename": "test/abnormal/malignant_120.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_120.jpg"}
+{"filename": "test/abnormal/malignant_35.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_35.jpg"}
+{"filename": "test/abnormal/malignant_48.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_48.jpg"}
+{"filename": "test/abnormal/malignant_88.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_88.jpg"}
+{"filename": "test/abnormal/malignant_66.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_66.jpg"}
+{"filename": "test/abnormal/malignant_140.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_140.jpg"}
+{"filename": "test/abnormal/malignant_70.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_70.jpg"}
+{"filename": "test/abnormal/malignant_41.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_41.jpg"}
+{"filename": "test/abnormal/malignant_132.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_132.jpg"}
+{"filename": "test/abnormal/malignant_78.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_78.jpg"}
+{"filename": "test/abnormal/malignant_130.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_130.jpg"}
+{"filename": "test/abnormal/malignant_63.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_63.jpg"}
+{"filename": "test/abnormal/malignant_58.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_58.jpg"}
+{"filename": "test/abnormal/malignant_133.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_133.jpg"}
+{"filename": "test/abnormal/malignant_69.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_69.jpg"}
+{"filename": "test/abnormal/malignant_40.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_40.jpg"}
+{"filename": "test/abnormal/malignant_49.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_49.jpg"}
+{"filename": "test/abnormal/malignant_191.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_191.jpg"}
+{"filename": "test/abnormal/malignant_60.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_60.jpg"}
+{"filename": "test/abnormal/malignant_207.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_207.jpg"}
+{"filename": "test/abnormal/malignant_4.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_4.jpg"}
+{"filename": "test/abnormal/malignant_86.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_86.jpg"}
+{"filename": "test/abnormal/malignant_19.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_19.jpg"}
+{"filename": "test/abnormal/malignant_109.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_109.jpg"}
+{"filename": "test/abnormal/malignant_47.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_47.jpg"}
+{"filename": "test/abnormal/malignant_90.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_90.jpg"}
+{"filename": "test/abnormal/malignant_45.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_45.jpg"}
+{"filename": "test/abnormal/malignant_82.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_82.jpg"}
+{"filename": "test/abnormal/malignant_128.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_128.jpg"}
+{"filename": "test/abnormal/malignant_113.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_113.jpg"}
+{"filename": "test/abnormal/malignant_80.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_80.jpg"}
+{"filename": "test/abnormal/malignant_111.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_111.jpg"}
+{"filename": "test/abnormal/malignant_136.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_136.jpg"}
+{"filename": "test/abnormal/malignant_199.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_199.jpg"}
+{"filename": "test/abnormal/malignant_37.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_37.jpg"}
+{"filename": "test/abnormal/malignant_51.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_51.jpg"}
+{"filename": "test/abnormal/malignant_21.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_21.jpg"}
+{"filename": "test/abnormal/malignant_7.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_7.jpg"}
+{"filename": "test/abnormal/malignant_20.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_20.jpg"}
+{"filename": "test/abnormal/malignant_182.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_182.jpg"}
+{"filename": "test/abnormal/malignant_24.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_24.jpg"}
+{"filename": "test/abnormal/malignant_52.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_52.jpg"}
+{"filename": "test/abnormal/malignant_197.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_197.jpg"}
+{"filename": "test/abnormal/malignant_171.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_171.jpg"}
+{"filename": "test/abnormal/malignant_177.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_177.jpg"}
+{"filename": "test/abnormal/malignant_98.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_98.jpg"}
+{"filename": "test/abnormal/malignant_42.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_42.jpg"}
+{"filename": "test/abnormal/malignant_25.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_25.jpg"}
+{"filename": "test/abnormal/malignant_155.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_155.jpg"}
+{"filename": "test/abnormal/malignant_125.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_125.jpg"}
+{"filename": "test/abnormal/malignant_186.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_186.jpg"}
+{"filename": "test/abnormal/malignant_106.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_106.jpg"}
+{"filename": "test/abnormal/malignant_85.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_85.jpg"}
+{"filename": "test/abnormal/malignant_178.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_178.jpg"}
+{"filename": "test/abnormal/malignant_185.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_185.jpg"}
+{"filename": "test/abnormal/malignant_30.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_30.jpg"}
+{"filename": "test/abnormal/malignant_163.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_163.jpg"}
+{"filename": "test/abnormal/malignant_116.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_116.jpg"}
+{"filename": "test/abnormal/malignant_79.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_79.jpg"}
+{"filename": "test/abnormal/malignant_23.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_23.jpg"}
+{"filename": "test/abnormal/malignant_39.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_39.jpg"}
+{"filename": "test/abnormal/malignant_110.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_110.jpg"}
+{"filename": "test/abnormal/malignant_142.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_142.jpg"}
+{"filename": "test/abnormal/malignant_158.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_158.jpg"}
+{"filename": "test/abnormal/malignant_160.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_160.jpg"}
+{"filename": "test/abnormal/malignant_61.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_61.jpg"}
+{"filename": "test/abnormal/malignant_180.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_180.jpg"}
+{"filename": "test/abnormal/malignant_87.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_87.jpg"}
+{"filename": "test/abnormal/malignant_0.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_0.jpg"}
+{"filename": "test/abnormal/malignant_112.jpg", "label": 1, "label_name": "abnormal", "clsname": "malignant", "mask": "test/ground_true/malignant_mask_112.jpg"}
