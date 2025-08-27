@@ -35,62 +35,20 @@ def _select_most_representative(features):
 
 
 
-def _k_center_greedy_init(features, k):
-    """Initializes K-Means centers greedily to ensure diversity."""
-    selected_indices = [_select_most_representative(features)]
-    
-    while len(selected_indices) < k:
-        dists = []
-        for i in range(len(features)):
-            if i in selected_indices:
-                continue
-            # Find the minimum distance from the current point to any already selected center
-            min_dist_to_selected = min(torch.norm(features[i] - features[j]) for j in selected_indices)
-            dists.append((min_dist_to_selected.item(), i))
-        
-        # Select the point that is farthest from its nearest center
-        if not dists:
-            break # Should not happen if k < len(features)
-        _, next_idx = max(dists)
-        selected_indices.append(next_idx)
-        
-    return selected_indices
-
 def _select_support_samples_by_clustering(features, k):
     """
-    Selects k representative support samples using K-Means clustering.
-    This ensures diversity in the support set.
+    Selects the single most representative support sample.
+    The k-means clustering logic has been removed as per user request
+    to default to k=1 logic.
     """
-    if k >= len(features):
-        print(f"Warning: k ({k}) is >= number of samples ({len(features)}). Using all samples as support.")
-        return list(range(len(features)))
+    # The user requested to default to k=1 logic, which is to select the single most representative sample.
+    # The k parameter is now ignored.
+    if k > 1:
+        print(f"Warning: The 'num_support_samples' parameter is ignored and only the single most representative support sample will be used.")
+    
+    most_representative_idx = _select_most_representative(features)
+    return [most_representative_idx]
 
-    feats_np = features.numpy()
-    
-    # 1. Initialize cluster centers greedily to promote diversity
-    init_ids = _k_center_greedy_init(features, k)
-    
-    # 2. Run K-Means clustering
-    kmeans = KMeans(n_clusters=k, init=feats_np[init_ids], n_init=1, random_state=0).fit(feats_np)
-    
-    # 3. Find the sample closest to each cluster center to be the final support sample
-    support_indices = []
-    for i in range(k):
-        cluster_member_indices = np.where(kmeans.labels_ == i)[0]
-        if len(cluster_member_indices) == 0:
-            # If a cluster is empty (rare), use the initial seed point as the support
-            support_indices.append(init_ids[i])
-            continue
-        
-        cluster_members_feats = feats_np[cluster_member_indices]
-        center_feat = kmeans.cluster_centers_[i]
-        
-        # Find the member closest to the center (in Euclidean distance)
-        dists = np.linalg.norm(cluster_members_feats - center_feat, axis=1)
-        closest_in_cluster_idx = np.argmin(dists)
-        support_indices.append(cluster_member_indices[closest_in_cluster_idx])
-        
-    return support_indices
 
 # =================================================================================
 
@@ -127,7 +85,7 @@ class TrainDataset(torch.utils.data.Dataset):
 
         # --- Support Set Selection via Clustering (Done ONCE) ---
         num_support = getattr(self.args, 'num_support_samples', 5)
-        print(f"Selecting {num_support} diverse support samples using K-Means clustering...")
+        print(f"Selecting the most representative support sample...")
         self.support_indices = _select_support_samples_by_clustering(self.sam_features, num_support)
         
         # Load the selected support images once to be used for all training items
