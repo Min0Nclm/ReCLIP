@@ -1,0 +1,103 @@
+defaults:
+  - default.yaml
+
+train:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    datasets:
+      # MRI
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/mri_data.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/mri_data/
+        dataset_id: 0
+        img_column: image_uuid
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_mri_3d_finetune
+      
+      # CT
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/ct_data.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/ct_data/
+        dataset_id: 1
+        img_column: image_uuid
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_ct_3d_finetune
+valid:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    datasets:
+      # MRI
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/mri_data.csv
+        split_column: split
+        split_name: val
+        data_dir: ${paths.data_dir}/mri_data/
+        dataset_id: 0
+        img_column: image_uuid
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_mri_3d_finetune
+      
+      # CT
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/ct_data.csv
+        split_column: split
+        split_name: val
+        data_dir: ${paths.data_dir}/ct_data/
+        dataset_id: 1
+        img_column: image_uuid
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_ct_3d_finetune
+
+test:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    datasets:
+      # MRI
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/mri_data.csv
+        split_column: split
+        split_name: test
+        data_dir: ${paths.data_dir}/mri_data/
+        dataset_id: 0
+        img_column: image_uuid
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_mri_3d_finetune
+      
+      # CT
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/ct_data.csv
+        split_column: split
+        split_name: test
+        data_dir: ${paths.data_dir}/ct_data/
+        dataset_id: 1
+        img_column: image_uuid
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_ct_3d_finetune

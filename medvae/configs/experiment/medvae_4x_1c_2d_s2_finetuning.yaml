@@ -1,0 +1,28 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: mmgs.yaml
+  - override /metrics: reconstruction_minimal.yaml
+  - override /criterion: biomedclip.yaml
+
+# Finetuning parameters to change
+task_name: mmg_finetuning
+model_name: medvae_4_1_2d
+dataset_name: mmg_data
+merge_channels: true
+
+# Note: Need to replace the stage2_ckpt with the path to the stage 1 checkpoint
+stage2: true
+stage2_ckpt: medvae/logs/mmg_finetuning/runs/2025-03-30_14-33-36/checkpoints/best.pt/pytorch_model.bin
+
+device: cuda
+
+# Training parameters to change
+mixed_precision: "no"
+gradient_accumulation_steps: 1
+max_epoch: 100
+batch_size: 4
+log_every_n_steps: 20
+base_learning_rate: 1.0e-4
+ema_decay: null
+fast_dev_run: false
