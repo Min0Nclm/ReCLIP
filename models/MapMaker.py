@@ -13,12 +13,12 @@ class MapMaker(nn.Module):
         self.image_size = image_size
 
 
-    def forward(self, vision_adapter_features,propmt_adapter_features):
+    def forward(self, vision_adapter_features, prompt_adapter_features):
         anomaly_maps=[]
 
         for i,vision_adapter_feature in enumerate(vision_adapter_features):
             B, H, W, C = vision_adapter_feature.shape
-            anomaly_map = (vision_adapter_feature.view((B, H * W, C)) @ propmt_adapter_features).contiguous().view(
+            anomaly_map = (vision_adapter_feature.view((B, H * W, C)) @ prompt_adapter_features).contiguous().view(
                 (B, H, W, -1)).permute(0, 3, 1, 2)
 
             anomaly_maps.append(anomaly_map)

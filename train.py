@@ -20,6 +20,8 @@ import open_clip
 from models.Necker import Necker
 from models.Adapter import Adapter
 from models.MapMaker import MapMaker
+from models.CoOp import PromptMaker
+from models.CoOp import PromptMaker
 from utils.losses import FocalLoss, BinaryDiceLoss
 from datasets.dataset import TrainDataset, ChexpertTestDataset, BusiTestDataset, BrainMRITestDataset
 from utils.misc_helper import get_current_time, create_logger, AverageMeter, compute_imagewise_metrics, compute_pixelwise_metrics
@@ -29,6 +31,7 @@ from medvae.medvae_main import MVAE
 from models.new_components.deco_diff_net import UNET_models
 from models.new_components.projection_head import ProjectionHead
 from utils.masked_forward import apply_masked_noise
+import torchvision.transforms.functional as TF
 
 warnings.filterwarnings('ignore')
 
@@ -75,7 +78,7 @@ def train_one_epoch(
             image_features = necker(image_tokens)
             vision_adapter_features = adapter(image_features)
             prompt_adapter_features = prompt_maker(vision_adapter_features)
-            anomaly_map = map_maker(vision_adapter_features, prompted_adapter_features)
+            anomaly_map = map_maker(vision_adapter_features, prompt_adapter_features)
             
             loss_cutpaste = focal_criterion(anomaly_map, cp_masks.float()) + dice_criterion(anomaly_map[:, 1, :, :], cp_masks.float())
             total_loss = total_loss + loss_cutpaste
@@ -88,15 +91,25 @@ def train_one_epoch(
             
             # 1. Encode normal images
             with torch.no_grad():
-                z_normal = medvae_encoder.encode(ls_images).sample()
+                ls_images_gray = TF.rgb_to_grayscale(ls_images)
+                z_normal = medvae_encoder.encode(ls_images_gray).sample()
 
             # 2. Generator Task
             z_noisy, true_eta, true_mask, t = apply_masked_noise(
-                z_normal, 
-                mask_ratio=args.config.mask_ratio, 
+                z_normal,
+                mask_ratio=args.config.mask_ratio,
                 mask_patch_size=args.config.mask_patch_size
             )
-            pred_eta = deco_diff_net(z_noisy, t, context=None)
+            
+            # Generate context from prompts
+            text_features = prompt_maker(None)
+
+            # Reshape context for the model
+            text_features = text_features.permute(1, 0) # Shape: (2, 768)
+            batch_size = z_noisy.shape[0]
+            context = text_features.unsqueeze(0).repeat(batch_size, 1, 1) # Shape: (N, 2, 768)
+
+            pred_eta = deco_diff_net(z_noisy, t, context=context)
             loss_deco = mse_criterion(pred_eta, true_eta)
             
             with torch.no_grad():
@@ -110,13 +123,22 @@ def train_one_epoch(
             adapted_anom_features = adapter([f_clip_anomalous])
             prompted_anom_features = prompt_maker(adapted_anom_features)
             anomaly_map_anom = map_maker(adapted_anom_features, prompted_anom_features)
-            loss_anom = focal_criterion(anomaly_map_anom, true_mask.float()) + dice_criterion(anomaly_map_anom[:, 1, :, :], true_mask.float())
+            
+            # Resize true_mask to match anomaly_map dimensions
+            target_size = anomaly_map_anom.shape[-2:]
+            resized_true_mask = F.interpolate(true_mask.float(), size=target_size, mode='bilinear', align_corners=False)
+
+            loss_anom = focal_criterion(anomaly_map_anom, resized_true_mask) + dice_criterion(anomaly_map_anom[:, 1, :, :], resized_true_mask.squeeze(1))
 
             # Normal Path
             adapted_norm_features = adapter([f_clip_normal])
             prompted_norm_features = prompt_maker(adapted_norm_features)
             anomaly_map_norm = map_maker(adapted_norm_features, prompted_norm_features)
-            loss_norm = focal_criterion(anomaly_map_norm, torch.zeros_like(true_mask).float()) + dice_criterion(anomaly_map_norm[:, 1, :, :], torch.zeros_like(true_mask).float())
+
+            # Create a resized zero mask for the normal path
+            resized_zero_mask = torch.zeros_like(resized_true_mask)
+
+            loss_norm = focal_criterion(anomaly_map_norm, resized_zero_mask) + dice_criterion(anomaly_map_norm[:, 1, :, :], resized_zero_mask.squeeze(1))
             
             loss_mediclip = loss_anom + loss_norm
             
@@ -158,10 +180,11 @@ def validate(args, test_dataloaders, models):
                 images = input_data['image'].to(clip_model.device)
                 
                 # Standard ReCLIP inference path
+                # Standard ReCLIP inference path
                 _, image_tokens = clip_model.encode_image(images, out_layers=args.config.layers_out)
                 image_features = necker(image_tokens)
                 vision_adapter_features = adapter(image_features)
-                prompt_adapter_features = prompt_maker(vision_adapter_features)
+                prompted_adapter_features = prompt_maker(vision_adapter_features)
                 anomaly_map = map_maker(vision_adapter_features, prompted_adapter_features)
 
                 B, _, H, W = anomaly_map.shape
@@ -187,6 +210,7 @@ def main(args):
 
     # --- 1. Initialize Models ---
     logger = create_logger("logger", os.path.join(args.config.save_root, 'logger.log'))
+    logger.info(f"Using device: {device}")
     logger.info(f"Using random seed: {args.config.random_seed}")
     
     # Load and freeze CLIP model
@@ -207,14 +231,14 @@ def main(args):
     ).to(device)
 
     projection_head = ProjectionHead(
-        input_dim=args.config.embed_dim,
-        output_dim=args.config.layers_out_adapter # Match the expected input dim of the adapter
+        input_dim=1, # VAE latent has 1 channel
+        output_dim=clip_model_cfg['vision_cfg']['width'] # Match the Adapter's input channels
     ).to(device)
 
-    adapter = Adapter(layers_in=args.config.layers_out_adapter, layers_out=args.config.layers_out_adapter).to(device)
-    prompt_maker = MapMaker(layers_in=args.config.layers_out_adapter, layers_out=args.config.layers_out_adapter).to(device)
-    map_maker = MapMaker(image_size=args.config.image_size, layers_in=args.config.layers_out_adapter).to(device)
-    necker = Necker(clip_model=clip_model).to(device)
+    adapter = Adapter(clip_model=clip_model, clip_model_cfg=clip_model_cfg, target=args.config.layers_out_adapter, layers_out_config=args.config.layers_out).to(device)
+    prompt_maker = PromptMaker(prompts=args.config.prompts, clip_model=clip_model, n_ctx=args.config.n_learnable_token, CSC=args.config.CSC, class_token_position=args.config.class_token_positions).to(device)
+    map_maker = MapMaker(image_size=args.config.image_size).to(device)
+    necker = Necker().to(device)
 
     models = (medvae_encoder, deco_diff_net, projection_head, adapter, prompt_maker, map_maker, clip_model, necker)
 

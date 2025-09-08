@@ -27,10 +27,43 @@ medvae_modality: xray # Example: Modality for MedVAE
 # Latent space dimensions (derived from image_size and VAE compression)
 # For medvae_4_1_2d, 4x compression means latent_size = image_size / 4
 latent_size: 72 # 288 / 4 = 72
-embed_dim: 4 # Channel dimension of MedVAE latent
+embed_dim: 1 # Channel dimension of MedVAE latent
 
 # DecoDiff UNet configuration
 deco_diff_model_size: UNet_L # Size of the UNet for deviation prediction
 
 # Adapter and Projection Head output dimension (CLIP embedding dimension)
-layers_out_adapter: 512 # Common CLIP embedding dimension
+layers_out_adapter: 768 # CLIP embedding dimension for ViT-L-14
+
+# Prompt configuration (from brainmri.yaml)
+n_learnable_token: 8
+CSC: True
+class_token_positions: [end]
+
+prompts:
+  normal: [
+    "normal",
+    "healthy",
+    "negative",
+    "unremarkable",
+    "clear",
+    "asymptomatic",
+    "normal findings",
+    "no findings",
+    "in good health",
+    "no evidence of disease"
+  ]
+
+  abnormal: [
+    "abnormal",
+    "positive",
+    "symptomatic",
+    "disease",
+    "lesion",
+    "pathological",
+    "impaired",
+    "evidence of disease",
+    "abnormal finding",
+    "pathological condition",
+    "pathological abnormality"
+  ]

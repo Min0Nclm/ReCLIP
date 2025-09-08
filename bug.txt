@@ -1,0 +1,18 @@
+(medi) PS D:\GitHub\ReCLIP> python train.py
+[2025-09-08 18:37:42,861][       train.py][line: 194][    INFO] Using random seed: 100
+making attention of type 'vanilla' with 512 in_channels
+Working with z of shape (1, 1, 128, 128) = 16384 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+Restored from C:\Users\mino\.cache\huggingface\hub\models--stanfordmimi--MedVAE\snapshots\8040c5ccb7a51eff6b4cef513c7f20bd1bda983d\model_weights\vae_4x_1c_2D.ckpt with 0 missing and 0 unexpected keys
+Traceback (most recent call last):
+  File "D:\GitHub\ReCLIP\train.py", line 298, in <module>
+    main(args)
+  File "D:\GitHub\ReCLIP\train.py", line 208, in main
+    deco_diff_net = UNET_models[args.config.deco_diff_model_size](
+  File "D:\GitHub\ReCLIP\models\new_components\deco_diff_net.py", line 36, in UNET_L
+    return  create_unet_model(latent_size=latent_size, model_channels=256, num_heads=8, channel_mult=[1,2,4], context_dim=512, ncls=ncls)
+  File "D:\GitHub\ReCLIP\models\new_components\deco_diff_net.py", line 5, in create_unet_model
+    model = UNetModel(image_size=latent_size,
+  File "D:\GitHub\ReCLIP\deco_diff\ldm\modules\diffusionmodules\openaimodel.py", line 486, in __init__
+    assert use_spatial_transformer, 'Fool!! You forgot to use the spatial transformer for your cross-attention conditioning...'
+AssertionError: Fool!! You forgot to use the spatial transformer for your cross-attention conditioning...
