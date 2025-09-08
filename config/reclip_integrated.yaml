@@ -1,3 +1,5 @@
+model_name: ViT-L-14
+layers_out: [12, 18, 24]
 data_root: ./data
 train_dataset: brainmri
 test_datasets:

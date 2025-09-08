@@ -34,7 +34,6 @@ def _select_most_representative(features):
     return torch.argmax(sim_to_centroid).item()
 
 
-
 def _select_support_samples_by_clustering(features, k):
     """
     Selects the single most representative support sample.
@@ -124,10 +123,11 @@ class TrainDataset(torch.utils.data.Dataset):
         # We just need to pick an augmentation and apply it.
         choice_aug = np.random.choice(a=self.augs, p=self.augs_pro, size=(1,), replace=False)[0]
         
+        is_cutpaste = isinstance(choice_aug, CutPastePatchBlender)
+
         # To prevent an image from being its own support in CutPaste, 
         # we can temporarily filter it out if the choice is CutPaste.
-        support_images_for_item = self.support_images
-        if isinstance(choice_aug, CutPastePatchBlender):
+        if is_cutpaste:
             current_image_path_norm = os.path.normpath(image_path)
             support_paths_norm = [os.path.normpath(self.sam_image_paths[i]) for i in self.support_indices]
             if current_image_path_norm in support_paths_norm:
@@ -149,6 +149,7 @@ class TrainDataset(torch.utils.data.Dataset):
         return {
             "image": image,
             "mask": mask,
+            "is_cutpaste": is_cutpaste,
         }
 
     def __len__(self):
@@ -172,31 +173,11 @@ class TrainDataset(torch.utils.data.Dataset):
         return data_to_iterate
 
     def load_anomaly_syn(self, support_images_for_cutpaste):
-        tasks = []
-        task_probability = []
-        # Ensure anomaly_tasks is not None and is a dict
-        if not hasattr(self.args, 'anomaly_tasks') or not isinstance(self.args.anomaly_tasks, dict):
-             raise ValueError("args.anomaly_tasks must be a dictionary of tasks.")
-
-        for task_name in self.args.anomaly_tasks.keys():
-            if task_name == 'CutpasteTask':
-                # Use the dynamically provided similar images
-                task = CutPastePatchBlender(support_images_for_cutpaste)
-            elif task_name == 'SmoothIntensityTask':
-                task = SmoothIntensityChangeTask(30.0)
-            elif task_name == 'GaussIntensityChangeTask':
-                task = GaussIntensityChangeTask()
-            elif task_name == 'SinkTask':
-                task = SinkDeformationTask()
-            elif task_name == 'SourceTask':
-                task = SourceDeformationTask()
-            elif task_name == 'IdentityTask':
-                task = IdentityTask()
-            else:
-                raise NotImplementedError(f"Task {task_name} not implemented.")
-
-            tasks.append(task)
-            task_probability.append(self.args.anomaly_tasks[task_name])
+        tasks = [
+            CutPastePatchBlender(support_images_for_cutpaste),
+            IdentityTask()
+        ]
+        task_probability = [0.5, 0.5]
         return tasks, task_probability
 
 

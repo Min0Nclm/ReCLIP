@@ -11,6 +11,10 @@ from easydict import EasyDict
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
+
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'deco_diff')))
+
 # ReCLIP original imports
 import open_clip
 from models.Necker import Necker
@@ -38,7 +42,7 @@ def train_one_epoch(
     logger
 ):
     # Unpack models and criteria
-    medvae_encoder, deco_diff_net, projection_head, adapter, prompt_maker, map_maker, clip_model = models
+    medvae_encoder, deco_diff_net, projection_head, adapter, prompt_maker, map_maker, clip_model, necker = models
     mse_criterion, focal_criterion, dice_criterion = criteria
 
     # Set models to training mode
@@ -46,74 +50,101 @@ def train_one_epoch(
     projection_head.train()
     adapter.train()
     prompt_maker.train()
+    necker.train()
 
     loss_meter = AverageMeter(args.config.print_freq_step)
     loss_deco_meter = AverageMeter(args.config.print_freq_step)
     loss_mediclip_meter = AverageMeter(args.config.print_freq_step)
+    loss_cutpaste_meter = AverageMeter(args.config.print_freq_step) # New meter
 
     for i, input_data in enumerate(tqdm(dataloader, desc=f"Epoch {epoch+1}/{args.config.epoch}")):
-        images = input_data['image'].to(clip_model.device)  # Normal images
-
-        # --- Integrated Anomaly Detection Training Pipeline ---
         
-        # 1. Encode normal images into latent space with frozen MedVAE
-        with torch.no_grad():
-            z_normal = medvae_encoder.encode(images).sample()
+        images = input_data['image'].to(clip_model.device)
+        masks = input_data['mask'].to(clip_model.device)
+        is_cutpaste = input_data['is_cutpaste']
 
-        # 2. Generator Task: Create anomaly and calculate loss_deco
-        z_noisy, true_eta, true_mask, t = apply_masked_noise(
-            z_normal, 
-            mask_ratio=args.config.mask_ratio, 
-            mask_patch_size=args.config.mask_patch_size
-        )
-        pred_eta = deco_diff_net(z_noisy, t, context=None) # Context is not used in this setup
-        loss_deco = mse_criterion(pred_eta, true_eta)
+        total_loss = 0
         
-        with torch.no_grad():
-            z_anomalous = z_normal + pred_eta.detach() # Detach to stop gradients flowing from detector to generator
+        # --- Task 1: CutPaste Path ---
+        cutpaste_indices = torch.where(is_cutpaste)[0]
+        if len(cutpaste_indices) > 0:
+            cp_images = images[cutpaste_indices]
+            cp_masks = masks[cutpaste_indices]
 
-        # 3. Detector Task: Project latents and calculate loss_mediclip
-        f_clip_anomalous = projection_head(z_anomalous)
-        f_clip_normal = projection_head(z_normal)
+            _, image_tokens = clip_model.encode_image(cp_images, out_layers=args.config.layers_out)
+            image_features = necker(image_tokens)
+            vision_adapter_features = adapter(image_features)
+            prompt_adapter_features = prompt_maker(vision_adapter_features)
+            anomaly_map = map_maker(vision_adapter_features, prompted_adapter_features)
+            
+            loss_cutpaste = focal_criterion(anomaly_map, cp_masks.float()) + dice_criterion(anomaly_map[:, 1, :, :], cp_masks.float())
+            total_loss = total_loss + loss_cutpaste
+            loss_cutpaste_meter.update(loss_cutpaste.item())
 
-        # Anomaly Path
-        adapted_anom_features = adapter([f_clip_anomalous]) # Adapter expects a list
-        prompted_anom_features = prompt_maker(adapted_anom_features)
-        anomaly_map_anom = map_maker(adapted_anom_features, prompted_anom_features)
-        loss_anom = focal_criterion(anomaly_map_anom, true_mask.float()) + dice_criterion(anomaly_map_anom[:, 1, :, :], true_mask.float())
+        # --- Task 2: Latent Space (Deco-Diff) Path ---
+        latentspace_indices = torch.where(~is_cutpaste)[0]
+        if len(latentspace_indices) > 0:
+            ls_images = images[latentspace_indices]
+            
+            # 1. Encode normal images
+            with torch.no_grad():
+                z_normal = medvae_encoder.encode(ls_images).sample()
 
-        # Normal Path
-        adapted_norm_features = adapter([f_clip_normal]) # Adapter expects a list
-        prompted_norm_features = prompt_maker(adapted_norm_features)
-        anomaly_map_norm = map_maker(adapted_norm_features, prompted_norm_features)
-        loss_norm = focal_criterion(anomaly_map_norm, torch.zeros_like(true_mask).float()) + dice_criterion(anomaly_map_norm[:, 1, :, :], torch.zeros_like(true_mask).float())
-        
-        loss_mediclip = loss_anom + loss_norm
+            # 2. Generator Task
+            z_noisy, true_eta, true_mask, t = apply_masked_noise(
+                z_normal, 
+                mask_ratio=args.config.mask_ratio, 
+                mask_patch_size=args.config.mask_patch_size
+            )
+            pred_eta = deco_diff_net(z_noisy, t, context=None)
+            loss_deco = mse_criterion(pred_eta, true_eta)
+            
+            with torch.no_grad():
+                z_anomalous = z_normal + pred_eta.detach()
 
-        # 4. Combined Loss and Optimization
-        total_loss = args.config.w1 * loss_mediclip + args.config.w2 * loss_deco
-        
-        optimizer.zero_grad()
-        total_loss.backward()
-        optimizer.step()
+            # 3. Detector Task
+            f_clip_anomalous = projection_head(z_anomalous)
+            f_clip_normal = projection_head(z_normal)
 
-        # Update and log metrics
-        loss_meter.update(total_loss.item())
-        loss_deco_meter.update(loss_deco.item())
-        loss_mediclip_meter.update(loss_mediclip.item())
+            # Anomaly Path
+            adapted_anom_features = adapter([f_clip_anomalous])
+            prompted_anom_features = prompt_maker(adapted_anom_features)
+            anomaly_map_anom = map_maker(adapted_anom_features, prompted_anom_features)
+            loss_anom = focal_criterion(anomaly_map_anom, true_mask.float()) + dice_criterion(anomaly_map_anom[:, 1, :, :], true_mask.float())
+
+            # Normal Path
+            adapted_norm_features = adapter([f_clip_normal])
+            prompted_norm_features = prompt_maker(adapted_norm_features)
+            anomaly_map_norm = map_maker(adapted_norm_features, prompted_norm_features)
+            loss_norm = focal_criterion(anomaly_map_norm, torch.zeros_like(true_mask).float()) + dice_criterion(anomaly_map_norm[:, 1, :, :], torch.zeros_like(true_mask).float())
+            
+            loss_mediclip = loss_anom + loss_norm
+            
+            latentspace_loss = args.config.w1 * loss_mediclip + args.config.w2 * loss_deco
+            total_loss = total_loss + latentspace_loss
+            
+            loss_deco_meter.update(loss_deco.item())
+            loss_mediclip_meter.update(loss_mediclip.item())
+
+        # --- Combined Optimization ---
+        if isinstance(total_loss, torch.Tensor):
+            optimizer.zero_grad()
+            total_loss.backward()
+            optimizer.step()
+            loss_meter.update(total_loss.item())
 
         if (i + 1) % args.config.print_freq_step == 0:
             logger.info(
                 f"Epoch: [{epoch+1}/{args.config.epoch}] Iter: [{i+1}/{len(dataloader)}] "
                 f"Total Loss: {loss_meter.val:.4f} ({loss_meter.avg:.4f}) | "
-                f"Deco Loss: {loss_deco_meter.val:.4f} ({loss_deco_meter.avg:.4f}) | "
-                f"MediCLIP Loss: {loss_mediclip_meter.val:.4f} ({loss_mediclip_meter.avg:.4f})"
+                f"CutPaste Loss: {loss_cutpaste_meter.avg:.4f} | "
+                f"Deco Loss: {loss_deco_meter.avg:.4f} | "
+                f"MediCLIP Loss: {loss_mediclip_meter.avg:.4f}"
             )
 
 def validate(args, test_dataloaders, models):
     # Unpack models
-    _, _, _, adapter, prompt_maker, map_maker, clip_model = models
-    necker = Necker(clip_model=clip_model).to(clip_model.device) # Necker is needed for validation on real images
+    _, _, _, adapter, prompt_maker, map_maker, clip_model, necker = models
 
     adapter.eval()
     prompt_maker.eval()
@@ -177,14 +208,15 @@ def main(args):
 
     projection_head = ProjectionHead(
         input_dim=args.config.embed_dim,
-        output_dim=sum(args.config.layers_out_adapter) # Match the expected input dim of the adapter
+        output_dim=args.config.layers_out_adapter # Match the expected input dim of the adapter
     ).to(device)
 
     adapter = Adapter(layers_in=args.config.layers_out_adapter, layers_out=args.config.layers_out_adapter).to(device)
     prompt_maker = MapMaker(layers_in=args.config.layers_out_adapter, layers_out=args.config.layers_out_adapter).to(device)
     map_maker = MapMaker(image_size=args.config.image_size, layers_in=args.config.layers_out_adapter).to(device)
+    necker = Necker(clip_model=clip_model).to(device)
 
-    models = (medvae_encoder, deco_diff_net, projection_head, adapter, prompt_maker, map_maker, clip_model)
+    models = (medvae_encoder, deco_diff_net, projection_head, adapter, prompt_maker, map_maker, clip_model, necker)
 
     # --- 2. Setup Optimizer ---
     trainable_params = [
