@@ -149,6 +149,7 @@ def train_one_epoch(
             loss_mediclip_meter.update(loss_mediclip.item())
 
         # --- Combined Optimization ---
+        # --- Combined Optimization ---
         if isinstance(total_loss, torch.Tensor):
             optimizer.zero_grad()
             total_loss.backward()
