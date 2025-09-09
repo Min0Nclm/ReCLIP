@@ -414,6 +414,7 @@ def main(args):
     # --- 3. Setup Data ---
     train_dataset = TrainDataset(args=args.config, source=os.path.join(args.config.data_root, args.config.train_dataset), preprocess=preprocess, k_shot=-1)
     train_dataloader = DataLoader(train_dataset, batch_size=args.config.batch_size, shuffle=True, num_workers=2)
+    print(f"DEBUG: Length of train_dataloader: {len(train_dataloader)}") # Added for debugging
     
     test_dataloaders = {}
     for name in args.config.test_datasets:
