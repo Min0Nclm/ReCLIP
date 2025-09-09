@@ -298,6 +298,13 @@ def main(args):
                         "prompt_state_dict": prompt_maker.state_dict(),
                     }, os.path.join(args.config.save_root, f'best_model_{name}.pkl'))
 
+    logger.info("--- Training Finished ---")
+    for name, best_perf in best_records.items():
+        if best_perf is not None:
+            logger.info(f"Final best performance for {name}: {best_perf:.4f}")
+        else:
+            logger.info(f"No best performance recorded for {name}.")
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train Integrated Anomaly Detection Model")
     parser.add_argument("--config_path", type=str, default='config/reclip_integrated.yaml', help="Path to the integrated config file")
