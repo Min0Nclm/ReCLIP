@@ -306,12 +306,10 @@ def train_one_epoch(
         # --- Combined Optimization ---
         if isinstance(total_loss, torch.Tensor):
             loss_val = total_loss.item()
-            total_loss = total_loss / args.config.gradient_accumulation_steps
+            
+            optimizer.zero_grad()
             total_loss.backward()
-
-            if (i + 1) % args.config.gradient_accumulation_steps == 0:
-                optimizer.step()
-                optimizer.zero_grad()
+            optimizer.step()
             
             loss_meter.update(loss_val)
 
