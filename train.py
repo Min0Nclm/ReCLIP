@@ -9,7 +9,7 @@ import pprint
 from tqdm import tqdm
 from easydict import EasyDict
 import torch.nn.functional as F
-from torch.optim.lr_scheduler import CosineAnnealingLR
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import DataLoader
 
 
@@ -488,7 +488,5 @@ if __name__ == '__main__':
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
-
-    main(args)uda.manual_seed_all(seed)
 
     main(args)
