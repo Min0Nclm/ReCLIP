@@ -15,8 +15,11 @@ random_seed: 100
 gradient_accumulation_steps: 2
 
 # New parameters for integrated model
-w1: 1.0 # Weight for MediCLIP loss
-w2: 1.0 # Weight for DecoDiff loss
+task_weights:
+  pixel_cutpaste: 0.25
+  latent_cutpaste: 0.25
+  deco_diff: 0.25
+  identity: 0.25
 
 mask_ratio: 0.7 # Ratio of latent space to mask
 mask_patch_size: 1 # Patch size for masking (1 for pixel-wise)

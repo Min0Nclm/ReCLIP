@@ -1,18 +1,44 @@
-(medi) PS D:\GitHub\ReCLIP> python train.py
-[2025-09-08 18:37:42,861][       train.py][line: 194][    INFO] Using random seed: 100
+(CLIP_env) d3004@D3004-C1:~/Mino_Zhang/ReCLIP$ python train.py
+[2025-09-09 12:54:00,551][       train.py][line: 219][    INFO] Using device: cuda
+[2025-09-09 12:54:00,551][       train.py][line: 220][    INFO] Using random seed: 100
 making attention of type 'vanilla' with 512 in_channels
 Working with z of shape (1, 1, 128, 128) = 16384 dimensions.
 making attention of type 'vanilla' with 512 in_channels
-Restored from C:\Users\mino\.cache\huggingface\hub\models--stanfordmimi--MedVAE\snapshots\8040c5ccb7a51eff6b4cef513c7f20bd1bda983d\model_weights\vae_4x_1c_2D.ckpt with 0 missing and 0 unexpected keys
+Restored from /home/d3004/.cache/huggingface/hub/models--stanfordmimi--MedVAE/snapshots/8040c5ccb7a51eff6b4cef513c7f20bd1bda983d/model_weights/vae_4x_1c_2D.ckpt with 0 missing and 0 unexpected keys
+Loading pre-computed features from ./data/brainmri/sam_features.pt
+Features loaded successfully.
+Selecting the most representative support sample...
+Warning: The 'num_support_samples' parameter is ignored and only the single most representative support sample will be used.
+Selected support sample indices: [5]
+Adding 2 random images from data/tubes: ['./data/tubes/039.png', './data/tubes/084.png']
+Epoch 1/100:  75%|████████████████████████████████████████████████████▌                 | 12/16 [00:03<00:01,  3.36it/s]
 Traceback (most recent call last):
-  File "D:\GitHub\ReCLIP\train.py", line 298, in <module>
+  File "/home/d3004/Mino_Zhang/ReCLIP/train.py", line 331, in <module>
     main(args)
-  File "D:\GitHub\ReCLIP\train.py", line 208, in main
-    deco_diff_net = UNET_models[args.config.deco_diff_model_size](
-  File "D:\GitHub\ReCLIP\models\new_components\deco_diff_net.py", line 36, in UNET_L
-    return  create_unet_model(latent_size=latent_size, model_channels=256, num_heads=8, channel_mult=[1,2,4], context_dim=512, ncls=ncls)
-  File "D:\GitHub\ReCLIP\models\new_components\deco_diff_net.py", line 5, in create_unet_model
-    model = UNetModel(image_size=latent_size,
-  File "D:\GitHub\ReCLIP\deco_diff\ldm\modules\diffusionmodules\openaimodel.py", line 486, in __init__
-    assert use_spatial_transformer, 'Fool!! You forgot to use the spatial transformer for your cross-attention conditioning...'
-AssertionError: Fool!! You forgot to use the spatial transformer for your cross-attention conditioning...
+  File "/home/d3004/Mino_Zhang/ReCLIP/train.py", line 282, in main
+    train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
+  File "/home/d3004/Mino_Zhang/ReCLIP/train.py", line 63, in train_one_epoch
+    for i, input_data in enumerate(tqdm(dataloader, desc=f"Epoch {epoch+1}/{args.config.epoch}")):
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/tqdm/std.py", line 1185, in __iter__
+    for obj in iterable:
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1480, in _next_data
+    return self._process_data(data)
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1505, in _process_data
+    data.reraise()
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/_utils.py", line 733, in reraise
+    raise exception
+IndexError: Caught IndexError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/d3004/miniconda3/envs/CLIP_env/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/d3004/Mino_Zhang/ReCLIP/datasets/dataset.py", line 136, in __getitem__
+    filtered_support_images = [
+  File "/home/d3004/Mino_Zhang/ReCLIP/datasets/dataset.py", line 138, in <listcomp>
+    if os.path.normpath(self.sam_image_paths[self.support_indices[i]]) != current_image_path_norm
+IndexError: list index out of range

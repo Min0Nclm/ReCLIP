@@ -1,0 +1,39 @@
+graph TD
+    subgraph "1. 输入与编码"
+        A["<b>正常医学图像</b><br>x_n"] --> B{"<b>(冻结)</b><br>MedVAE 编码器<br>φ_E"};
+        B --> C["<b>正常潜在表示</b><br>z_n"];
+    end
+
+    subgraph "2. 异常合成 (DeCo-Diff 模块)"
+        C --> D["掩码前向过程<br>(Masked Forward Process)"];
+        D --> |"带噪潜在表示 z_t"| E("<b>(可训练)</b><br>偏差预测网络<br>η_θ");
+        D --> |"真实偏差 η_true"| F(("<font size=4><b>L_deco</b></font><br>MSE 损失"));
+        E --> |"预测偏差 η_pred"| F;
+        E --> G{"生成合成异常<br>(Generate Anomaly)"};
+        C --> G;
+        G --> H["<b>异常潜在表示</b><br>z_anom"];
+    end
+
+    subgraph "3. 异常检测 (MediCLIP)"
+        H --> I{"<b>(可训练)</b><br>投影头<br>P_θ"};
+        I --> J["CLIP空间特征<br>f_clip_anom"];
+        J --> K("<b>(可训练)</b><br>MediCLIP 适配器");
+        K --> |"适配后的特征"| L;
+        M["<b>(可训练)</b><br>文本提示"] --> N{"<b>(冻结)</b><br>CLIP 文本编码器"};
+        N --> |"文本嵌入"| L;
+        D --> |"真实掩码 m"| O(("<font size=4><b>L_mediclip</b></font><br>Focal + Dice 损失"));
+        L --> |"异常图 S_a"| O;
+    end
+
+    subgraph "4. 联合优化"
+        F --> P{"<b>总损失 L_total</b><br>= w1 * L_mediclip + w2 * L_deco"};
+        O --> P;
+        P --> Q["<b>优化器</b><br>更新所有可训练模块的参数"];
+    end
+
+    style B fill:#e0e0e0,stroke:#333,stroke-width:2px
+    style N fill:#e0e0e0,stroke:#333,stroke-width:2px
+    style E fill:#d5f5e3,stroke:#333,stroke-width:2px
+    style I fill:#d5f5e3,stroke:#333,stroke-width:2px
+    style K fill:#d5f5e3,stroke:#333,stroke-width:2px
+    style M fill:#d5f5e3,stroke:#333,stroke-width:2px

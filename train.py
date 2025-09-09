@@ -35,6 +35,99 @@ import torchvision.transforms.functional as TF
 
 warnings.filterwarnings('ignore')
 
+def image_cutpaste(images, device, area_ratio_range=(0.02, 0.15)):
+    """
+    Performs CutPaste on image tensors.
+    Args:
+        images: A batch of image tensors (N, C, H, W).
+        device: The torch device.
+        area_ratio_range: The range for the area of the patch relative to the total area.
+    Returns:
+        cp_images: The batch with image patches pasted on.
+        cp_masks: The ground truth mask for the pasted patches.
+    """
+    N, C, H, W = images.shape
+
+    # Shuffle for source-target pairing
+    images_source = images
+    images_target = images[torch.randperm(N)]
+
+    # Generate random patch sizes and positions
+    area = H * W
+    patch_area = torch.empty(N, device=device).uniform_(area_ratio_range[0], area_ratio_range[1]) * area
+    patch_ratio = (patch_area / area).sqrt()
+    patch_h = (patch_ratio * H).int()
+    patch_w = (patch_ratio * W).int()
+
+    box_x1 = torch.randint(0, W, (N,), device=device)
+    box_y1 = torch.randint(0, H, (N,), device=device)
+
+    # Create masks and apply CutPaste
+    cp_masks = torch.zeros((N, 1, H, W), device=device)
+    cp_images = images_target.clone() # Start with target images
+
+    for i in range(N):
+        x1, y1 = box_x1[i], box_y1[i]
+        h, w = patch_h[i], patch_w[i]
+        
+        x2 = torch.clamp(x1 + w, 0, W)
+        y2 = torch.clamp(y1 + h, 0, H)
+        
+        # Ensure patch dimensions are valid
+        h_actual = y2 - y1
+        w_actual = x2 - x1
+
+        if h_actual > 0 and w_actual > 0:
+            cp_masks[i, :, y1:y2, x1:x2] = 1
+            cp_images[i, :, y1:y2, x1:x2] = images_source[i, :, y1:y2, x1:x2]
+
+    return cp_images, cp_masks
+
+
+def latent_cutpaste(z_batch, device, area_ratio_range=(0.02, 0.15)):
+    """
+    Performs CutPaste in the latent space.
+    Args:
+        z_batch: A batch of latent representations (N, C, H, W).
+        device: The torch device.
+        area_ratio_range: The range for the area of the patch relative to the total area.
+    Returns:
+        z_anomalous: The batch with latent patches pasted on.
+        true_mask: The ground truth mask for the pasted patches.
+    """
+    N, C, H, W = z_batch.shape
+
+    # Shuffle for source-target pairing
+    z_source = z_batch
+    z_target = z_batch[torch.randperm(N)]
+
+    # Generate random patch sizes and positions
+    area = H * W
+    patch_area = torch.empty(N, device=device).uniform_(area_ratio_range[0], area_ratio_range[1]) * area
+    patch_ratio = (patch_area / area).sqrt()
+    patch_h = (patch_ratio * H).int()
+    patch_w = (patch_ratio * W).int()
+
+    box_x1 = torch.randint(0, W, (N,), device=device)
+    box_y1 = torch.randint(0, H, (N,), device=device)
+
+    # Create masks
+    true_mask = torch.zeros((N, 1, H, W), device=device)
+    for i in range(N):
+        x1, y1 = box_x1[i], box_y1[i]
+        h, w = patch_h[i], patch_w[i]
+        
+        x2 = torch.clamp(x1 + w, 0, W)
+        y2 = torch.clamp(y1 + h, 0, H)
+        
+        true_mask[i, :, y1:y2, x1:x2] = 1
+
+    # Apply CutPaste
+    z_anomalous = z_target * (1 - true_mask) + z_source * true_mask
+
+    return z_anomalous, true_mask
+
+
 def train_one_epoch(
     args,
     models,
@@ -56,23 +149,51 @@ def train_one_epoch(
     necker.train()
 
     loss_meter = AverageMeter(args.config.print_freq_step)
+    loss_pixel_cp_meter = AverageMeter(args.config.print_freq_step) # Renamed from loss_cutpaste_meter
+    loss_latent_cp_meter = AverageMeter(args.config.print_freq_step)
     loss_deco_meter = AverageMeter(args.config.print_freq_step)
-    loss_mediclip_meter = AverageMeter(args.config.print_freq_step)
-    loss_cutpaste_meter = AverageMeter(args.config.print_freq_step) # New meter
+    loss_identity_meter = AverageMeter(args.config.print_freq_step)
+    
+    # Check task weights and normalize if necessary
+    task_weights = args.config.task_weights
+    total_weight = sum(task_weights.values())
+    if abs(total_weight - 1.0) > 1e-6:
+        logger.warning(f"Task weights do not sum to 1.0 (sum={total_weight}). Normalizing...")
+        for k in task_weights:
+            task_weights[k] /= total_weight
 
     for i, input_data in enumerate(tqdm(dataloader, desc=f"Epoch {epoch+1}/{args.config.epoch}")):
         
         images = input_data['image'].to(clip_model.device)
-        masks = input_data['mask'].to(clip_model.device)
-        is_cutpaste = input_data['is_cutpaste']
+        # masks = input_data['mask'].to(clip_model.device) # Mask from dataset is no longer directly used for task assignment
+        # is_cutpaste = input_data['is_cutpaste'] # No longer directly used for task assignment
 
         total_loss = 0
+        batch_size = images.shape[0]
+
+        # Dynamically assign samples to tasks based on weights
+        task_assignment_indices = torch.randperm(batch_size)
         
-        # --- Task 1: CutPaste Path ---
-        cutpaste_indices = torch.where(is_cutpaste)[0]
-        if len(cutpaste_indices) > 0:
-            cp_images = images[cutpaste_indices]
-            cp_masks = masks[cutpaste_indices]
+        current_idx = 0
+        task_indices = {}
+        for task_name, weight in task_weights.items():
+            num_samples = int(batch_size * weight)
+            task_indices[task_name] = task_assignment_indices[current_idx : current_idx + num_samples]
+            current_idx += num_samples
+        
+        # Ensure all samples are assigned (assign remaining to the last task)
+        if current_idx < batch_size:
+            remaining_indices = task_assignment_indices[current_idx:]
+            last_task_name = list(task_weights.keys())[-1]
+            task_indices[last_task_name] = torch.cat((task_indices[last_task_name], remaining_indices)) # Concatenate to the last task
+
+
+        # --- Task 1: Pixel-space CutPaste ---
+        pixel_cp_batch_indices = task_indices.get('pixel_cutpaste', torch.tensor([], dtype=torch.long))
+        if len(pixel_cp_batch_indices) > 0:
+            pcp_images = images[pixel_cp_batch_indices]
+            
+            cp_images, cp_masks = image_cutpaste(pcp_images, clip_model.device)
 
             _, image_tokens = clip_model.encode_image(cp_images, out_layers=args.config.layers_out)
             image_features = necker(image_tokens)
@@ -80,34 +201,52 @@ def train_one_epoch(
             prompt_adapter_features = prompt_maker(vision_adapter_features)
             anomaly_map = map_maker(vision_adapter_features, prompt_adapter_features)
             
-            loss_cutpaste = focal_criterion(anomaly_map, cp_masks.float()) + dice_criterion(anomaly_map[:, 1, :, :], cp_masks.float())
-            total_loss = total_loss + loss_cutpaste
-            loss_cutpaste_meter.update(loss_cutpaste.item())
+            loss_pixel_cp = focal_criterion(anomaly_map, cp_masks.float()) + dice_criterion(anomaly_map[:, 1, :, :], cp_masks.float())
+            total_loss = total_loss + loss_pixel_cp
+            loss_pixel_cp_meter.update(loss_pixel_cp.item())
 
-        # --- Task 2: Latent Space (Deco-Diff) Path ---
-        latentspace_indices = torch.where(~is_cutpaste)[0]
-        if len(latentspace_indices) > 0:
-            ls_images = images[latentspace_indices]
-            
-            # 1. Encode normal images
+        # --- Task 2: Latent-space CutPaste ---
+        latent_cp_batch_indices = task_indices.get('latent_cutpaste', torch.tensor([], dtype=torch.long))
+        if len(latent_cp_batch_indices) > 0:
+            lcp_images = images[latent_cp_batch_indices]
+
             with torch.no_grad():
-                ls_images_gray = TF.rgb_to_grayscale(ls_images)
-                z_normal = medvae_encoder.encode(ls_images_gray).sample()
+                lcp_images_gray = TF.rgb_to_grayscale(lcp_images)
+                z_normal = medvae_encoder.encode(lcp_images_gray).sample()
+            
+            z_anomalous, true_mask = latent_cutpaste(z_normal, clip_model.device)
 
-            # 2. Generator Task
+            f_clip_anomalous = projection_head(z_anomalous)
+            adapted_anom_features = adapter([f_clip_anomalous])
+            prompted_anom_features = prompt_maker(adapted_anom_features)
+            anomaly_map_anom = map_maker(adapted_anom_features, prompted_anom_features)
+
+            target_size = anomaly_map_anom.shape[-2:]
+            resized_true_mask = F.interpolate(true_mask.float(), size=target_size, mode='bilinear', align_corners=False)
+
+            loss_latent_cp = focal_criterion(anomaly_map_anom, resized_true_mask) + dice_criterion(anomaly_map_anom[:, 1, :, :], resized_true_mask.squeeze(1))
+            total_loss = total_loss + loss_latent_cp
+            loss_latent_cp_meter.update(loss_latent_cp.item())
+
+        # --- Task 3: Deco-Diff ---
+        deco_diff_batch_indices = task_indices.get('deco_diff', torch.tensor([], dtype=torch.long))
+        if len(deco_diff_batch_indices) > 0:
+            dd_images = images[deco_diff_batch_indices]
+            
+            with torch.no_grad():
+                dd_images_gray = TF.rgb_to_grayscale(dd_images)
+                z_normal = medvae_encoder.encode(dd_images_gray).sample()
+
             z_noisy, true_eta, true_mask, t = apply_masked_noise(
                 z_normal,
                 mask_ratio=args.config.mask_ratio,
                 mask_patch_size=args.config.mask_patch_size
             )
             
-            # Generate context from prompts
             text_features = prompt_maker(None)
-
-            # Reshape context for the model
-            text_features = text_features.permute(1, 0) # Shape: (2, 768)
-            batch_size = z_noisy.shape[0]
-            context = text_features.unsqueeze(0).repeat(batch_size, 1, 1) # Shape: (N, 2, 768)
+            text_features = text_features.permute(1, 0)
+            batch_size_dd = z_noisy.shape[0]
+            context = text_features.unsqueeze(0).repeat(batch_size_dd, 1, 1)
 
             pred_eta = deco_diff_net(z_noisy, t, context=context)
             loss_deco = mse_criterion(pred_eta, true_eta)
@@ -115,40 +254,54 @@ def train_one_epoch(
             with torch.no_grad():
                 z_anomalous = z_normal + pred_eta.detach()
 
-            # 3. Detector Task
             f_clip_anomalous = projection_head(z_anomalous)
             f_clip_normal = projection_head(z_normal)
 
-            # Anomaly Path
             adapted_anom_features = adapter([f_clip_anomalous])
             prompted_anom_features = prompt_maker(adapted_anom_features)
             anomaly_map_anom = map_maker(adapted_anom_features, prompted_anom_features)
             
-            # Resize true_mask to match anomaly_map dimensions
             target_size = anomaly_map_anom.shape[-2:]
             resized_true_mask = F.interpolate(true_mask.float(), size=target_size, mode='bilinear', align_corners=False)
-
             loss_anom = focal_criterion(anomaly_map_anom, resized_true_mask) + dice_criterion(anomaly_map_anom[:, 1, :, :], resized_true_mask.squeeze(1))
 
-            # Normal Path
             adapted_norm_features = adapter([f_clip_normal])
             prompted_norm_features = prompt_maker(adapted_norm_features)
             anomaly_map_norm = map_maker(adapted_norm_features, prompted_norm_features)
-
-            # Create a resized zero mask for the normal path
             resized_zero_mask = torch.zeros_like(resized_true_mask)
-
             loss_norm = focal_criterion(anomaly_map_norm, resized_zero_mask) + dice_criterion(anomaly_map_norm[:, 1, :, :], resized_zero_mask.squeeze(1))
             
             loss_mediclip = loss_anom + loss_norm
             
-            latentspace_loss = args.config.w1 * loss_mediclip + args.config.w2 * loss_deco
-            total_loss = total_loss + latentspace_loss
+            # No w1, w2 anymore, direct sum
+            deco_diff_task_loss = loss_mediclip + loss_deco 
+            total_loss = total_loss + deco_diff_task_loss
             
             loss_deco_meter.update(loss_deco.item())
-            loss_mediclip_meter.update(loss_mediclip.item())
+            loss_mediclip_meter.update(loss_mediclip.item()) # Update mediclip meter for deco_diff task
 
-        # --- Combined Optimization ---
+        # --- Task 4: Identity Task ---
+        identity_batch_indices = task_indices.get('identity', torch.tensor([], dtype=torch.long))
+        if len(identity_batch_indices) > 0:
+            id_images = images[identity_batch_indices]
+
+            with torch.no_grad():
+                id_images_gray = TF.rgb_to_grayscale(id_images)
+                z_normal = medvae_encoder.encode(id_images_gray).sample()
+            
+            f_clip_normal = projection_head(z_normal)
+            adapted_norm_features = adapter([f_clip_normal])
+            prompted_norm_features = prompt_maker(adapted_norm_features)
+            anomaly_map_norm = map_maker(adapted_norm_features, prompted_norm_features)
+
+            target_size = anomaly_map_norm.shape[-2:]
+            resized_zero_mask = torch.zeros((anomaly_map_norm.shape[0], 1, target_size[0], target_size[1]), device=clip_model.device)
+
+            loss_identity = focal_criterion(anomaly_map_norm, resized_zero_mask) + dice_criterion(anomaly_map_norm[:, 1, :, :], resized_zero_mask.squeeze(1))
+            total_loss = total_loss + loss_identity
+            loss_identity_meter.update(loss_identity.item())
+
+
         # --- Combined Optimization ---
         if isinstance(total_loss, torch.Tensor):
             loss_val = total_loss.item()
@@ -165,9 +318,10 @@ def train_one_epoch(
             logger.info(
                 f"Epoch: [{epoch+1}/{args.config.epoch}] Iter: [{i+1}/{len(dataloader)}] "
                 f"Total Loss: {loss_meter.val:.4f} ({loss_meter.avg:.4f}) | "
-                f"CutPaste Loss: {loss_cutpaste_meter.avg:.4f} | "
+                f"PixelCP Loss: {loss_pixel_cp_meter.avg:.4f} | "
+                f"LatentCP Loss: {loss_latent_cp_meter.avg:.4f} | "
                 f"Deco Loss: {loss_deco_meter.avg:.4f} | "
-                f"MediCLIP Loss: {loss_mediclip_meter.avg:.4f}"
+                f"Identity Loss: {loss_identity_meter.avg:.4f}"
             )
 
 def validate(args, test_dataloaders, models):
