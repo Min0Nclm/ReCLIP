@@ -411,8 +411,9 @@ def main(args):
         {'params': prompt_maker.parameters()},
     ]
     optimizer = torch.optim.AdamW(trainable_params, lr=args.config.lr, betas=(0.9, 0.999), weight_decay=1e-4)
-    # Use total epochs for T_max, and a small eta_min for the floor learning rate.
-    scheduler = CosineAnnealingLR(optimizer, T_max=args.config.epoch, eta_min=1e-7) 
+    # Initialize ReduceLROnPlateau scheduler
+    # It will reduce LR when validation performance plateaus.
+    scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=10, verbose=True) 
 
     # --- 3. Setup Data ---
     train_dataset = TrainDataset(args=args.config, source=os.path.join(args.config.data_root, args.config.train_dataset), preprocess=preprocess, k_shot=-1)
@@ -487,5 +488,7 @@ if __name__ == '__main__':
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+
+    main(args)uda.manual_seed_all(seed)
 
     main(args)
