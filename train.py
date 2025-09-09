@@ -410,6 +410,8 @@ def main(args):
         {'params': prompt_maker.parameters()},
     ]
     optimizer = torch.optim.AdamW(trainable_params, lr=args.config.lr, betas=(0.9, 0.999), weight_decay=1e-4)
+    # Use total epochs for T_max, and a small eta_min for the floor learning rate.
+    scheduler = CosineAnnealingLR(optimizer, T_max=args.config.epoch, eta_min=1e-7) 
 
     # --- 3. Setup Data ---
     train_dataset = TrainDataset(args=args.config, source=os.path.join(args.config.data_root, args.config.train_dataset), preprocess=preprocess, k_shot=-1)
@@ -435,6 +437,8 @@ def main(args):
     best_records = {name: None for name in args.config.test_datasets}
     for epoch in range(args.config.epoch):
         train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
+        
+        scheduler.step() # Update learning rate at the end of each epoch
 
         if (epoch + 1) % args.config.val_freq_epoch == 0:
             results = validate(args, test_dataloaders, models)
@@ -480,6 +484,10 @@ if __name__ == '__main__':
     args.config.random_seed = seed
     random.seed(seed)
     np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+    main(args)seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
