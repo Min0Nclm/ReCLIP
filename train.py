@@ -151,10 +151,15 @@ def train_one_epoch(
         # --- Combined Optimization ---
         # --- Combined Optimization ---
         if isinstance(total_loss, torch.Tensor):
-            optimizer.zero_grad()
+            loss_val = total_loss.item()
+            total_loss = total_loss / args.config.gradient_accumulation_steps
             total_loss.backward()
-            optimizer.step()
-            loss_meter.update(total_loss.item())
+
+            if (i + 1) % args.config.gradient_accumulation_steps == 0:
+                optimizer.step()
+                optimizer.zero_grad()
+            
+            loss_meter.update(loss_val)
 
         if (i + 1) % args.config.print_freq_step == 0:
             logger.info(

@@ -12,6 +12,7 @@ print_freq_step: 100
 val_freq_epoch: 1
 save_root: ./results
 random_seed: 100
+gradient_accumulation_steps: 2
 
 # New parameters for integrated model
 w1: 1.0 # Weight for MediCLIP loss
