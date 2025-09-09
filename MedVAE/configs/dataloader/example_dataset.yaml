@@ -1,0 +1,74 @@
+defaults:
+  - default.yaml
+
+### NOTE: This config file does not actually run any experiments. It is only a template for the user to follow.
+### It will NOT work. Please refer to this file for clarify on understanding the dataloader format for the img and lbl formats.
+### You may want to add a test set if you want to run the code.
+### Example file format: line number, image_uuid, label (0 or 1), split (train, val, test)
+
+train:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    dataset_ids:
+      - ${dataset_id}
+    datasets:
+      # DATASET
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/mmgs.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/mmgs_data/
+        dataset_id: 5
+        img_column: image_uuid
+        # These are the latents
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            # You will need a proper latent / image dataloader
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_monai_tensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0]
+              std: [4.6]
+            - _target_: medvae.utils.transforms.MergeChannels
+              merge: ${merge_channels}
+        lbl_columns: ["target"]
+        lbl_transform:
+          _partial_: true
+          _target_: medvae.utils.loaders.load_labels
+          dtype: float32
+          squeeze: -1
+
+valid:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    dataset_ids:
+      - ${dataset_id}
+    datasets:
+      # DATASET
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/mmgs.csv
+        split_column: split
+        split_name: test
+        data_dir: ${paths.data_dir}/mmgs_data/
+        dataset_id: 5
+        img_column: image_uuid
+        # These are the latents
+        img_suffix: .nii.gz
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_monai_tensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0]
+              std: [4.6]
+            - _target_: medvae.utils.transforms.MergeChannels
+              merge: ${merge_channels}
+        lbl_columns: ["target"]
+        lbl_transform:
+          _partial_: true
+          _target_: medvae.utils.loaders.load_labels
+          dtype: float32
+          squeeze: -1

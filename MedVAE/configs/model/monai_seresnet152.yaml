@@ -1,0 +1,13 @@
+_target_: monai.networks.nets.SEResNet152
+
+# Define the number of spatial dimensions
+spatial_dims: 3
+
+# the number of channels for the images in the dataset (=in_chans for timm)
+in_channels: ${in_channels}
+
+# number of out_channels, its binary
+num_classes: 1
+
+# Dropout
+dropout_prob: 0.2

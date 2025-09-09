@@ -1,0 +1,26 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: mri_ct_3d.yaml
+  - override /metrics: reconstruction_minimal.yaml
+  - override /criterion: lpips_with_discriminator.yaml
+
+# Finetuning parameters to change
+task_name: mri_ct_finetuning
+model_name: medvae_4_1_3d
+stage2: false
+device: cuda
+
+# Training parameters to change
+mixed_precision: "no"
+gradient_accumulation_steps: 1
+max_epoch: 6400
+batch_size: 4
+log_every_n_steps: 20
+base_learning_rate: 4.5e-6
+ema_decay: null
+fast_dev_run: false
+
+criterion:
+  num_channels: 1
+  disc_start: 3125

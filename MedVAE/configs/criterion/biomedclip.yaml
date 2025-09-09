@@ -1,0 +1,3 @@
+_target_: medvae.losses.BiomedClipLoss
+compute_rec_loss: false
+compute_lat_loss: true

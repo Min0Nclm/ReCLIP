@@ -1,0 +1,31 @@
+# @package _global_
+
+# Note: This config file does not actually run any experiments. It is only a template for the user to follow.
+
+# All of these defaults are included. Please refer to their documentation for more details.
+defaults:
+  - override /dataloader: example_dataset.yaml
+  - override /model: monai_seresnet152.yaml
+  - override /criterion: bce.yaml
+  - override /metrics: binaryclass.yaml
+  - override /optimizer: adam.yaml
+
+optimizer:
+  lr: 0.001
+
+# General settings
+exp_name: null
+in_channels: 1
+dataset_id: 6
+task_name: cls_${exp_name}
+init_proj_name: cls_evals
+
+# Training settings
+gradient_accumulation_steps: 1
+mixed_precision: "no"
+max_epoch: 100
+batch_size: 16
+log_every_n_steps: 20
+ckpt_every_n_epochs: 5
+num_workers: 8
+weight_data_loader: True

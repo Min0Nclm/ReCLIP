@@ -1,0 +1,99 @@
+[project]
+name = "medvae"
+version = "0.1.4"
+requires-python = ">=3.9"
+description = "MedVAE is a family of six medical image autoencoders that can encode high-dimensional medical images into latent representations."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Maya Varma", email = "mayavarma@cs.stanford.edu"},
+    { name = "Ashwin Kumar", email = "akkumar@stanford.edu"},
+    { name = "Rogier van der Sluijs", email = "sluijs@stanford.edu"},
+    { name = "Stanford Machine Intelligence for Medical Imaging (MIMI)" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+keywords = [
+    'deep learning',
+    'image compression',
+    'compression',
+    'efficiency',
+    'computer aided diagnosis',
+    'medical image analysis',
+    'autoencoders',
+    'representation learning',
+    'Med-VAE',
+    'medvae'
+]
+dependencies = [
+    "torch>=2.4.1", # tested using 2.6.0
+    "accelerate>=0.34.2", # tested using 0.34.2
+    "wandb==0.14.0; python_version < '3.12'",  # tested using 0.14.0 for older python
+    "wandb>=0.16.0; python_version >= '3.12'", # use newer wandb for Python 3.12
+    "tqdm", # tested using 4.67.1
+    "dicom2nifti", # tested using 2.5.1
+    "scipy", # tested using 1.13.1
+    "batchgenerators>=0.25", # tested using 0.25.1
+    "numpy>=1.24", # tested using 1.26.4
+    "scikit-learn", # tested using 1.6.1
+    "scikit-image>=0.19.3", # tested using 0.24.0
+    "SimpleITK>=2.4.0", # tested using 2.4.1
+    "omegaconf>=2.3.0", # tested using 2.3.0
+    "pandas", # tested using 2.2.3
+    'requests', # tested using 2.32.3
+    "nibabel", # tested using 5.3.2
+    "matplotlib", # tested using 3.9.4
+    "seaborn", # tested using 0.13.2
+    "imagecodecs", # tested using 2024.12.30
+    "yacs", # tested using 0.1.8
+    "batchgeneratorsv2>=0.2", # tested using 0.2.3
+    "einops>=0.8.0", # tested using 0.8.1
+    "monai>=1.3.2", # tested using 1.4.0
+    "torchvision>=0.19.1", # tested using 0.21.0
+    "gdown", # tested using 5.2.0
+    "nilearn", # tested using 0.11.1
+    "pyrootutils", # tested using 1.0.4
+    "hydra-core", # tested using 1.3.2
+    "torchmetrics", # tested using 1.7.0
+    "hydra-colorlog", # tested using 1.2.0
+    "open_clip_torch==2.24.0",
+    "polars==0.19.10",
+    "rich", # tested using 13.9.4
+    "clip@git+https://github.com/openai/CLIP.git" # tested using 1.0
+]
+
+[project.urls]
+homepage = "https://github.com/StanfordMIMI/MedVAE"
+repository = "https://github.com/StanfordMIMI/MedVAE"
+
+[project.scripts]
+medvae_inference = "medvae.medvae_inference:main"
+medvae_finetune = "medvae.medvae_finetune:main"
+medvae_finetune_s2 = "medvae.medvae_finetune_s2:main"
+medvae_classify = "medvae.medvae_cls:main"
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pre-commit",
+    "mdformat"
+]
+
+[build-system]
+requires = ["setuptools>=67.8.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["medvae", "medvae.utils", "medvae.models", "medvae.utils.vae"]
+exclude = ["documentation", "configs"]
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg, *.png'

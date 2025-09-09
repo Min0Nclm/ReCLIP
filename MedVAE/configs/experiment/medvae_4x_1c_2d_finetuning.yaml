@@ -1,0 +1,28 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: mmgs.yaml
+  - override /metrics: reconstruction_minimal.yaml
+  - override /criterion: lpips_with_discriminator.yaml
+
+# Finetuning parameters to change
+task_name: mmg_finetuning
+model_name: medvae_4_1_2d
+dataset_name: mmg_data
+merge_channels: true
+stage2: false
+device: cuda
+
+# Training parameters to change
+mixed_precision: "no"
+gradient_accumulation_steps: 2
+max_epoch: 100
+batch_size: 2
+log_every_n_steps: 20
+base_learning_rate: 4.5e-6
+ema_decay: null
+fast_dev_run: false
+
+criterion:
+  num_channels: 1
+  disc_start: 3125

@@ -1,0 +1,68 @@
+defaults:
+  - default.yaml
+
+train:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    datasets:
+      # MMGS
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/${dataset_name}.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/${dataset_name}/
+        dataset_id: 0
+        img_column: image_uuid
+        img_suffix: .png
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_2d_finetune
+
+              # If you don't have single channel input
+              merge_channels: ${merge_channels}
+
+valid:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    datasets:
+      # MMGS
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/${dataset_name}.csv
+        split_column: split
+        split_name: val
+        data_dir: ${paths.data_dir}/${dataset_name}/
+        dataset_id: 0
+        img_column: image_uuid
+        img_suffix: .png
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_2d_finetune
+
+              # If you don't have single channel input
+              merge_channels: ${merge_channels}
+
+test:
+  dataset:
+    _target_: medvae.dataloaders.ConcatDataset
+    datasets:
+      # MMGS
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/${dataset_name}.csv
+        split_column: split
+        split_name: test
+        data_dir: ${paths.data_dir}/${dataset_name}/
+        dataset_id: 0
+        img_column: image_uuid
+        img_suffix: .png
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_2d_finetune
+
+              # If you don't have single channel input
+              merge_channels: ${merge_channels}

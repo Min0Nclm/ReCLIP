@@ -1,0 +1,4 @@
+- - "PSNR"
+  - _target_: medvae.metrics.PSNR
+- - "MSE"
+  - _target_: medvae.metrics.MSE
