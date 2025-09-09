@@ -153,6 +153,7 @@ def train_one_epoch(
     loss_latent_cp_meter = AverageMeter(args.config.print_freq_step)
     loss_deco_meter = AverageMeter(args.config.print_freq_step)
     loss_identity_meter = AverageMeter(args.config.print_freq_step)
+    loss_mediclip_meter = AverageMeter(args.config.print_freq_step)
     
     # Check task weights and normalize if necessary
     task_weights = args.config.task_weights
@@ -321,6 +322,7 @@ def train_one_epoch(
                 f"PixelCP Loss: {loss_pixel_cp_meter.avg:.4f} | "
                 f"LatentCP Loss: {loss_latent_cp_meter.avg:.4f} | "
                 f"Deco Loss: {loss_deco_meter.avg:.4f} | "
+                f"MedCLIP Loss: {loss_mediclip_meter.avg:.4f} | "
                 f"Identity Loss: {loss_identity_meter.avg:.4f}"
             )
 
