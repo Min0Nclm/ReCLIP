@@ -275,7 +275,7 @@ def train_one_epoch(
             loss_mediclip = loss_anom + loss_norm
             
             # No w1, w2 anymore, direct sum
-            deco_diff_task_loss = loss_mediclip + loss_deco 
+            deco_diff_task_loss = loss_mediclip + args.config.deco_loss_weight * loss_deco 
             total_loss = total_loss + deco_diff_task_loss
             
             loss_deco_meter.update(loss_deco.item())

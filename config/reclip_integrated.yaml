@@ -35,6 +35,7 @@ embed_dim: 1 # Channel dimension of MedVAE latent
 
 # DecoDiff UNet configuration
 deco_diff_model_size: UNet_L # Size of the UNet for deviation prediction
+deco_loss_weight: 0.01
 
 # Adapter and Projection Head output dimension (CLIP embedding dimension)
 layers_out_adapter: 768 # CLIP embedding dimension for ViT-L-14
