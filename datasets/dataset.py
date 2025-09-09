@@ -133,10 +133,19 @@ class TrainDataset(torch.utils.data.Dataset):
             if current_image_path_norm in support_paths_norm:
                 # If the current image is in the support set, provide a filtered list
                 # to the augmentation task.
-                filtered_support_images = [
-                    img for i, img in enumerate(self.support_images) 
+                # Separate original support images from tube images
+                num_original_support = len(self.support_indices)
+                original_support_images = self.support_images[:num_original_support]
+                tube_images = self.support_images[num_original_support:]
+
+                filtered_original_support = [
+                    img for i, img in enumerate(original_support_images)
                     if os.path.normpath(self.sam_image_paths[self.support_indices[i]]) != current_image_path_norm
                 ]
+
+                # Combine the filtered original supports with the tube images
+                filtered_support_images = filtered_original_support + tube_images
+                
                 # If filtering results in an empty list, just use the original set.
                 if filtered_support_images:
                     choice_aug.support_imgs = filtered_support_images
