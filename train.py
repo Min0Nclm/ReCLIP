@@ -439,8 +439,7 @@ def main(args):
     best_records = {name: None for name in args.config.test_datasets}
     for epoch in range(args.config.epoch):
         train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
-        
-        scheduler.step() # Update learning rate at the end of each epoch
+        # scheduler.step() # Update learning rate at the end of each epoch (moved below)
 
         if (epoch + 1) % args.config.val_freq_epoch == 0:
             results = validate(args, test_dataloaders, models)
@@ -484,6 +483,12 @@ if __name__ == '__main__':
     # Setup random seed
     seed = args.config.get('random_seed', random.randint(0, 2**32 - 1))
     args.config.random_seed = seed
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+    main(args) = seed
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
