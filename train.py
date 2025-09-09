@@ -9,6 +9,7 @@ import pprint
 from tqdm import tqdm
 from easydict import EasyDict
 import torch.nn.functional as F
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import DataLoader
 
 
