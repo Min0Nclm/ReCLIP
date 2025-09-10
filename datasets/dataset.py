@@ -68,6 +68,15 @@ class TrainDataset(torch.utils.data.Dataset):
         self.transform_img = preprocess
         self.data_to_iterate = self.get_image_data()
 
+        # If k_shot is smaller than batch_size, repeat samples to fill the batch
+        num_samples = len(self.data_to_iterate)
+        batch_size = self.args.batch_size
+        if 0 < num_samples < batch_size:
+            print(f"Info: k_shot ({num_samples}) is less than batch_size ({batch_size}). Repeating samples to fill the batch.")
+            repeats = (batch_size + num_samples - 1) // num_samples
+            self.data_to_iterate = self.data_to_iterate * repeats
+            self.data_to_iterate = self.data_to_iterate[:batch_size]
+
         # Load pre-computed features
         feature_path = os.path.join(self.source, 'sam_features.pt')
         if os.path.exists(feature_path):
