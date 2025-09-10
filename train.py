@@ -416,7 +416,8 @@ def main(args):
     scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=10, verbose=True) 
 
     # --- 3. Setup Data ---
-    train_dataset = TrainDataset(args=args.config, source=os.path.join(args.config.data_root, args.config.train_dataset), preprocess=preprocess, k_shot=-1)
+    k_shot_value = args.config.get('k_shot', -1)
+    train_dataset = TrainDataset(args=args.config, source=os.path.join(args.config.data_root, args.config.train_dataset), preprocess=preprocess, k_shot=k_shot_value)
     train_dataloader = DataLoader(train_dataset, batch_size=args.config.batch_size, shuffle=True, num_workers=2)
     print(f"DEBUG: Length of train_dataloader: {len(train_dataloader)}") # Added for debugging
     
@@ -451,12 +452,26 @@ def main(args):
                 if best_records[name] is None or current_performance > best_records[name]:
                     best_records[name] = current_performance
                     logger.info(f"New best performance for {name}: {current_performance:.4f}. Saving checkpoint.")
-                    torch.save({
-                        "deco_diff_net_state_dict": deco_diff_net.state_dict(),
-                        "projection_head_state_dict": projection_head.state_dict(),
-                        "adapter_state_dict": adapter.state_dict(),
-                        "prompt_state_dict": prompt_maker.state_dict(),
-                    }, os.path.join(args.config.save_root, f'best_model_{name}.pkl'))
+                    for epoch in range(args.config.epoch):
+            train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
+
+            if (epoch + 1) % args.config.val_freq_epoch == 0:
+                results = validate(args, test_dataloaders, models)
+                
+                for name, result in results.items():
+                    logger.info(f"Validation Results for {name} at Epoch {epoch+1}: {result}")
+                    # Checkpoint saving logic based on performance
+                    current_performance = np.mean(list(result.values()))
+                    scheduler.step(current_performance)
+                    if best_records[name] is None or current_performance > best_records[name]:
+                        best_records[name] = current_performance
+                        logger.info(f"New best performance for {name}: {current_performance:.4f}. Saving checkpoint.")
+                        torch.save({
+                            "deco_diff_net_state_dict": deco_diff_net.state_dict(),
+                            "projection_head_state_dict": projection_head.state_dict(),
+                            "adapter_state_dict": adapter.state_dict(),
+                            "prompt_state_dict": prompt_maker.state_dict(),
+                        }, os.path.join(args.config.save_root, f'best_model_{name}.pkl'))
 
     logger.info("--- Training Finished ---")
     for name, best_perf in best_records.items():
@@ -468,11 +483,16 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train Integrated Anomaly Detection Model")
     parser.add_argument("--config_path", type=str, default='config/reclip_integrated.yaml', help="Path to the integrated config file")
+    parser.add_argument("--k_shot", type=int, help="Number of training samples. Overrides config file if set.")
     args = parser.parse_args()
 
     with open(args.config_path) as f:
         config = EasyDict(yaml.load(f, Loader=yaml.FullLoader))
     args.config = config
+
+    # Override config with CLI argument if provided
+    if args.k_shot is not None:
+        args.config.k_shot = args.k_shot
     
     # Setup logging and directories
     current_time = get_current_time()

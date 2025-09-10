@@ -12,6 +12,7 @@ print_freq_step: 100
 val_freq_epoch: 1
 save_root: ./results
 random_seed: 100
+k_shot: -1 # Number of training samples to use. -1 means use all available samples.
 
 # New parameters for integrated model
 task_weights:
