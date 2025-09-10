@@ -453,7 +453,7 @@ def main(args):
                     best_records[name] = current_performance
                     logger.info(f"New best performance for {name}: {current_performance:.4f}. Saving checkpoint.")
                     for epoch in range(args.config.epoch):
-            train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
+                        train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
 
             if (epoch + 1) % args.config.val_freq_epoch == 0:
                 results = validate(args, test_dataloaders, models)
