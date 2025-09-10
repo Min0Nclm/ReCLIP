@@ -9,7 +9,7 @@ import pprint
 from tqdm import tqdm
 from easydict import EasyDict
 import torch.nn.functional as F
-from torch.optim.lr_scheduler import ReduceLROnPlateau
+
 from torch.utils.data import DataLoader
 
 
@@ -411,9 +411,7 @@ def main(args):
         {'params': prompt_maker.parameters()},
     ]
     optimizer = torch.optim.AdamW(trainable_params, lr=args.config.lr, betas=(0.9, 0.999), weight_decay=1e-4)
-    # Initialize ReduceLROnPlateau scheduler
-    # It will reduce LR when validation performance plateaus.
-    scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=10, verbose=True) 
+     
 
     # --- 3. Setup Data ---
     k_shot_value = args.config.get('k_shot', -1)
@@ -448,7 +446,7 @@ def main(args):
                 logger.info(f"Validation Results for {name} at Epoch {epoch+1}: {result}")
                 # Checkpoint saving logic based on performance
                 current_performance = np.mean(list(result.values()))
-                scheduler.step(current_performance)
+                
                 if best_records[name] is None or current_performance > best_records[name]:
                     best_records[name] = current_performance
                     logger.info(f"New best performance for {name}: {current_performance:.4f}. Saving checkpoint.")
