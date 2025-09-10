@@ -68,28 +68,46 @@ class TrainDataset(torch.utils.data.Dataset):
         self.transform_img = preprocess
         self.data_to_iterate = self.get_image_data()
 
+        # Load pre-computed features
+        feature_path = os.path.join(self.source, 'sam_features.pt')
+        if os.path.exists(feature_path):
+            print(f"Loading pre-computed features from {feature_path}")
+            features_data = torch.load(feature_path, map_location='cpu')
+            self.sam_features = features_data['features'].to(torch.float32)  # Ensure float32
+            self.sam_image_paths = features_data['image_paths']
+            print("Features loaded successfully.")
+        else:
+            raise FileNotFoundError(f"Feature file not found: {feature_path}. Please run precompute_features.py first.")
+
+        # If k-shot sampling is used, we need to sample all data sources consistently.
+        if self.k_shot != -1 and self.k_shot < len(self.data_to_iterate):
+            # Assuming data_to_iterate, sam_features, and sam_image_paths are aligned.
+            # Let's create a list of indices and sample that.
+            num_total_samples = len(self.data_to_iterate)
+            sampled_indices = random.sample(range(num_total_samples), self.k_shot)
+
+            self.data_to_iterate = [self.data_to_iterate[i] for i in sampled_indices]
+            self.sam_features = self.sam_features[sampled_indices]
+            self.sam_image_paths = [self.sam_image_paths[i] for i in sampled_indices]
+
         # If k_shot is smaller than batch_size, repeat samples to fill the batch
         num_samples = len(self.data_to_iterate)
         batch_size = self.args.batch_size
         if 0 < num_samples < batch_size:
             print(f"Info: k_shot ({num_samples}) is less than batch_size ({batch_size}). Repeating samples to fill the batch.")
             repeats = (batch_size + num_samples - 1) // num_samples
-            self.data_to_iterate = self.data_to_iterate * repeats
-            self.data_to_iterate = self.data_to_iterate[:batch_size]
 
-        # Load pre-computed features
-        feature_path = os.path.join(self.source, 'sam_features.pt')
-        if os.path.exists(feature_path):
-            print(f"Loading pre-computed features from {feature_path}")
-            features_data = torch.load(feature_path, map_location='cpu')
-            self.sam_features = features_data['features'].to(torch.float32) # Ensure float32
-            self.sam_image_paths = features_data['image_paths']
-            print("Features loaded successfully.")
-        else:
-            raise FileNotFoundError(f"Feature file not found: {feature_path}. Please run precompute_features.py first.")
+            self.data_to_iterate = self.data_to_iterate * repeats
+            self.sam_features = self.sam_features.repeat(repeats, 1)
+            self.sam_image_paths = self.sam_image_paths * repeats
+
+            self.data_to_iterate = self.data_to_iterate[:batch_size]
+            self.sam_features = self.sam_features[:batch_size]
+            self.sam_image_paths = self.sam_image_paths[:batch_size]
 
         # Ensure the number of images in JSON matches the feature file
         assert len(self.data_to_iterate) == len(self.sam_image_paths)
+        assert len(self.data_to_iterate) == self.sam_features.shape[0]
 
         # --- Support Set Selection via Clustering (Done ONCE) ---
         num_support = getattr(self.args, 'num_support_samples', 5)
@@ -186,8 +204,6 @@ class TrainDataset(torch.utils.data.Dataset):
             for line in f_r:
                 meta = json.loads(line)
                 data_to_iterate.append(meta)
-        if self.k_shot != -1:
-            data_to_iterate = random.sample(data_to_iterate, self.k_shot)
         return data_to_iterate
 
     def load_anomaly_syn(self, support_images_for_cutpaste):

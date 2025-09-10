@@ -440,7 +440,6 @@ def main(args):
     best_records = {name: None for name in args.config.test_datasets}
     for epoch in range(args.config.epoch):
         train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
-        # scheduler.step() # Update learning rate at the end of each epoch (moved below)
 
         if (epoch + 1) % args.config.val_freq_epoch == 0:
             results = validate(args, test_dataloaders, models)
@@ -449,29 +448,16 @@ def main(args):
                 logger.info(f"Validation Results for {name} at Epoch {epoch+1}: {result}")
                 # Checkpoint saving logic based on performance
                 current_performance = np.mean(list(result.values()))
+                scheduler.step(current_performance)
                 if best_records[name] is None or current_performance > best_records[name]:
                     best_records[name] = current_performance
                     logger.info(f"New best performance for {name}: {current_performance:.4f}. Saving checkpoint.")
-                    for epoch in range(args.config.epoch):
-                        train_one_epoch(args, models, optimizer, train_dataloader, criteria, epoch, logger)
-
-            if (epoch + 1) % args.config.val_freq_epoch == 0:
-                results = validate(args, test_dataloaders, models)
-                
-                for name, result in results.items():
-                    logger.info(f"Validation Results for {name} at Epoch {epoch+1}: {result}")
-                    # Checkpoint saving logic based on performance
-                    current_performance = np.mean(list(result.values()))
-                    scheduler.step(current_performance)
-                    if best_records[name] is None or current_performance > best_records[name]:
-                        best_records[name] = current_performance
-                        logger.info(f"New best performance for {name}: {current_performance:.4f}. Saving checkpoint.")
-                        torch.save({
-                            "deco_diff_net_state_dict": deco_diff_net.state_dict(),
-                            "projection_head_state_dict": projection_head.state_dict(),
-                            "adapter_state_dict": adapter.state_dict(),
-                            "prompt_state_dict": prompt_maker.state_dict(),
-                        }, os.path.join(args.config.save_root, f'best_model_{name}.pkl'))
+                    torch.save({
+                        "deco_diff_net_state_dict": deco_diff_net.state_dict(),
+                        "projection_head_state_dict": projection_head.state_dict(),
+                        "adapter_state_dict": adapter.state_dict(),
+                        "prompt_state_dict": prompt_maker.state_dict(),
+                    }, os.path.join(args.config.save_root, f'best_model_{name}.pkl'))
 
     logger.info("--- Training Finished ---")
     for name, best_perf in best_records.items():
