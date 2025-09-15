@@ -105,6 +105,24 @@ class TrainDataset(torch.utils.data.Dataset):
                     
                     support_images.extend(foreign_images)
 
+                # --- Add images from data/mpdd ---
+                try:
+                    mpdd_dir = os.path.join(os.path.dirname(self.source), 'mpdd', 'image')
+                    if os.path.isdir(mpdd_dir):
+                        mpdd_images_paths = [os.path.join(mpdd_dir, f) for f in os.listdir(mpdd_dir) if f.endswith(('.png', '.jpg', '.jpeg'))]
+                        if len(mpdd_images_paths) >= 2:
+                            selected_mpdd = random.sample(mpdd_images_paths, 2)
+                            print(f"Adding 2 random images from data/mpdd: {selected_mpdd}")
+                            for mpdd_path in selected_mpdd:
+                                support_images.append(self.read_image(mpdd_path))
+                        else:
+                            print(f"Warning: Found fewer than 2 images in {mpdd_dir}. Not adding mpdd images.")
+                    else:
+                        print(f"Warning: 'data/mpdd/image' directory not found at {mpdd_dir}")
+                except Exception as e:
+                    print(f"Error loading images from data/mpdd: {e}")
+                # --- End of adding mpdd images ---
+
                 task = CutPastePatchBlender(support_images)
             elif task_name == 'SmoothIntensityTask':
                 task = SmoothIntensityChangeTask(30.0)
